@@ -7,6 +7,7 @@ import { motion, useScroll } from 'framer-motion'
 import ButtonToTop from '../button/ButtonToTop';
 
 import '@/styles/globals.scss'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 type Props = {}
 
@@ -16,6 +17,8 @@ const bevietnampro = Be_Vietnam_Pro({
     display: 'swap'
 })
 
+const queryClient = new QueryClient()
+
 const LayoutContainer = ({
     children
 }: {
@@ -24,16 +27,18 @@ const LayoutContainer = ({
     const { scrollYProgress } = useScroll();
 
     return (
-        <body className={`${bevietnampro.className} w-full bg-[#FCFDFD]`}>
-            <motion.div
-                className='progress-bar'
-                style={{ scaleX: scrollYProgress }}
-            />
-            <main className='overflow-hidden max-w-full h-full'>
-                {children}
-                <ButtonToTop />
-            </main>
-        </body>
+        <QueryClientProvider client={queryClient}>
+            <body className={`${bevietnampro.className} w-full bg-[#FCFDFD]`}>
+                <motion.div
+                    className='progress-bar'
+                    style={{ scaleX: scrollYProgress }}
+                />
+                <main className='overflow-hidden max-w-full bg-white shadow-2xl custom-container lg:h-screen h-dvh'>
+                    {children}
+                    <ButtonToTop />
+                </main>
+            </body>
+        </QueryClientProvider>
     )
 }
 

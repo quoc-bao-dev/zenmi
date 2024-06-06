@@ -3,13 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+}
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.custom-container {
+    @apply 3xl:mx-[640px] 2xl:mx-[580px] xl:mx-[580px] lg:mx-[500px] md:mx-10 mx-6;
+}
+
+.custom-container-child {
+    @apply 3xl:mx-10 2xl:mx-10 xl:mx-10 md:mx-10 mx-6;
 }
