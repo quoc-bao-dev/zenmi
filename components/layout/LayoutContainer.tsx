@@ -38,8 +38,8 @@ const LayoutContainer = ({
                     {children}
                     <ButtonToTop />
                 </main>
+                <ReactQueryDevtools initialIsOpen={true} />
             </body>
-            <ReactQueryDevtools initialIsOpen={true} />
         </QueryClientProvider>
     )
 }
