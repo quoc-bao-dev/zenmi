@@ -211,7 +211,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                             <h1 className='text-xs text-white font-medium h-full'>Thêm vào giỏ hàng</h1>
                         </div>
                     </div>
-                    <div className='text-xs bg-rose-500 h-full flex items-center justify-center text-white'>Mua ngay</div>
+                    <div onClick={() => router.push('/cart')} className='text-xs bg-rose-500 h-full flex items-center justify-center text-white'>Mua ngay</div>
                 </div >
 
             </div >
