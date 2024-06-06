@@ -28,19 +28,20 @@ const LayoutContainer = ({
     const { scrollYProgress } = useScroll();
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <body className={`${bevietnampro.className} w-full bg-[#FCFDFD]`}>
+        <body className={`${bevietnampro.className} w-full bg-[#FCFDFD]`}>
+            <QueryClientProvider client={queryClient}>
                 <motion.div
                     className='progress-bar'
                     style={{ scaleX: scrollYProgress }}
                 />
-                <main className='overflow-hidden max-w-full bg-white shadow-2xl custom-container lg:h-screen h-dvh'>
+                <main className='max-w-full h-full lg:min-h-screen min-h-dvh bg-white shadow-2xl custom-container'>
+                    {/* <main className=' max-w-full bg-white shadow-2xl custom-container lg:h-screen h-dvh'> */}
                     {children}
                     <ButtonToTop />
                 </main>
-            </body>
-            <ReactQueryDevtools initialIsOpen={true} />
-        </QueryClientProvider>
+                <ReactQueryDevtools initialIsOpen={true} />
+            </QueryClientProvider>
+        </body>
     )
 }
 

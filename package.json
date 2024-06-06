@@ -22,7 +22,8 @@
     "sass": "^1.77.4",
     "swiper": "^11.1.4",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.35.6",
