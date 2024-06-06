@@ -37,8 +37,8 @@ type initialState = {
         count: number,
         star: number,
         imageSlider: {
-            image: [],
-            imageThumb: []
+            image: string[],
+            imageThumb: string[]
         }
         image: string
     }
@@ -51,10 +51,10 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
             price: 0,
             count: 0,
             star: 0,
-            image: "",
+            image: "/shop/listImageSlider/mec2023.png",
             imageSlider: {
-                image: [],
-                imageThumb: []
+                image: ['/shop/listImageSlider/mec2023.png'],
+                imageThumb: ['/shop/listImageSlider/mec2023.png']
             }
         }
     }
@@ -71,63 +71,56 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
 
     useEffect(() => {
         if (params?.id) {
-            const findItem = carItems.find(item => item.id === +params?.id)
-            setStateDetailItem({
-                dataDetail: {
-                    ...findItem,
-                    imageSlider: {
-                        image: [...Array(8).map((_, index) => {
-                            return findItem.image
-                        })],
-                        imageThumb: [...Array(8).map((_, index) => {
-                            return findItem.image
-                        })],
-                    }
-                }
-            })
+            // const findItem = carItems.find(item => item.id === +params?.id)
+            // setStateDetailItem({
+            //     dataDetail: {
+            //         ...findItem,
+            //         imageSlider: {
+            //             image: [...Array(8).map((_, index) => {
+            //                 return '/shop/listImageSlider/mec2023.png'
+            //             })],
+            //             imageThumb: [...Array(8).map((_, index) => {
+            //                 return '/shop/listImageSlider/mec2023.png'
+            //             })],
+            //         }
+            //     }
+            // })
         }
-
-
     }, [params?.id])
+
+    const handAddCart = () => {
+        const checkItem = carItems.find(item => item.id === +params?.id)
+        if (checkItem) {
+            return
+        }
+        const newData = [...carItems, checkItem]
+        localStorage.setItem('carItems', JSON.stringify(newData))
+        setCarItems(newData)
+        console.log("checkItem", checkItem);
+
+    }
 
 
     return (
         <div className="flex flex-col gap-2 bg-gray-50 h-dvh relative">
-            {/* <div className='sticky top-0 z-[999] bg-white'>
-                <div className="custom-container-child py-2 flex items-center gap-2">
-                    <div className="w-[85%] flex items-center gap-1">
+            <div className="sticky top-0 z-[999] bg-white ">
+                <div className="custom-container-child  flex items-center justify-between gap-2  py-2">
+                    <div className=" flex items-center gap-1">
                         <div className="size-10">
                             <IoIosArrowRoundBack onClick={() => router.back()} size={22} className='size-full cursor-pointer text-rose-600' />
                         </div>
-                        <h1 className='text-rose-500 text-sm leading-1 font-medium truncate'>{stateDetailItem.dataDetail.name}</h1>
+                        <h1 className='text-rose-500 text-sm leading-1 font-medium truncate max-w-[200px]'>{stateDetailItem.dataDetail.name}</h1>
                     </div>
-                    <div onClick={() => router.push('/cart')} className="w-[15%] hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
+                    <div onClick={() => router.push('/cart')} className=" hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
                         <div className="size-full flex items-center justify-center">
                             <FiShoppingCart className='text-rose-500' size={18} />
                         </div>
                         <div className="absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium">{carItems?.length}</div>
                     </div>
                 </div>
-            </div> */}
-            <div className="custom-container-child fixed py-2 flex items-center gap-2">
-                <div className="w-[55%] flex items-center gap-1">
-                    <div className="size-10">
-                        <IoIosArrowRoundBack onClick={() => router.back()} size={22} className='size-full cursor-pointer text-rose-600' />
-                    </div>
-                    <h1 className='text-rose-500 text-sm leading-1 font-medium truncate'>{stateDetailItem.dataDetail.name}</h1>
-                </div>
-                <div onClick={() => router.push('/cart')} className="w-[15%] hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
-                    <div className="size-full flex items-center justify-center">
-                        <FiShoppingCart className='text-rose-500' size={18} />
-                    </div>
-                    <div className="absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium">{carItems?.length}</div>
-                </div>
             </div>
-
-
-            <div className="h-[calc(100dvh_-_56px)] flex flex-col justify-between mt-14">
-
-                <ScrollArea className="flex mb-2 h-[calc(100dvh_-_108px)] flex-col gap-1">
+            <div className="h-[calc(100dvh_-_66px)] flex flex-col justify-between">
+                <div className="flex mb-2 h-[calc(100dvh_-_60px)] flex-col gap-1  overflow-y-auto ">
                     <div className="custom-container-child">
                         <Swiper
                             spaceBetween={10}
@@ -204,7 +197,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis odit dicta eius neque magni nulla, vitae quia deserunt explicabo illo velit distinctio vero ratione sint, eum molestiae tempora cumque! Nostrum!
                         </div>
                     </div>
-                </ScrollArea>
+                </div>
                 <div className="grid grid-cols-3 items-center justify-center h-[48px]">
                     <div className='flex items-center justify-center bg-yellow-400 h-full'>
                         <div className="">
@@ -213,7 +206,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                         </div>
                     </div>
                     <div className='flex items-center  justify-center bg-yellow-400 h-full'>
-                        <div className="">
+                        <div onClick={() => handAddCart()} className="cursor-pointer">
                             <FiShoppingCart className='text-white mx-auto' size={14} />
                             <h1 className='text-xs text-white font-medium h-full'>Thêm vào giỏ hàng</h1>
                         </div>
