@@ -11,11 +11,13 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    // Create a client
+
     return (
         <html lang="en">
-            <LayoutContainer>
-                {children}
-            </LayoutContainer>
+                <LayoutContainer>
+                    {children}
+                </LayoutContainer>
         </html>
     );
 }

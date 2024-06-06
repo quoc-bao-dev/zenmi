@@ -4,7 +4,7 @@ type Props = {}
 
 const Handbook = (props: Props) => {
     return (
-        <div>Handbook</div>
+        <div className='custom-container-child'>Handbook</div>
     )
 }
 
