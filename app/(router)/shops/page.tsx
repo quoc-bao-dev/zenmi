@@ -10,7 +10,7 @@ const Shops = (props: Props) => {
             <div className="relative">
                 <Input className='rounded-2xl border-orange-500 border-2 text-sm placeholder:text-orange-400' placeholder='Tìm kiếm vật phẩm' />
                 <div className="bg-orange-600 h-9 w-12 flex items-center justify-center  absolute top-1/2 right-0 -translate-y-1/2 -translate-x-1 rounded-3xl">
-                    <CiSearch className='  text-white font-bold' size={20} />
+                    <CiSearch className=' text-white font-bold' size={20} />
                 </div>
             </div>
         </div>

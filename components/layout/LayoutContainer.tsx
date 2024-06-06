@@ -8,6 +8,7 @@ import ButtonToTop from '../button/ButtonToTop';
 
 import '@/styles/globals.scss'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 type Props = {}
 
@@ -38,6 +39,7 @@ const LayoutContainer = ({
                     <ButtonToTop />
                 </main>
             </body>
+            <ReactQueryDevtools initialIsOpen={true} />
         </QueryClientProvider>
     )
 }
