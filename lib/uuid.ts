@@ -1,2 +1,2 @@
-import { uuid } from "uuidv4";
-export { uuid as uuidv4 };
+import { v4 } from "uuid";
+export { v4 as uuidv4 };

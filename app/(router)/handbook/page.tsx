@@ -1,16 +1,20 @@
 'use client'
 
 import { uuidv4 } from '@/lib/uuid'
-import { IListHandbookMom } from '@/types/handbook/IHanbook'
-import { ITabHandbook } from '@/types/handbook/ITab'
+import { IListHandbookMom } from '@/types/Handbook/IHanbook'
+import { ITabHandbook } from '@/types/Handbook/ITab'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
+import { useQuery } from '@tanstack/react-query'
+import { getListHandbook } from '@/services/Handbook/handbook.services'
+import { useDataHandbook } from '@/hooks/useDataQueryKey'
 
 type Props = {}
 
 const Handbook = (props: Props) => {
+    const { isStateHandbook, queryKeyIsStateHandbook } = useDataHandbook()
     const router = useRouter()
 
     const [isMounted, setIsMounted] = useState<boolean>(false)
@@ -66,17 +70,44 @@ const Handbook = (props: Props) => {
         setIsMounted(true)
     }, [])
 
-
     useEffect(() => {
         if (isMounted) {
             setTabId(dataTab[0].id)
         }
     }, [isMounted])
 
+    const queryHandbook = useQuery({
+        queryKey: [tabId],
+        queryFn: async () => {
+            if (tabId != "") {
+                const { data } = await getListHandbook(+tabId)
+                return data;
+            }
+        },
+        
+
+    })
+
+    useEffect(() => {
+        if (queryHandbook.data) {
+            queryKeyIsStateHandbook({
+                dataListHandbook: queryHandbook.data
+            })
+        }
+    }, [queryHandbook.data])
+
+    console.log('isState:', isStateHandbook);
+
 
     const handleChangeTab = (item: any) => {
-        console.log('item:', item);
         setTabId(item.id)
+    }
+
+    const handleClick = (item: any) => {
+        router.push(`/handbook/${item.id}`)
+        queryKeyIsStateHandbook({
+            dataDetailHandbook: item.data
+        })
     }
 
     if (!isMounted) {
@@ -119,7 +150,7 @@ const Handbook = (props: Props) => {
 
                 <div className='grid grid-cols-2 md:gap-8 gap-6'>
                     {
-                        dataListHandbookMom.map((item, index) => (
+                        isStateHandbook?.dataListHandbook && isStateHandbook?.dataListHandbook?.data && isStateHandbook?.dataListHandbook?.data?.map((item: any, index: any) => (
                             <motion.div
                                 key={item.id}
                                 className={`${index % 2 !== 0 ? "rounded-tl-[32px] rounded-br-[32px]" : "rounded-tr-[32px] rounded-bl-[32px]"} flex flex-col justify-center items-center gap-2 bg-rose-50 shadow-md rounded-xl px-6 py-8 cursor-pointer`}
@@ -132,7 +163,7 @@ const Handbook = (props: Props) => {
                                     press: { scale: 1.03 },
                                     hover: { scale: 1.02 }
                                 }}
-                                onClick={() => router.push(`/handbook/${item.id}`)}
+                                onClick={() => handleClick(item)}
                             >
                                 <div className='md:size-24 size-16 rounded-lg'>
                                     <Image
