@@ -19,6 +19,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/thumbs'
 import '@/styles/globals.scss'
 import "moment/locale/vi";
+import Alert from '../modal/alert/Alert';
 
 type Props = {}
 
@@ -69,6 +70,7 @@ const LayoutContainer = ({
                     {/* <main className=' max-w-full bg-white shadow-2xl custom-container lg:h-screen h-dvh'> */}
                     {children}
                     <ButtonToTop />
+                    <Alert />
                 </main>
                 <ReactQueryDevtools initialIsOpen={true} />
             </QueryClientProvider>

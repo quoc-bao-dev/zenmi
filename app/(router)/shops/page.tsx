@@ -1,4 +1,5 @@
 'use client'
+import NoData from '@/components/no-data/NoData'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useShopCart } from '@/hooks/useShopCart'
@@ -29,19 +30,19 @@ const Shops = (props: Props) => {
         listImageSlider: [
             {
                 id: 1,
-                image: "/example/shop/listImageSlider/mazda4.png"
+                image: "/example/shop/listImageSlider/test0.jpeg"
             },
             {
                 id: 2,
-                image: "/example/shop/listImageSlider/mec2.png"
+                image: "/example/shop/listImageSlider/test1.jpeg"
             },
             {
                 id: 3,
-                image: "/example/shop/listImageSlider/mec2022.jpg"
+                image: "/example/shop/listImageSlider/test2.jpeg"
             },
             {
                 id: 4,
-                image: "/example/shop/listImageSlider/mec2023.png"
+                image: "/example/shop/listImageSlider/test3.jpeg"
             }
         ],
         listProducts: [],
@@ -87,6 +88,7 @@ const Shops = (props: Props) => {
                     count: 1,
                     image: i?.featured_image ? i?.featured_image : Array.isArray(i?.list_images) ? i?.list_images[0] : "",
                     price: i?.price,
+                    quantity: 1,
                     star: 3,
 
                 }
@@ -105,6 +107,7 @@ const Shops = (props: Props) => {
         if (localStorage !== undefined) {
             localStorage.setItem('carItems', JSON.stringify(newData))
         }
+
         setCarItems(newData)
     }
 
@@ -127,25 +130,26 @@ const Shops = (props: Props) => {
                 count: 1,
                 image: i?.featured_image ? i?.featured_image : Array.isArray(i?.list_images) ? i?.list_images[0] : "",
                 price: i?.price,
+                quantity: 1,
                 star: 3,
 
             }
         })
-        queryStateShop({ listProducts: isStateShop.valueSearch != "" ? filteredData : dataDefault, nodata: false })
+        queryStateShop({ listProducts: isStateShop.valueSearch != "" ? filteredData : dataDefault, nodata: isStateShop.valueSearch != "" && filteredData?.length == 0 ? true : false })
 
     }, [isStateShop.valueSearch])
 
     return (
         <div className="flex flex-col gap-2 bg-gray-50 h-dvh overflow-hidden">
             <div className='sticky top-0 z-[999] bg-white'>
-                <div className="custom-container-child py-2 flex items-center gap-2">
-                    <div className="relative w-[85%]">
+                <div className="custom-container-child  flex items-center justify-between gap-2  py-2">
+                    <div className="relative w-[89%]">
                         <Input onChange={(e) => queryStateShop({ valueSearch: e.target.value })} className='rounded-full border-orange-500 border-2 text-sm placeholder:text-orange-400 text-orange-400' placeholder='Tìm kiếm vật phẩm' />
                         <div className="bg-orange-600 h-9 w-9 flex items-center justify-center  absolute top-1/2 right-0 -translate-y-1/2 -translate-x-1 rounded-full">
                             <CiSearch className=' text-white' size={20} />
                         </div>
                     </div>
-                    <div className="w-[15%] hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
+                    <div className="w-[11%] hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
                         <div className="size-full flex items-center justify-center">
                             <FiShoppingCart onClick={() => router.push('/cart')} className='text-rose-500' size={18} />
                         </div>
@@ -163,8 +167,8 @@ const Shops = (props: Props) => {
                     className="mySwiper"
                 >
                     {isStateShop.listImageSlider.map((item, index) => (
-                        <SwiperSlide key={index} className='max-h-[200px] min-h-[170px]'>
-                            <Image src={item.image ?? ""} alt="" width={1280} height={1280} className='w-full h-full object-contain' />
+                        <SwiperSlide key={index} className='max-h-[200px] h-[200px] min-h-[200px] overflow-hidden'>
+                            <Image src={item.image ?? ""} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
                         </SwiperSlide>
                     ))}
                 </Swiper>
@@ -195,43 +199,52 @@ const Shops = (props: Props) => {
                         </Swiper>}
                 </div>
                 <div className='flex flex-col gap-4'>
-                    <h1 className='text-rose-400 text-sm font-medium'>Sản phẩm dành riêng cho mẹ và bé</h1>
+                    <h1 className='text-black text-base font-semibold'>Sản phẩm dành riêng cho mẹ và bé</h1>
                     <div className="">
-                        <div className='grid grid-cols-2 gap-4 mb-4 h-[calc(100dvh_-_418px)] overflow-y-auto'>
-                            {isLoading ? [...Array(4)].map((_, index) => {
-                                return (
-                                    <div key={index} className='group rounded-xl size-full col-span-1 flex flex-col gap-1  cursor-pointer h-fit'>
-                                        <Skeleton className='w-full bg-gray-100 h-32 p-2 mx-auto overflow-hidden'>
-                                        </Skeleton>
-                                        <Skeleton className='py-3  bg-gray-100'></Skeleton>
-                                        <Skeleton className='py-3  bg-gray-100'></Skeleton>
-                                        <Skeleton className='py-3  bg-gray-100'></Skeleton>
-                                    </div>
-                                )
-                            }) :
-                                isStateShop?.listProducts?.map((item, index) => (
-                                    <div onClick={() => handleDetail(item)} key={item.id} className='bg-gray-50 shadow-[0_0_5px_rgba(0,0,0,0.1)] group rounded-xl size-full col-span-1 flex flex-col gap-1 h-fit cursor-pointer'>
-                                        <div className='w-full h-32 p-2 mx-auto overflow-hidden rounded-md'>
-                                            <Image src={item.image ?? ""} alt="" width={1920} height={1920} className='object-cover size-full group-hover:scale-105 rounded-md transition-all duration-150 ease-linear' />
-                                        </div>
-                                        <div className='p-2 flex flex-col gap-5'>
-                                            <div className="flex flex-col gap-1">
-                                                <h1 className='text-rose-500 text-xs leading-1 font-semibold line-clamp-2 group-hover:text-rose-400 transition-all duration-150 ease-linear'>{item.name}</h1>
-                                                <div className="flex justify-between items-center">
-                                                    <h1 className='text-rose-500 group-hover:text-rose-400 transition-all duration-150 ease-linear font-bold text-sm'>{FormatNumberDot(item.price)} vnđ</h1>
-                                                    <FiShoppingCart onClick={() => handleAddcart(item)} className='text-rose-500 group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear' size={14} />
+                        {
+                            isStateShop.nodata ?
+                                <NoData type='shops' className='col-span-2' /> :
+                                <div className='grid grid-cols-2 gap-4 mb-4 h-[calc(100dvh_-_418px)] overflow-y-auto'>
+                                    {isLoading ? [...Array(4)].map((_, index) => {
+                                        return (
+                                            <div key={index} className='group rounded-xl size-full col-span-1 flex flex-col gap-1  cursor-pointer h-fit'>
+                                                <Skeleton className='w-full bg-gray-100 h-32 p-2 mx-auto overflow-hidden'>
+                                                </Skeleton>
+                                                <Skeleton className='py-3  bg-gray-100'></Skeleton>
+                                                <Skeleton className='py-3  bg-gray-100'></Skeleton>
+                                                <Skeleton className='py-3  bg-gray-100'></Skeleton>
+                                            </div>
+                                        )
+                                    }) :
+                                        isStateShop?.listProducts?.map((item, index) => (
+                                            <div
+                                                onClick={() => handleDetail(item)}
+                                                key={item.id}
+                                                className='bg-gray-50 shadow-[0_0_5px_rgba(0,0,0,0.1)] group rounded-xl col-span-1 flex flex-col gap-1  h-fit cursor-pointer'
+                                            >
+                                                <div className='w-full min-h-[130px] max-h-[130px] p-2 mx-auto overflow-hidden rounded-md'>
+                                                    <Image src={item.image ?? ""} alt="" width={1920} height={1920} className='object-cover size-full group-hover:scale-105 rounded-md transition-all duration-150 ease-linear' />
                                                 </div>
+                                                <div className='p-2 flex flex-col gap-5'>
+                                                    <div className="flex flex-col gap-1">
+                                                        <h1 className='text-black text-xs leading-1 font-semibold line-clamp-2 group-hover:text-black/80 transition-all duration-150 ease-linear'>{item.name}</h1>
+                                                        <div className="flex justify-between items-center">
+                                                            <h1 className='text-[#545454] group-hover:text-[#545454]/80 transition-all duration-150 ease-linear font-bold text-sm'>{FormatNumberDot(item.price)} vnđ</h1>
+                                                            <FiShoppingCart onClick={() => handleAddcart(item)} className='text-rose-500 group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear' size={14} />
+                                                        </div>
 
+                                                    </div>
+                                                    <div className="flex items-center justify-start gap-5">
+                                                        <h1 className='text-gray-400 font-normal text-xs flex items-center gap-1'><CiStar size={19} /><span>{item.star}/5</span></h1>
+                                                        <h1 className='text-gray-400 font-normal text-xs leading-1'>Đã bán {FormatNumberDot(item.count)}</h1>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="flex items-center justify-start gap-5">
-                                                <h1 className='text-gray-400 font-normal text-xs flex items-center gap-1'><CiStar size={19} /><span>{item.star}/5</span></h1>
-                                                <h1 className='text-gray-400 font-normal text-xs leading-1'>Đã bán {FormatNumberDot(item.count)}</h1>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))
-                            }
-                        </div>
+                                        ))
+                                    }
+                                </div>
+                        }
+
                     </div>
                 </div>
             </div>
