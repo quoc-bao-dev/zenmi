@@ -1,5 +1,7 @@
 'use client'
 
+import { uuidv4 } from '@/lib/uuid'
+import { IListHandbook } from '@/types/Handbook/IHanbook'
 import { ITabHandbook } from '@/types/Handbook/ITab'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
@@ -28,6 +30,39 @@ const Handbook = (props: Props) => {
             id: "2",
             name: "Dành cho bé",
             icon: "/icon/person/baby-girl.svg",
+        },
+    ]
+
+    const dataListHandbookMom: IListHandbook[] = [
+        {
+            id: uuidv4(),
+            name: "Chuẩn bị trước sinh",
+            image: "/example/handbook/electrocardiogram-heart.svg",
+        },
+        {
+            id: uuidv4(),
+            name: "Sau khi sinh",
+            image: "/example/handbook/electrocardiogram-heart.svg",
+        },
+        {
+            id: uuidv4(),
+            name: "Công thức nấu ăn",
+            image: "/example/handbook/electrocardiogram-heart.svg",
+        },
+        {
+            id: uuidv4(),
+            name: "Làm đẹp & thời trang",
+            image: "/example/handbook/electrocardiogram-heart.svg",
+        },
+        {
+            id: uuidv4(),
+            name: "Đời sống vợ chồng",
+            image: "/example/handbook/electrocardiogram-heart.svg",
+        },
+        {
+            id: uuidv4(),
+            name: "Đánh giá dịch vụ",
+            image: "/example/handbook/electrocardiogram-heart.svg",
         },
     ]
 
