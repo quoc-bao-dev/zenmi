@@ -1,7 +1,7 @@
-interface IListHandbookMom {
+interface IListHandbook {
     id: string,
     name: string,
     image: string,
 }
 
-export type { IListHandbookMom }
+export type { IListHandbook }

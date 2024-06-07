@@ -1,7 +1,7 @@
 'use client'
 
 import { uuidv4 } from '@/lib/uuid'
-import { IListHandbookMom } from '@/types/Handbook/IHanbook'
+import { IListHandbook } from '@/types/Handbook/IHanbook'
 import { ITabHandbook } from '@/types/Handbook/ITab'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
