@@ -74,7 +74,7 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                         <div className="size-full flex items-center justify-center">
                             <FiShoppingCart className='text-rose-500' size={18} />
                         </div>
-                        <div className="absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium">{carItems?.length}</div>
+                        <div className="absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium">{carItems?.length > 0 ? carItems?.length : ''}</div>
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                                 <div className="flex items-center space-x-2">
                                     <Checkbox id={e.id} className='border-red-500' />
                                 </div>
-                                <label htmlFor={e.id} className='bg-gray-50 shadow-[0_0_5px_rgba(0,0,0,0.1)] group rounded-xl size-full flex gap-1  cursor-pointer'>
+                                <div className='bg-gray-50 shadow-[0_0_5px_rgba(0,0,0,0.1)] group rounded-xl size-full flex gap-1  cursor-pointer'>
                                     <div className='w-1/2 h-32 p-2 mx-auto overflow-hidden'>
                                         <Image src={e.image} alt="" width={1920} height={1920} className='object-cover size-full group-hover:scale-105 transition-all duration-150 ease-linear' />
                                     </div>
@@ -120,7 +120,7 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                                             </div>
                                         </div>
                                     </div>
-                                </label>
+                                </div>
                             </div>
 
                         </>

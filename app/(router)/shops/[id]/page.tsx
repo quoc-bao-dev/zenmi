@@ -71,20 +71,20 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
 
     useEffect(() => {
         if (params?.id) {
-            // const findItem = carItems.find(item => item.id === +params?.id)
-            // setStateDetailItem({
-            //     dataDetail: {
-            //         ...findItem,
-            //         imageSlider: {
-            //             image: [...Array(8).map((_, index) => {
-            //                 return '/shop/listImageSlider/mec2023.png'
-            //             })],
-            //             imageThumb: [...Array(8).map((_, index) => {
-            //                 return '/shop/listImageSlider/mec2023.png'
-            //             })],
-            //         }
-            //     }
-            // })
+            const findItem = carItems.find(item => item.id === +params?.id)
+            setStateDetailItem({
+                dataDetail: {
+                    ...findItem,
+                    imageSlider: {
+                        image: [...Array(8).map((_, index) => {
+                            return '/shop/listImageSlider/mec2023.png'
+                        })],
+                        imageThumb: [...Array(8).map((_, index) => {
+                            return '/shop/listImageSlider/mec2023.png'
+                        })],
+                    }
+                }
+            })
         }
     }, [params?.id])
 
@@ -115,7 +115,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                         <div className="size-full flex items-center justify-center">
                             <FiShoppingCart className='text-rose-500' size={18} />
                         </div>
-                        <div className="absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium">{carItems?.length}</div>
+                        <div className="absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium">{carItems?.length > 0 ? carItems?.length : ''}</div>
                     </div>
                 </div>
             </div>

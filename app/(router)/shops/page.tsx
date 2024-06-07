@@ -7,6 +7,7 @@ import ConvertToSlug from '@/utils/Cconvert/ConvertToSlug'
 import { FormatNumberDot } from '@/utils/Format/FormatNumber'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { CiSearch, CiStar } from 'react-icons/ci'
 import { FiShoppingCart } from "react-icons/fi"
@@ -118,6 +119,7 @@ const Shops = (props: Props) => {
         ],
         isTab: 'all'
     }
+    const router = useRouter()
     const { carItems, setCarItems } = useShopCart()
 
     const [isStateShop, setIsStateShop] = useState(initialState)
@@ -149,9 +151,9 @@ const Shops = (props: Props) => {
                     </div>
                     <div className="w-[15%] hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
                         <div className="size-full flex items-center justify-center">
-                            <FiShoppingCart className='text-rose-500' size={18} />
+                            <FiShoppingCart onClick={() => router.push('/cart')} className='text-rose-500' size={18} />
                         </div>
-                        <div className="absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium">{carItems?.length}</div>
+                        <div className="absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium">{carItems?.length > 0 ? carItems?.length : ''}</div>
                     </div>
                 </div>
             </div>

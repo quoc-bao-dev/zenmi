@@ -9,6 +9,7 @@ import ButtonToTop from '../button/ButtonToTop';
 import '@/styles/globals.scss'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { useShopCart } from '@/hooks/useShopCart';
 
 type Props = {}
 
@@ -26,6 +27,13 @@ const LayoutContainer = ({
     children: React.ReactNode
 }) => {
     const { scrollYProgress } = useScroll();
+    const { setCarItems } = useShopCart()
+    useEffect(() => {
+        const cart = localStorage.getItem('carItems') ? JSON.parse(localStorage.getItem('carItems')!) : []
+        if (cart) {
+            setCarItems(cart)
+        }
+    }, [])
 
     return (
         <body className={`${bevietnampro.className} w-full bg-[#FCFDFD]`}>

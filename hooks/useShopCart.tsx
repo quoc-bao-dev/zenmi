@@ -5,9 +5,12 @@ interface ShopCart {
     setCarItems: (data: any) => void;
 }
 
-export const useShopCart = create<ShopCart>((set) => ({
-    carItems: localStorage.getItem('carItems') ? JSON.parse(localStorage.getItem('carItems')!) : [],
-    setCarItems: (data: any) => set((state) => ({
-        carItems: data
-    })),
-}));
+
+export const useShopCart = create<ShopCart>((set) => {
+    return {
+        carItems: [],
+        setCarItems: (data: any) => set((state) => ({
+            carItems: data
+        })),
+    }
+});
