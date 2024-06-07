@@ -7,7 +7,7 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import { useQuery } from '@tanstack/react-query'
+import { QueryCache, QueryClient, useQuery } from '@tanstack/react-query'
 import { getListHandbook } from '@/services/Handbook/handbook.services'
 import { useDataHandbook } from '@/hooks/useDataQueryKey'
 
@@ -79,13 +79,26 @@ const Handbook = (props: Props) => {
     const queryHandbook = useQuery({
         queryKey: [tabId],
         queryFn: async () => {
-            if (tabId != "") {
-                const { data } = await getListHandbook(+tabId)
-                return data;
-            }
-        },
-        
+            const { data } = await getListHandbook(+tabId)
+            console.log('data', data);
 
+            const newDataCustom = data?.data?.map((newData: any) => {
+                return {
+                    ...newData,
+                    data: newData.data.map((item: any) => {
+                        return {
+                            ...item,
+                            favorite: false,
+                            save_blog: false
+                        }
+                    })
+                }
+            })
+            console.log('newDataCustom', newDataCustom);
+
+            return newDataCustom;
+        },
+        enabled: tabId !== "" // Chỉ kích hoạt query nếu tabId không rỗng
     })
 
     useEffect(() => {
@@ -108,6 +121,8 @@ const Handbook = (props: Props) => {
         queryKeyIsStateHandbook({
             dataDetailHandbook: item.data
         })
+
+        localStorage.setItem("dataDetailHandbook", JSON.stringify(item.data))
     }
 
     if (!isMounted) {
@@ -150,7 +165,7 @@ const Handbook = (props: Props) => {
 
                 <div className='grid grid-cols-2 md:gap-8 gap-6'>
                     {
-                        isStateHandbook?.dataListHandbook && isStateHandbook?.dataListHandbook?.data && isStateHandbook?.dataListHandbook?.data?.map((item: any, index: any) => (
+                        isStateHandbook?.dataListHandbook && isStateHandbook?.dataListHandbook?.length > 0 && isStateHandbook?.dataListHandbook?.map((item: any, index: any) => (
                             <motion.div
                                 key={item.id}
                                 className={`${index % 2 !== 0 ? "rounded-tl-[32px] rounded-br-[32px]" : "rounded-tr-[32px] rounded-bl-[32px]"} flex flex-col justify-center items-center gap-2 bg-rose-50 shadow-md rounded-xl px-6 py-8 cursor-pointer`}

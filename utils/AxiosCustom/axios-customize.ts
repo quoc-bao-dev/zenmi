@@ -1,8 +1,8 @@
 import axios from "axios";
 // import Cookie from "js-cookie";
 
-const baseUrl = "http://192.168.1.199/zenmi/api_web/";
-// const baseUrl = process.env.NEXT_PUBLIC_URL_API;
+// const baseUrl = "http://192.168.1.199/zenmi/api_web/";
+const baseUrl = process.env.NEXT_PUBLIC_URL_API;
 
 const instance = axios.create({
     baseURL: baseUrl,
