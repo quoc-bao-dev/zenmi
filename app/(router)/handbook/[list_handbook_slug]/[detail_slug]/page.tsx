@@ -169,7 +169,11 @@ const DetailHandbook = (props: Props) => {
                                         />
                                     </div>
                                     <div>
-                                        <span dangerouslySetInnerHTML={{ __html: `${isStateHandbook?.detailHandbook?.content ? isStateHandbook?.detailHandbook?.content : ''}` }} />
+                                        <span
+                                            // className="whitespace-break-spaces"
+                                            dangerouslySetInnerHTML={{
+                                                __html: `${isStateHandbook?.detailHandbook?.content ? isStateHandbook?.detailHandbook?.content : ''}`
+                                            }} />
                                     </div>
                                 </div>
                             </ScrollArea>

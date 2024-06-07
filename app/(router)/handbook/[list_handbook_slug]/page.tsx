@@ -9,6 +9,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Bookmark, BookmarkCheck } from 'lucide-react';
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useDataHandbook } from '@/hooks/useDataQueryKey'
+import NoData from '@/components/no-data/NoData'
 
 type Props = {}
 
@@ -64,8 +65,9 @@ const ListHandBook = (props: Props) => {
     useEffect(() => {
         const dataLocalstore = localStorage.getItem("dataDetailHandbook")
 
-        if (isMounted && dataLocalstore && isStateHandbook.dataDetailHandbook.length === 0) {
+        if (isMounted && dataLocalstore) {
             const parseData = JSON.parse(dataLocalstore)
+            console.log('parseData', parseData);
 
             queryKeyIsStateHandbook({
                 ...isStateHandbook,
@@ -74,8 +76,6 @@ const ListHandBook = (props: Props) => {
         }
     }, [
         isMounted,
-        isStateHandbook,
-        queryKeyIsStateHandbook,
     ])
 
     const handleClick = (item: any) => {
@@ -179,7 +179,8 @@ const ListHandBook = (props: Props) => {
                                 </motion.div>
                             ))
                             :
-                            (null)
+                            // <div>Không có danh mục...</div>
+                            <NoData type="handbook" />
                     }
 
                     {/* {

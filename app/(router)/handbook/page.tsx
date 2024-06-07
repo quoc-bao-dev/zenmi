@@ -118,7 +118,7 @@ const Handbook = (props: Props) => {
     const handleClick = (item: any) => {
         router.push(`/handbook/${item.id}`)
         queryKeyIsStateHandbook({
-            dataDetailHandbook: item.data
+            dataDetailHandbook: item.data ? item.data : []
         })
 
         localStorage.setItem("dataDetailHandbook", JSON.stringify(item.data))
