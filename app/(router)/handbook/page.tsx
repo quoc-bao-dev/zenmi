@@ -116,12 +116,18 @@ const Handbook = (props: Props) => {
     }
 
     const handleClick = (item: any) => {
+        console.log('item', item);
+
         router.push(`/handbook/${item.id}`)
         queryKeyIsStateHandbook({
-            dataDetailHandbook: item.data ? item.data : []
+            dataDetailListHandbook: {
+                title: item.name,
+                data: item.data
+            }
         })
 
-        localStorage.setItem("dataDetailHandbook", JSON.stringify(item.data))
+        localStorage.setItem("dataDetailListHandbook", JSON.stringify(item.data))
+        localStorage.setItem("dataTitleListHandbook", item.name)
     }
 
     if (!isMounted) {
@@ -148,7 +154,7 @@ const Handbook = (props: Props) => {
                                         <Image
                                             src={item.icon}
                                             alt="icon"
-                                            width={100}
+                                            width={300}
                                             height={100}
                                             className='w-full h-full object-contain'
                                         />
@@ -181,15 +187,15 @@ const Handbook = (props: Props) => {
                             >
                                 <div className='md:size-24 size-16 rounded-lg'>
                                     <Image
-                                        src={item.image}
+                                        src={item.image ? item.image : "/default/default.png"}
                                         alt="image"
-                                        width={100}
-                                        height={100}
-                                        className='w-full h-full object-contain'
+                                        width={300}
+                                        height={300}
+                                        className='w-full h-full object-cover rounded-lg'
                                     />
                                 </div>
                                 <div className='3xl:text-lg md:text-base text-sm text-center text-[#545454] font-semibold line-clamp-2'>
-                                    {item.name}
+                                    {item.name ? item.name : ""}
                                 </div>
                             </motion.div>
                         ))
