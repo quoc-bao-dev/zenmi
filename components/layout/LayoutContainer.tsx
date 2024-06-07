@@ -10,7 +10,10 @@ import '@/styles/globals.scss'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useShopCart } from '@/hooks/useShopCart';
-
+import 'swiper/css'
+import 'swiper/css/free-mode'
+import 'swiper/css/pagination'
+import 'swiper/css/thumbs'
 type Props = {}
 
 const bevietnampro = Be_Vietnam_Pro({

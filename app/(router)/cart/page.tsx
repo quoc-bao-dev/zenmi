@@ -96,17 +96,17 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                         <>
                             <div key={e?.id} className="flex gap-2 items-center justify-between">
                                 <div className="flex items-center space-x-2">
-                                    <Checkbox id={e.id} className='border-red-500' />
+                                    <Checkbox id={e?.id} className='border-red-500' />
                                 </div>
                                 <div className='bg-gray-50 shadow-[0_0_5px_rgba(0,0,0,0.1)] group rounded-xl size-full flex gap-1  cursor-pointer'>
                                     <div className='w-1/2 h-32 p-2 mx-auto overflow-hidden'>
-                                        <Image src={e.image} alt="" width={1920} height={1920} className='object-cover size-full group-hover:scale-105 transition-all duration-150 ease-linear' />
+                                        <Image src={e?.image ?? ""} alt="" width={1920} height={1920} className='object-cover size-full group-hover:scale-105 transition-all duration-150 ease-linear' />
                                     </div>
                                     <div className='p-2 w-1/2 flex flex-col gap-5'>
                                         <div className="flex flex-col gap-1">
-                                            <h1 className='text-rose-500 text-base leading-1 font-semibold line-clamp-2 group-hover:text-rose-400 transition-all duration-150 ease-linear'>{e.name}</h1>
+                                            <h1 className='text-rose-500 text-base leading-1 font-semibold line-clamp-2 group-hover:text-rose-400 transition-all duration-150 ease-linear'>{e?.name}</h1>
                                             <div className="flex justify-between items-center">
-                                                <h1 className='text-rose-500 group-hover:text-rose-400 transition-all duration-150 ease-linear font-bold text-sm'>{FormatNumberDot(e.price)} vnđ</h1>
+                                                <h1 className='text-rose-500 group-hover:text-rose-400 transition-all duration-150 ease-linear font-bold text-sm'>{FormatNumberDot(e?.price)} vnđ</h1>
                                             </div>
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-2">

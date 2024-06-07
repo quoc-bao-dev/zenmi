@@ -1,26 +1,19 @@
 'use client'
 import { useShopCart } from '@/hooks/useShopCart'
-import { ListProducts } from '@/types/Shops/IShops'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { FiShoppingCart } from "react-icons/fi"
 
-import { IoIosArrowRoundBack } from "react-icons/io";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { IoIosArrowRoundBack } from "react-icons/io"
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/free-mode';
-import 'swiper/css/navigation';
-import 'swiper/css/thumbs';
-import { A11y, Autoplay, FreeMode, Navigation, Thumbs } from 'swiper/modules';
-import { FaStar } from "react-icons/fa";
 import { FormatNumberDot } from '@/utils/Format/FormatNumber'
-import { MdSupportAgent } from "react-icons/md";
 import { useRouter } from 'next/navigation'
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { motion } from 'framer-motion'
-import { FaArrowLeftLong } from "react-icons/fa6"
+import { FaStar } from "react-icons/fa"
+import { MdSupportAgent } from "react-icons/md"
+
+import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
 type Props = {
     params: {
         id: string,
@@ -41,6 +34,7 @@ type initialState = {
             imageThumb: string[]
         }
         image: string
+        content: string
     }
 }
 const ShopsDetail = ({ params, searchParams }: Props) => {
@@ -51,16 +45,17 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
             price: 0,
             count: 0,
             star: 0,
-            image: "/shop/listImageSlider/mec2023.png",
+            image: "",
             imageSlider: {
-                image: ['/shop/listImageSlider/mec2023.png'],
-                imageThumb: ['/shop/listImageSlider/mec2023.png']
-            }
+                image: [''],
+                imageThumb: ['']
+            },
+            content: "",
         }
     }
     const router = useRouter()
 
-    const { carItems, setCarItems } = useShopCart()
+    const { carItems, setCarItems, dataDetail } = useShopCart()
 
     const [stateDetailItem, setStateDetailItem] = useState(initialState)
 
@@ -71,17 +66,14 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
 
     useEffect(() => {
         if (params?.id) {
-            const findItem = carItems.find(item => item.id === +params?.id)
-            setStateDetailItem({
-                dataDetail: {
-                    ...findItem,
+            console.log("dataDetail", dataDetail);
+            queryDetailItem({
+                dataDetail:
+                {
+                    ...dataDetail,
                     imageSlider: {
-                        image: [...Array(8).map((_, index) => {
-                            return '/shop/listImageSlider/mec2023.png'
-                        })],
-                        imageThumb: [...Array(8).map((_, index) => {
-                            return '/shop/listImageSlider/mec2023.png'
-                        })],
+                        image: dataDetail?.list_images || [],
+                        imageThumb: dataDetail?.list_images || [],
                     }
                 }
             })
@@ -89,16 +81,16 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
     }, [params?.id])
 
     const handAddCart = () => {
-        const checkItem = carItems.find(item => item.id === +params?.id)
+        const checkItem = carItems.find(item => item?.id == +params?.id)
         if (checkItem) {
             return
         }
         const newData = [...carItems, checkItem]
         localStorage.setItem('carItems', JSON.stringify(newData))
         setCarItems(newData)
-        console.log("checkItem", checkItem);
-
     }
+
+
 
 
     return (
@@ -109,7 +101,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                         <div className="size-10">
                             <IoIosArrowRoundBack onClick={() => router.back()} size={22} className='size-full cursor-pointer text-rose-600' />
                         </div>
-                        <h1 className='text-rose-500 text-sm leading-1 font-medium truncate max-w-[200px]'>{stateDetailItem.dataDetail.name}</h1>
+                        <h1 className='text-rose-500 text-sm leading-1 font-medium truncate max-w-[200px]'>{stateDetailItem.dataDetail?.name}</h1>
                     </div>
                     <div onClick={() => router.push('/cart')} className=" hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
                         <div className="size-full flex items-center justify-center">
@@ -129,24 +121,24 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                             modules={[FreeMode, Thumbs]}
                             className="mySwiper2"
                         >
-                            {stateDetailItem.dataDetail.imageSlider.image.map((item, index) => (
-                                <SwiperSlide key={index} className='h-[250px] max-h-[250px] cursor-pointer'>
-                                    <Image src={item} alt="" width={1280} height={1280} className='w-full h-full object-contain' />
+                            {stateDetailItem.dataDetail?.imageSlider?.image?.map((item, index) => (
+                                <SwiperSlide key={index} className='min-h-[250px] h-[250px] max-h-[250px] cursor-pointer'>
+                                    <Image src={item ?? ""} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
                                 </SwiperSlide>
                             ))}
                         </Swiper>
                     </div>
                     <div className=" bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)]">
                         <div className="flex flex-col gap-2 custom-container-child py-2">
-                            <h1 className='text-rose-500 text-sm font-semibold leading-1'>{stateDetailItem.dataDetail.name}</h1>
+                            <h1 className='text-rose-500 text-sm font-semibold leading-1'>{stateDetailItem.dataDetail?.name}</h1>
                             <div className="flex items-center gap-2">
                                 <div className="flex items-center gap-1">
                                     {[...Array(5)].map((_, index) => <FaStar key={index} className='text-yellow-500' />)}
                                 </div>
                                 <h1 className='text-gray-400 font-normal text-xs leading-1'>(0.0 đánh giá)</h1>
-                                <h1 className='text-gray-400 font-normal text-xs leading-1'>Đã bán: {FormatNumberDot(stateDetailItem.dataDetail.count)}</h1>
+                                <h1 className='text-gray-400 font-normal text-xs leading-1'>Đã bán: {FormatNumberDot(stateDetailItem.dataDetail?.count)}</h1>
                             </div>
-                            <h1 className='text-rose-500 font-medium text-SM leading-1'>{FormatNumberDot(stateDetailItem.dataDetail.price)} vnđ</h1>
+                            <h1 className='text-rose-500 font-medium text-SM leading-1'>{FormatNumberDot(stateDetailItem.dataDetail?.price)} vnđ</h1>
                         </div>
 
                     </div>
@@ -162,39 +154,18 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                                 modules={[FreeMode, Navigation, Thumbs]}
                                 className="mySwiper"
                             >
-                                {stateDetailItem.dataDetail.imageSlider.imageThumb.map((item, index) => (
+                                {stateDetailItem.dataDetail?.imageSlider?.imageThumb?.map((item, index) => (
                                     <SwiperSlide key={index} className='size-[50px] cursor-pointer'>
-                                        <Image src={item} alt="" width={1280} height={1280} className='w-full h-full object-contain' />
+                                        <Image src={item ?? ""} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
                         </div>
                     </div>
-                    <div className="bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)]">
-                        <div className="flex flex-col gap-1 custom-container-child py-2">
-                            <div className='flex items-center justify-between'>
-                                <div className="flex items-center gap-2">
-                                    <div className="size-10 rounded-full bg-rose-200 border-2 border-rose-400">
-                                    </div>
-                                    <h1 className='text-sm font-medium text-gray-400'>BaBy shops</h1>
-                                </div>
-                                <h1 className='text-xs font-normal text-rose-500 border-2 cursor-pointer hover:bg-rose-500 hover:text-white transition-all duration-150 ease-linear border-rose-500 py-1 px-2 rounded-xl'
-                                >
-                                    Xem shop
-                                </h1>
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <h1 className='text-xs font-medium text-gray-400'><span className='text-rose-500'>1</span> Sản phẩm</h1>
-                                <h1 className='text-xs font-medium text-gray-400'><span className='text-rose-500'>1</span> Đánh giá</h1>
-                            </div>
-                        </div>
 
-                    </div>
                     <div className="bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)] py-2 flex flex-col gap-2">
                         <h1 className='text-rose-500 font-semibold text-sm text-center border-b-2 border-rose-500 pb-2'>Giới thiệu</h1>
-                        <div className="custom-container-child text-xs  font-normal">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis odit dicta eius neque magni nulla, vitae quia deserunt explicabo illo velit distinctio vero ratione sint, eum molestiae tempora cumque! Nostrum!
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis odit dicta eius neque magni nulla, vitae quia deserunt explicabo illo velit distinctio vero ratione sint, eum molestiae tempora cumque! Nostrum!
+                        <div className="custom-container-child text-xs  font-normal" dangerouslySetInnerHTML={{ __html: stateDetailItem.dataDetail?.content }}>
                         </div>
                     </div>
                 </div>
