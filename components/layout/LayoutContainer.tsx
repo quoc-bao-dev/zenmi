@@ -11,6 +11,11 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { usePathname } from 'next/navigation';
 import { useDataHandbook } from '@/hooks/useDataQueryKey';
 
+import { useShopCart } from '@/hooks/useShopCart';
+import 'swiper/css'
+import 'swiper/css/free-mode'
+import 'swiper/css/pagination'
+import 'swiper/css/thumbs'
 import '@/styles/globals.scss'
 import "moment/locale/vi";
 
@@ -32,6 +37,13 @@ const LayoutContainer = ({
     const pathname = usePathname()
 
     const { scrollYProgress } = useScroll();
+    const { setCarItems } = useShopCart()
+    useEffect(() => {
+        const cart = localStorage.getItem('carItems') ? JSON.parse(localStorage.getItem('carItems')!) : []
+        if (cart) {
+            setCarItems(cart)
+        }
+    }, [])
 
     const { isStateHandbook, queryKeyIsStateHandbook } = useDataHandbook()
 
