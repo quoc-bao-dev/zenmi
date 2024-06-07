@@ -1,8 +1,8 @@
 'use client'
 
 import { uuidv4 } from '@/lib/uuid'
-import { IListHandbook } from '@/types/Handbook/IHanbook'
-import { ITabHandbook } from '@/types/Handbook/ITab'
+import { IListHandbook } from '../../../types/Handbook/IHanbook'
+import { ITabHandbook } from '../../../types/Handbook/ITab'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'

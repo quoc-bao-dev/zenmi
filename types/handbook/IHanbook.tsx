@@ -1,7 +1,7 @@
-export interface IListHandbook {
+interface IListHandbook {
     id: string,
     name: string,
     image: string,
 }
 
-// export type { IListHandbook }
+export type { IListHandbook }
