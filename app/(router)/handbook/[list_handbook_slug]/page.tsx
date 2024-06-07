@@ -179,51 +179,8 @@ const ListHandBook = (props: Props) => {
                                 </motion.div>
                             ))
                             :
-                            // <div>Không có danh mục...</div>
                             <NoData type="handbook" />
                     }
-
-                    {/* {
-                        dataListHandBookArticle.map((item) => (
-                            <motion.div
-                                key={item.id}
-                                className='flex items-center gap-4 w-full bg-white border px-3 py-3 rounded-2xl cursor-pointer'
-                                initial={false}
-                                animate="rest"
-                                whileHover={"hover"}
-                                whileTap={"press"}
-                                variants={{
-                                    rest: { scale: 1 },
-                                    press: { scale: 1.03 },
-                                    hover: { scale: 1.02 }
-                                }}
-                                onClick={() => router.push(`/handbook/${params?.list_handbook_slug}/${item.id}`)}
-                            >
-                                <div className='md:max-w-[25%] max-w-[30%] w-full h-[100px]'>
-                                    <Image
-                                        width={400}
-                                        height={400}
-                                        alt="image"
-                                        src={item.image}
-                                        className='w-full h-full object-cover rounded-xl'
-                                    />
-                                </div>
-                                <div className='flex flex-col gap-2 md:max-w-[75%] max-w-[70%]'>
-                                    <div className='md:text-lg text-base font-semibold line-clamp-2'>
-                                        {item.title}
-                                    </div>
-                                    <div className='flex items-center gap-2'>
-                                        <div className='flex items-center space-x-2'>
-                                            <span className='size-4'><AiOutlineHeart className=' size-4' /></span><span className='text-sm'>Chưa thích</span>
-                                        </div>
-                                        <div className='flex items-center space-x-2'>
-                                            <span className='size-4'><Bookmark className='size-4' /></span><span className='text-sm'>Chưa lưu</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))
-                    } */}
                 </div>
             </div>
         </div >

@@ -15,9 +15,9 @@ export default function RootLayout({
 
     return (
         <html lang="en">
-                <LayoutContainer>
-                    {children}
-                </LayoutContainer>
+            <LayoutContainer>
+                {children}
+            </LayoutContainer>
         </html>
     );
 }
