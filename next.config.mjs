@@ -6,7 +6,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'i.ytimg.com',
+                hostname: 'erpzenmi.com',
             },
             {
                 protocol: 'http',

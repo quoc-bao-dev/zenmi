@@ -6,7 +6,6 @@ import { motion, useScroll } from 'framer-motion'
 
 import ButtonToTop from '../button/ButtonToTop';
 
-import '@/styles/globals.scss'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useShopCart } from '@/hooks/useShopCart';
@@ -14,6 +13,12 @@ import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/pagination'
 import 'swiper/css/thumbs'
+import { usePathname } from 'next/navigation';
+import { useDataHandbook } from '@/hooks/useDataQueryKey';
+
+import '@/styles/globals.scss'
+import "moment/locale/vi";
+
 type Props = {}
 
 const bevietnampro = Be_Vietnam_Pro({
@@ -29,6 +34,8 @@ const LayoutContainer = ({
 }: {
     children: React.ReactNode
 }) => {
+    const pathname = usePathname()
+
     const { scrollYProgress } = useScroll();
     const { setCarItems } = useShopCart()
     useEffect(() => {
@@ -37,6 +44,18 @@ const LayoutContainer = ({
             setCarItems(cart)
         }
     }, [])
+
+    const { isStateHandbook, queryKeyIsStateHandbook } = useDataHandbook()
+
+    // useEffect(() => {
+    //     if (pathname === "/handbook") {
+    //         queryKeyIsStateHandbook({
+    //             dataDetailHandbook: []
+    //         })
+    //     }
+
+    // }, [pathname])
+
 
     return (
         <body className={`${bevietnampro.className} w-full bg-[#FCFDFD]`}>
