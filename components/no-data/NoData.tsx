@@ -28,6 +28,12 @@ const NoData = ({ type, className }: { type: string, className?: string }) => {
             case "handbook":
                 quertyState({ title: 'Không có danh mục...', image: '/no-data/no-data.svg' })
                 break;
+            case "shops":
+                quertyState({ title: 'Không có sản phẩm nào...', image: '/no-data/no-data.svg' })
+                break;
+            case "cart":
+                quertyState({ title: 'Không có sản phẩm nào...', image: '/no-data/no-data.svg' })
+                break;
             default:
                 break;
         }
@@ -45,7 +51,10 @@ const NoData = ({ type, className }: { type: string, className?: string }) => {
                     height={1024}
                     className={`
                 object-contain
-                 ${type == 'handbook' && (isVisibleMobile ? "size-full" : 'size-[45%]')}
+                 ${type == 'handbook' && (isVisibleMobile ? "size-full" : 'size-[45%]') ||
+                        type == 'shops' && (isVisibleMobile ? "size-full" : 'size-[45%]') ||
+                        type == 'cart' && (isVisibleMobile ? "size-full" : 'size-[45%]')
+                        }
                  mx-auto`} />
             </div>
             <h1 className="3xl:text-lg lg:text-sm text-xs font-medium">{data.title}</h1>

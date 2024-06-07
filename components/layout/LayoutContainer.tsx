@@ -8,16 +8,18 @@ import ButtonToTop from '../button/ButtonToTop';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { useShopCart } from '@/hooks/useShopCart';
 import { usePathname } from 'next/navigation';
 import { useDataHandbook } from '@/hooks/useDataQueryKey';
 
-import { useShopCart } from '@/hooks/useShopCart';
+
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/pagination'
 import 'swiper/css/thumbs'
 import '@/styles/globals.scss'
 import "moment/locale/vi";
+import Alert from '../modal/alert/Alert';
 
 type Props = {}
 
@@ -68,6 +70,7 @@ const LayoutContainer = ({
                     {/* <main className=' max-w-full bg-white shadow-2xl custom-container lg:h-screen h-dvh'> */}
                     {children}
                     <ButtonToTop />
+                    <Alert />
                 </main>
                 <ReactQueryDevtools initialIsOpen={true} />
             </QueryClientProvider>

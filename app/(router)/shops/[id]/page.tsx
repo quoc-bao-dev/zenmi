@@ -14,6 +14,7 @@ import { FaStar } from "react-icons/fa"
 import { MdSupportAgent } from "react-icons/md"
 
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
+import { useQueryClient } from '@tanstack/react-query'
 type Props = {
     params: {
         id: string,
@@ -62,18 +63,23 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
     const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
 
+    const queryClient = useQueryClient();
+
+
     const queryDetailItem = (key: any) => setStateDetailItem(prev => ({ ...prev, ...key }))
 
     useEffect(() => {
         if (params?.id) {
-            console.log("dataDetail", dataDetail);
+            if (JSON.stringify(dataDetail) == "{}") {
+                router.push('/shops')
+            }
             queryDetailItem({
                 dataDetail:
                 {
                     ...dataDetail,
                     imageSlider: {
-                        image: dataDetail?.list_images || [],
-                        imageThumb: dataDetail?.list_images || [],
+                        image: Array.isArray(dataDetail?.list_images) ? dataDetail?.list_images : [dataDetail?.image] || [],
+                        imageThumb: Array.isArray(dataDetail?.list_images) ? dataDetail?.list_images : [dataDetail?.image] || [],
                     }
                 }
             })
@@ -81,11 +87,11 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
     }, [params?.id])
 
     const handAddCart = () => {
-        const checkItem = carItems.find(item => item?.id == +params?.id)
+        const checkItem = carItems.find(item => item?.id == dataDetail?.id)
         if (checkItem) {
             return
         }
-        const newData = [...carItems, checkItem]
+        const newData = [...carItems, dataDetail]
         localStorage.setItem('carItems', JSON.stringify(newData))
         setCarItems(newData)
     }
@@ -123,14 +129,14 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                         >
                             {stateDetailItem.dataDetail?.imageSlider?.image?.map((item, index) => (
                                 <SwiperSlide key={index} className='min-h-[250px] h-[250px] max-h-[250px] cursor-pointer'>
-                                    <Image src={item ?? ""} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
+                                    <Image src={item} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
                                 </SwiperSlide>
                             ))}
                         </Swiper>
                     </div>
                     <div className=" bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)]">
                         <div className="flex flex-col gap-2 custom-container-child py-2">
-                            <h1 className='text-rose-500 text-sm font-semibold leading-1'>{stateDetailItem.dataDetail?.name}</h1>
+                            <h1 className='text-[#545454] text-sm font-semibold leading-1'>{stateDetailItem.dataDetail?.name}</h1>
                             <div className="flex items-center gap-2">
                                 <div className="flex items-center gap-1">
                                     {[...Array(5)].map((_, index) => <FaStar key={index} className='text-yellow-500' />)}
@@ -138,7 +144,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                                 <h1 className='text-gray-400 font-normal text-xs leading-1'>(0.0 đánh giá)</h1>
                                 <h1 className='text-gray-400 font-normal text-xs leading-1'>Đã bán: {FormatNumberDot(stateDetailItem.dataDetail?.count)}</h1>
                             </div>
-                            <h1 className='text-rose-500 font-medium text-SM leading-1'>{FormatNumberDot(stateDetailItem.dataDetail?.price)} vnđ</h1>
+                            <h1 className='text-[#545454] font-medium text-SM leading-1'>{FormatNumberDot(stateDetailItem.dataDetail?.price)} vnđ</h1>
                         </div>
 
                     </div>
@@ -156,7 +162,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                             >
                                 {stateDetailItem.dataDetail?.imageSlider?.imageThumb?.map((item, index) => (
                                     <SwiperSlide key={index} className='size-[50px] cursor-pointer'>
-                                        <Image src={item ?? ""} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
+                                        <Image src={item} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
@@ -182,7 +188,10 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                             <h1 className='text-xs text-white font-medium h-full'>Thêm vào giỏ hàng</h1>
                         </div>
                     </div>
-                    <div onClick={() => router.push('/cart')} className='text-xs bg-rose-500 h-full flex items-center justify-center text-white'>Mua ngay</div>
+                    <div onClick={() => {
+                        handAddCart()
+                        router.push('/cart')
+                    }} className='text-xs bg-rose-500 h-full flex items-center justify-center text-white cursor-pointer'>Mua ngay</div>
                 </div >
 
             </div >
