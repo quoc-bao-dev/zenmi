@@ -168,9 +168,10 @@ const DetailHandbook = (props: Props) => {
                                             className='w-full h-full object-cover rounded-md'
                                         />
                                     </div>
-                                    <div>
-                                        <span dangerouslySetInnerHTML={{ __html: `${isStateHandbook?.detailHandbook?.content ? isStateHandbook?.detailHandbook?.content : ''}` }} />
-                                    </div>
+                                    <div dangerouslySetInnerHTML={{
+                                        __html: `${isStateHandbook?.detailHandbook?.content ? isStateHandbook?.detailHandbook?.content : ''}`
+                                    }} />
+
                                 </div>
                             </ScrollArea>
                         </div >

@@ -9,13 +9,14 @@ import ButtonToTop from '../button/ButtonToTop';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useShopCart } from '@/hooks/useShopCart';
+import { usePathname } from 'next/navigation';
+import { useDataHandbook } from '@/hooks/useDataQueryKey';
+
+
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/pagination'
 import 'swiper/css/thumbs'
-import { usePathname } from 'next/navigation';
-import { useDataHandbook } from '@/hooks/useDataQueryKey';
-
 import '@/styles/globals.scss'
 import "moment/locale/vi";
 

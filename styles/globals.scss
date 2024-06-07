@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+ol,
+ul,
+menu {
+    list-style: revert; /* Hoặc bạn có thể để list-style mặc định */
+    margin: revert; /* Trả về giá trị mặc định của trình duyệt */
+    padding: revert; /* Trả về giá trị mặc định của trình duyệt */
+}
+
 :root {
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 214, 219, 220;
@@ -36,7 +44,7 @@
 }
 
 .custom-container {
-    @apply 3xl:mx-[640px] 2xl:mx-[580px] xl:mx-[580px] lg:mx-[500px];
+    @apply 3xl:mx-[640px] 2xl:mx-[440px] xl:mx-[440px] lg:mx-[380px];
 }
 
 .custom-container-child {
