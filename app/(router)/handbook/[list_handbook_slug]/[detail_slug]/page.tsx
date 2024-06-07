@@ -1,8 +1,8 @@
 'use client'
 
 import { uuidv4 } from '@/lib/uuid'
-import { IListHandbookMom } from '@/types/handbook/IHanbook'
-import { ITabHandbook } from '@/types/handbook/ITab'
+import { IListHandbookMom } from '@/types/Handbook/IHanbook'
+import { ITabHandbook } from '@/types/Handbook/ITab'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
@@ -131,7 +131,7 @@ const DetailHandbook = (props: Props) => {
                     </ScrollArea>
                 </div >
 
-                <div className={`${isVisibleTablet ? "" : ""} h-12 grid grid-cols-2  bg-white border-t`}>
+                <div className={`h-12 grid grid-cols-2  bg-white border-t`}>
                     <div className='col-span-1 w-full flex items-center justify-center gap-2'>
                         <span className='size-5'><AiOutlineHeart className=' size-5' /></span><span className='text-base'>Chưa thích</span>
                     </div>

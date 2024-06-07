@@ -10,7 +10,7 @@ const nextConfig = {
             },
             {
                 protocol: 'http',
-                hostname: '192.168.1.178',
+                hostname: '192.168.1.199',
             },
         ],
         deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840], // Kích thước thiết bị hỗ trợ
