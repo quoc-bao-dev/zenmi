@@ -118,7 +118,15 @@ const Shops = (props: Props) => {
 
 
     useEffect(() => {
-        const filteredData = isStateShop.listProducts.filter(item => item.name.toLowerCase().includes(isStateShop.valueSearch.toLowerCase()));
+        function removeDiacritics(str: any) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        const filteredData = isStateShop.listProducts.filter(item =>
+            removeDiacritics(item.name.toLowerCase()).includes(removeDiacritics(isStateShop.valueSearch.toLowerCase()))
+        );
+
+        // const filteredData = isStateShop.listProducts.filter(item => item.name.toLowerCase().includes(isStateShop.valueSearch.toLowerCase()));
 
         const cacheData = queryClient.getQueryData(['listCategoryProducts']) as any
 
