@@ -66,14 +66,13 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
 
     useEffect(() => {
         if (params?.id) {
-            console.log("dataDetail", dataDetail);
             queryDetailItem({
                 dataDetail:
                 {
                     ...dataDetail,
                     imageSlider: {
-                        image: dataDetail?.list_images || [],
-                        imageThumb: dataDetail?.list_images || [],
+                        image: Array.isArray(dataDetail?.list_images) ? dataDetail?.list_images : [dataDetail?.image] || [],
+                        imageThumb: Array.isArray(dataDetail?.list_images) ? dataDetail?.list_images : [dataDetail?.image] || [],
                     }
                 }
             })
@@ -81,11 +80,11 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
     }, [params?.id])
 
     const handAddCart = () => {
-        const checkItem = carItems.find(item => item?.id == +params?.id)
+        const checkItem = carItems.find(item => item?.id == dataDetail?.id)
         if (checkItem) {
             return
         }
-        const newData = [...carItems, checkItem]
+        const newData = [...carItems, dataDetail]
         localStorage.setItem('carItems', JSON.stringify(newData))
         setCarItems(newData)
     }
@@ -123,7 +122,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                         >
                             {stateDetailItem.dataDetail?.imageSlider?.image?.map((item, index) => (
                                 <SwiperSlide key={index} className='min-h-[250px] h-[250px] max-h-[250px] cursor-pointer'>
-                                    <Image src={item ?? ""} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
+                                    <Image src={item} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
                                 </SwiperSlide>
                             ))}
                         </Swiper>
@@ -156,7 +155,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                             >
                                 {stateDetailItem.dataDetail?.imageSlider?.imageThumb?.map((item, index) => (
                                     <SwiperSlide key={index} className='size-[50px] cursor-pointer'>
-                                        <Image src={item ?? ""} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
+                                        <Image src={item} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
@@ -182,7 +181,10 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                             <h1 className='text-xs text-white font-medium h-full'>Thêm vào giỏ hàng</h1>
                         </div>
                     </div>
-                    <div onClick={() => router.push('/cart')} className='text-xs bg-rose-500 h-full flex items-center justify-center text-white'>Mua ngay</div>
+                    <div onClick={() => {
+                        handAddCart()
+                        router.push('/cart')
+                    }} className='text-xs bg-rose-500 h-full flex items-center justify-center text-white cursor-pointer'>Mua ngay</div>
                 </div >
 
             </div >

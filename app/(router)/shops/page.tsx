@@ -29,19 +29,19 @@ const Shops = (props: Props) => {
         listImageSlider: [
             {
                 id: 1,
-                image: "/shop/listImageSlider/mazda4.png"
+                image: "/example/shop/listImageSlider/mazda4.png"
             },
             {
                 id: 2,
-                image: "/shop/listImageSlider/mec2.png"
+                image: "/example/shop/listImageSlider/mec2.png"
             },
             {
                 id: 3,
-                image: "/shop/listImageSlider/mec2022.jpg"
+                image: "/example/shop/listImageSlider/mec2022.jpg"
             },
             {
                 id: 4,
-                image: "/shop/listImageSlider/mec2023.png"
+                image: "/example/shop/listImageSlider/mec2023.png"
             }
         ],
         listProducts: [],
@@ -97,7 +97,7 @@ const Shops = (props: Props) => {
 
 
     const handleAddcart = (e: ListProducts) => {
-        const checkItem = carItems.find(item => item.id === e.id)
+        const checkItem = carItems.find(item => item?.id === e?.id)
         if (checkItem) {
             return
         }
@@ -131,7 +131,7 @@ const Shops = (props: Props) => {
 
             }
         })
-        queryStateShop({ listProducts: isStateShop.valueSearch ? filteredData : dataDefault, nodata: false })
+        queryStateShop({ listProducts: isStateShop.valueSearch != "" ? filteredData : dataDefault, nodata: false })
 
     }, [isStateShop.valueSearch])
 
@@ -211,8 +211,8 @@ const Shops = (props: Props) => {
                             }) :
                                 isStateShop?.listProducts?.map((item, index) => (
                                     <div onClick={() => handleDetail(item)} key={item.id} className='bg-gray-50 shadow-[0_0_5px_rgba(0,0,0,0.1)] group rounded-xl size-full col-span-1 flex flex-col gap-1 h-fit cursor-pointer'>
-                                        <div className='w-full h-32 p-2 mx-auto overflow-hidden'>
-                                            <Image src={item.image ?? ""} alt="" width={1920} height={1920} className='object-cover size-full group-hover:scale-105 transition-all duration-150 ease-linear' />
+                                        <div className='w-full h-32 p-2 mx-auto overflow-hidden rounded-md'>
+                                            <Image src={item.image ?? ""} alt="" width={1920} height={1920} className='object-cover size-full group-hover:scale-105 rounded-md transition-all duration-150 ease-linear' />
                                         </div>
                                         <div className='p-2 flex flex-col gap-5'>
                                             <div className="flex flex-col gap-1">
