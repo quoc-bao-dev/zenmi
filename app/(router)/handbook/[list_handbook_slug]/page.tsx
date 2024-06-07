@@ -63,15 +63,20 @@ const ListHandBook = (props: Props) => {
     }, [])
 
     useEffect(() => {
-        const dataLocalstore = localStorage.getItem("dataDetailHandbook")
+        const dataListLocalstore = localStorage.getItem("dataDetailListHandbook")
+        const dataTitleListLocalstore = localStorage.getItem("dataTitleListHandbook")
 
-        if (isMounted && dataLocalstore) {
-            const parseData = JSON.parse(dataLocalstore)
+        if (isMounted && dataListLocalstore && dataTitleListLocalstore) {
+            const parseData = JSON.parse(dataListLocalstore)
             console.log('parseData', parseData);
+            console.log('dataTitleListLocalstore', dataTitleListLocalstore);
 
             queryKeyIsStateHandbook({
                 ...isStateHandbook,
-                dataDetailHandbook: parseData
+                dataDetailListHandbook: {
+                    title: dataTitleListLocalstore,
+                    data: parseData
+                }
             })
         }
     }, [
@@ -113,15 +118,15 @@ const ListHandBook = (props: Props) => {
                     </motion.div>
 
                     <div className='3xl:text-xl text-lg font-semibold'>
-                        Chuẩn bị trước sinh
+                        {isStateHandbook?.dataDetailListHandbook.title}
                     </div>
                 </div>
 
                 <div className='flex flex-col md:gap-6 gap-4'>
                     {
-                        isStateHandbook?.dataDetailHandbook &&
-                            isStateHandbook?.dataDetailHandbook?.length > 0 ?
-                            isStateHandbook?.dataDetailHandbook?.map((item: any) => (
+                        isStateHandbook?.dataDetailListHandbook?.data &&
+                            isStateHandbook?.dataDetailListHandbook?.data?.length > 0 ?
+                            isStateHandbook?.dataDetailListHandbook?.data?.map((item: any) => (
                                 <motion.div
                                     key={item.id}
                                     className='flex items-center gap-4 w-full bg-white border px-3 py-3 rounded-2xl cursor-pointer'

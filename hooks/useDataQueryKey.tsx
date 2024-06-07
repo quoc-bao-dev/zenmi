@@ -10,7 +10,10 @@ interface IStateHandbook {
 export const useDataHandbook = create<IStateHandbook>((set) => ({
     isStateHandbook: {
         dataListHandbook: [],
-        dataDetailHandbook: [],
+        dataDetailListHandbook: {
+            title: "",
+            data: []
+        },
         detailHandbook: undefined
     },
     queryKeyIsStateHandbook: (key: any) => set((state) => ({

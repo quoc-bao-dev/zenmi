@@ -50,7 +50,7 @@ const LayoutContainer = ({
     // useEffect(() => {
     //     if (pathname === "/handbook") {
     //         queryKeyIsStateHandbook({
-    //             dataDetailHandbook: []
+    //             dataDetailListHandbook: []
     //         })
     //     }
 

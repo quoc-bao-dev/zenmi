@@ -116,12 +116,18 @@ const Handbook = (props: Props) => {
     }
 
     const handleClick = (item: any) => {
+        console.log('item', item);
+
         router.push(`/handbook/${item.id}`)
         queryKeyIsStateHandbook({
-            dataDetailHandbook: item.data ? item.data : []
+            dataDetailListHandbook: {
+                title: item.name,
+                data: item.data
+            }
         })
 
-        localStorage.setItem("dataDetailHandbook", JSON.stringify(item.data))
+        localStorage.setItem("dataDetailListHandbook", JSON.stringify(item.data))
+        localStorage.setItem("dataTitleListHandbook", item.name)
     }
 
     if (!isMounted) {
