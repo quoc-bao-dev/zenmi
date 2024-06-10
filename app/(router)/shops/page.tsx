@@ -190,7 +190,7 @@ const Shops = (props: Props) => {
                             <Skeleton className='h-3 w-full bg-gray-100 rounded-full' />
                         </div> :
                         <Swiper
-                            slidesPerView={4}
+                            slidesPerView={5}
                             spaceBetween={10}
                             freeMode={true}
                             modules={[FreeMode, Pagination]}
@@ -225,33 +225,33 @@ const Shops = (props: Props) => {
                                         )
                                     }) :
                                         isStateShop?.listProducts?.map((item, index) => (
-                                            <div
-                                                // onClick={() => handleDetail(item)}
-                                                key={item.id}
-                                                className='bg-gray-50 shadow-[0_0_5px_rgba(0,0,0,0.1)] group rounded-xl col-span-1 flex flex-col gap-1  h-fit'
-                                            >
-                                                <div onClick={() => handleDetail(item)} className='w-full min-h-[130px] cursor-pointer max-h-[130px] p-2 mx-auto overflow-hidden rounded-md'>
-                                                    <Image src={item.image ?? ""} alt="" width={1920} height={1920} className='object-cover size-full group-hover:scale-105 rounded-md transition-all duration-150 ease-linear' />
-                                                </div>
-                                                <div className='p-2 flex flex-col gap-5'>
-                                                    <div className="flex flex-col gap-1">
-                                                        <h1 onClick={() => handleDetail(item)} className='cursor-pointer text-black text-xs leading-1 font-semibold line-clamp-2 group-hover:text-black/80 transition-all duration-150 ease-linear'>{item.name}</h1>
-                                                        <div className="flex justify-between items-center">
+                                            <div key={item.id} className="relative bg-gray-50  shadow-[0_0_5px_rgba(0,0,0,0.1)] col-span-1 h-fit">
+                                                <div
+                                                    onClick={() => handleDetail(item)}
+                                                    className=' cursor-pointer group rounded-xl flex flex-col gap-1 w-full h-fit'
+                                                >
+                                                    <div onClick={() => handleDetail(item)} className='w-full min-h-[156px] bg-gray-50 cursor-pointer max-h-[156px] mx-auto overflow-hidden rounded-md'>
+                                                        <Image src={item.image ?? ""} alt="" width={1920} height={1920} className='object-contain size-full max-h-[156px] group-hover:scale-105 rounded-md transition-all duration-150 ease-linear' />
+                                                        {/* <Image src={"/example/shop/products/sua.png"} alt="" width={1920} height={1920} className='object-contain size-full max-h-[156px] group-hover:scale-105 rounded-md transition-all duration-150 ease-linear' /> */}
+                                                        {/* <Image src={item.image ?? ""} alt="" width={1920} height={1920} className='object-cover size-full group-hover:scale-105 rounded-md transition-all duration-150 ease-linear' /> */}
+                                                    </div>
+                                                    <div className='p-2 flex flex-col gap-5'>
+                                                        <div className="flex flex-col gap-1">
+                                                            <h1 onClick={() => handleDetail(item)} className='cursor-pointer text-black text-xs leading-1 font-semibold line-clamp-2 group-hover:text-black/80 transition-all duration-150 ease-linear'>{item.name}</h1>
                                                             <h1 className='text-[#545454] group-hover:text-[#545454]/80 transition-all duration-150 ease-linear font-bold text-sm'>{FormatNumberDot(item.price)} vnđ</h1>
-                                                            <div className="cursor-pointer ">
-                                                                <FiShoppingCart
-                                                                    onClick={() => handleAddcart(item)}
-                                                                    className=' text-rose-500 m-1 group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
-                                                                    size={20}
-                                                                />
-                                                            </div>
                                                         </div>
-
+                                                        <div className="flex items-center justify-start gap-5">
+                                                            <h1 className='text-gray-400 font-normal text-xs flex items-center gap-1'><CiStar size={19} /><span>{item.star}/5</span></h1>
+                                                            <h1 className='text-gray-400 font-normal text-xs leading-1'>Đã bán {FormatNumberDot(item.count)}</h1>
+                                                        </div>
                                                     </div>
-                                                    <div className="flex items-center justify-start gap-5">
-                                                        <h1 className='text-gray-400 font-normal text-xs flex items-center gap-1'><CiStar size={19} /><span>{item.star}/5</span></h1>
-                                                        <h1 className='text-gray-400 font-normal text-xs leading-1'>Đã bán {FormatNumberDot(item.count)}</h1>
-                                                    </div>
+                                                </div>
+                                                <div className="cursor-pointer absolute bottom-1.5 right-2">
+                                                    <FiShoppingCart
+                                                        onClick={() => handleAddcart(item)}
+                                                        className=' text-rose-500 m-1 group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
+                                                        size={22}
+                                                    />
                                                 </div>
                                             </div>
                                         ))
