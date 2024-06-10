@@ -118,16 +118,18 @@ const Handbook = (props: Props) => {
     const handleClick = (item: any) => {
         console.log('item', item);
 
-        router.push(`/handbook/${item.id}`)
-        queryKeyIsStateHandbook({
-            dataDetailListHandbook: {
-                title: item.name,
-                data: item.data
-            }
-        })
+        if (item) {
+            router.push(`/handbook/${item.id}`)
+            queryKeyIsStateHandbook({
+                dataDetailListHandbook: {
+                    title: item.name,
+                    data: item.data
+                }
+            })
 
-        localStorage.setItem("dataDetailListHandbook", JSON.stringify(item.data))
-        localStorage.setItem("dataTitleListHandbook", item.name)
+            localStorage.setItem("dataDetailListHandbook", JSON.stringify(item.data))
+            localStorage.setItem("dataTitleListHandbook", item.name)
+        }
     }
 
     if (!isMounted) {
@@ -180,8 +182,8 @@ const Handbook = (props: Props) => {
                                 whileTap={"press"}
                                 variants={{
                                     rest: { scale: 1 },
-                                    press: { scale: 1.03 },
-                                    hover: { scale: 1.02 }
+                                    press: { scale: 1.03, transition: { duration: 0.4 } },
+                                    hover: { scale: 1.02,  }
                                 }}
                                 onClick={() => handleClick(item)}
                             >
