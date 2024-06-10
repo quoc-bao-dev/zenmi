@@ -53,7 +53,7 @@ const NoData = ({ type, className }: { type: string, className?: string }) => {
                 object-contain
                  ${type == 'handbook' && (isVisibleMobile ? "size-full" : 'size-[45%]') ||
                         type == 'shops' && (isVisibleMobile ? "size-full" : 'size-[45%]') ||
-                        type == 'cart' && (isVisibleMobile ? "size-full" : 'size-[45%]')
+                        type == 'cart' && (isVisibleMobile ? "size-full" : 'size-[80%]')
                         }
                  mx-auto`} />
             </div>

@@ -226,19 +226,25 @@ const Shops = (props: Props) => {
                                     }) :
                                         isStateShop?.listProducts?.map((item, index) => (
                                             <div
-                                                onClick={() => handleDetail(item)}
+                                                // onClick={() => handleDetail(item)}
                                                 key={item.id}
-                                                className='bg-gray-50 shadow-[0_0_5px_rgba(0,0,0,0.1)] group rounded-xl col-span-1 flex flex-col gap-1  h-fit cursor-pointer'
+                                                className='bg-gray-50 shadow-[0_0_5px_rgba(0,0,0,0.1)] group rounded-xl col-span-1 flex flex-col gap-1  h-fit'
                                             >
-                                                <div className='w-full min-h-[130px] max-h-[130px] p-2 mx-auto overflow-hidden rounded-md'>
+                                                <div onClick={() => handleDetail(item)} className='w-full min-h-[130px] cursor-pointer max-h-[130px] p-2 mx-auto overflow-hidden rounded-md'>
                                                     <Image src={item.image ?? ""} alt="" width={1920} height={1920} className='object-cover size-full group-hover:scale-105 rounded-md transition-all duration-150 ease-linear' />
                                                 </div>
                                                 <div className='p-2 flex flex-col gap-5'>
                                                     <div className="flex flex-col gap-1">
-                                                        <h1 className='text-black text-xs leading-1 font-semibold line-clamp-2 group-hover:text-black/80 transition-all duration-150 ease-linear'>{item.name}</h1>
+                                                        <h1 onClick={() => handleDetail(item)} className='cursor-pointer text-black text-xs leading-1 font-semibold line-clamp-2 group-hover:text-black/80 transition-all duration-150 ease-linear'>{item.name}</h1>
                                                         <div className="flex justify-between items-center">
                                                             <h1 className='text-[#545454] group-hover:text-[#545454]/80 transition-all duration-150 ease-linear font-bold text-sm'>{FormatNumberDot(item.price)} vnđ</h1>
-                                                            <FiShoppingCart onClick={() => handleAddcart(item)} className='text-rose-500 group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear' size={14} />
+                                                            <div className="cursor-pointer ">
+                                                                <FiShoppingCart
+                                                                    onClick={() => handleAddcart(item)}
+                                                                    className=' text-rose-500 m-1 group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
+                                                                    size={20}
+                                                                />
+                                                            </div>
                                                         </div>
 
                                                     </div>
