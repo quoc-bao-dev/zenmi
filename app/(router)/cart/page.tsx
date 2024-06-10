@@ -203,7 +203,7 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                     </div>
                     : <NoData type='cart' />
                 }
-                <div className="flex flex-col justify-between h-[calc(100dvh_-_550px)]">
+                <div className="flex flex-col justify-between h-[calc(100dvh_-_650px)]">
                     <div className="flex justify-between my-4">
                         <h1 className='text-[#545454] text-xl'>Tổng tiền</h1>
                         <h1 className='text-gray-500 text-2xl font-semibold'>{FormatNumberDot(
