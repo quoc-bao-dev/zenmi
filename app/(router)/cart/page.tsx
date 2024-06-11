@@ -50,27 +50,14 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
         const data = JSON.parse(localStorage.getItem('carItems') || '[]')
 
         if (data.length > 0) {
-            const updatedData = data.reduce((acc: any, curr: any) => {
-                const existingItemIndex = acc.findIndex((item: any) => item.id === curr.id);
-                if (existingItemIndex !== -1) {
-                    // Nếu sản phẩm đã tồn tại trong giỏ hàng, cộng dồn quantity
-                    acc[existingItemIndex].quantity += curr.quantity;
-                } else {
-                    // Nếu không, thêm sản phẩm vào giỏ hàng
-                    acc.push(curr);
+            const newData = data?.map((e: any) => {
+                return {
+                    ...e,
+                    checked: false,
                 }
-                return acc;
-            }, []);
-
-            queryCart({
-                dataCar: updatedData?.map((e: any) => {
-                    return {
-                        ...e,
-                        checked: true,
-                    }
-                })
             })
-
+            localStorage.setItem('carItems', JSON.stringify(newData))
+            queryCart({ dataCar: newData })
         }
     }, [])
     const handleChangeQuantity = (e: any, value: any, type: string) => {
@@ -106,45 +93,34 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
 
     const handleOpenModal = () => {
         const data = JSON.parse(localStorage.getItem('carItems') || '[]')
-        if (data.some((x: any) => x.checked == true && x.quantity > 0)) {
-            localStorage.setItem('carItems', JSON.stringify([]))
-            queryCart({ dataCar: [] })
-            setCarItems([])
-            setOpenAlert(true, 'Đặt hàng thành công', 'Đơn hàng đang được giao đến bạn')
+
+        if (data?.length == 0) {
+            setOpenAlert(true, 'Đặt hàng thất bại', 'Vui lòng chọn mặt hàng')
+            return
         } else {
-            const checkQuantity = data.some((x: any) => +x.quantity === 0 || x.quantity === "");
-            const checkChecked = data.some((x: any) => x.checked == false || x.checked == undefined);
-            if (checkQuantity) {
-                setOpenAlert(true, 'Đặt hàng thất bại', 'Vui lòng nhập số lượng và số lượng phải lớn hơn 0', 'orderFailse')
-            }
-            if (checkChecked) {
-                setOpenAlert(true, 'Đặt hàng thất bại', 'Vui lòng chọn mặt hàng', 'orderFailse')
+            if (data.some((x: any) => x.checked == true && x.quantity > 0)) {
+                const checkData = data.filter((x: any) => !x.checked) || []
+                localStorage.setItem('carItems', JSON.stringify(checkData))
+                queryCart({ dataCar: checkData })
+                setCarItems(checkData)
+                if (checkData?.length > 0) {
+                    setOpenAlert(true, 'Đặt hàng thành công', 'Đơn hàng đang được giao đến bạn', 'orderFailse')
+                } else {
+                    setOpenAlert(true, 'Đặt hàng thành công', 'Đơn hàng đang được giao đến bạn')
+                }
+            } else {
+                const checkQuantity = data.some((x: any) => +x.quantity === 0 || x.quantity === "");
+                const checkChecked = data.some((x: any) => x.checked == false || x.checked == undefined);
+                if (checkQuantity) {
+                    setOpenAlert(true, 'Đặt hàng thất bại', 'Vui lòng nhập số lượng và số lượng phải lớn hơn 0', 'orderFailse')
+                }
+                if (checkChecked) {
+                    setOpenAlert(true, 'Đặt hàng thất bại', 'Vui lòng chọn mặt hàng', 'orderFailse')
+                }
             }
         }
+
     }
-
-
-    useEffect(() => {
-        // if (!openAlert) {
-        //     const data = JSON.parse(localStorage.getItem('carItems') || '[]')
-        //     const newData = data.filter((x: any) => x.checked != true)
-        //     const updatedData = newData.reduce((acc: any, curr: any) => {
-        //         const existingItemIndex = acc.findIndex((item: any) => item.id === curr.id);
-        //         if (existingItemIndex !== -1) {
-        //             // Nếu sản phẩm đã tồn tại trong giỏ hàng, cộng dồn quantity
-        //             acc[existingItemIndex].quantity += curr.quantity;
-        //         } else {
-        //             // Nếu không, thêm sản phẩm vào giỏ hàng
-        //             acc.push(curr);
-        //         }
-        //         return acc;
-        //     }, []);
-
-        //     localStorage.setItem('carItems', JSON.stringify(updatedData))
-        //     queryCart({ dataCar: updatedData })
-        //     setCarItems(updatedData)
-        // }
-    }, [openAlert])
 
     return (
         <div className="flex flex-col gap-2 bg-gray-50 h-dvh relative">
