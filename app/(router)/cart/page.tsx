@@ -106,6 +106,10 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
 
     const handleOpenModal = () => {
         const data = JSON.parse(localStorage.getItem('carItems') || '[]')
+        if (data?.length == 0) {
+            setOpenAlert(true, 'Đặt hàng thất bại', 'Vui lòng chọn mặt hàng')
+            return
+        }
         if (data.some((x: any) => x.checked == true && x.quantity > 0)) {
             localStorage.setItem('carItems', JSON.stringify([]))
             queryCart({ dataCar: [] })
