@@ -317,7 +317,7 @@ const Shops = (props: Props) => {
             </div>
             <div className="flex flex-col gap-4 custom-container-child">
                 <div className='flex flex-col gap-4'>
-                    <h1 className='text-black text-base font-semibold'>Sản phẩm dành riêng cho mẹ và bé</h1>
+                    <h1 className='text-black text-lg font-semibold'>Sản phẩm dành riêng cho mẹ và bé</h1>
                     <div className="">
                         {
                             isStateShop.nodata ?
@@ -346,25 +346,25 @@ const Shops = (props: Props) => {
                                                             {/* <Image src={"/example/shop/products/sua.png"} alt="" width={1920} height={1920} className='object-contain size-full max-h-[156px] group-hover:scale-105 rounded-md transition-all duration-150 ease-linear' /> */}
                                                         </div>
                                                         <div className="flex flex-col gap-1 px-2 pt-1">
-                                                            <h1 className='cursor-pointer min-h-[35px] text-black text-xs leading-1 font-semibold line-clamp-2 group-hover:text-black/80 transition-all duration-150 ease-linear'>{item.name}</h1>
-                                                            <h1 className='text-[#545454] group-hover:text-[#545454]/80 transition-all duration-150 ease-linear font-bold text-sm'>{FormatNumberDot(item.price)} vnđ</h1>
+                                                            <h1 className='cursor-pointer min-h-[39px] text-black text-sm leading-1 font-normal line-clamp-2 group-hover:text-black/80 transition-all duration-150 ease-linear'>{item.name}</h1>
+                                                            <h1 className='text-[#545454] group-hover:text-[#545454]/80 transition-all duration-150 ease-linear font-bold text-base'>{FormatNumberDot(item.price)} vnđ</h1>
                                                         </div>
                                                     </div>
                                                     <div className="flex justify-between p-2">
                                                         <div className="flex items-center justify-start gap-5 w-[70%]">
-                                                            <h1 className='text-gray-400 font-normal text-xs flex items-center gap-1'><CiStar size={19} /><span>{item.star}/5</span></h1>
-                                                            <h1 className='text-gray-400 font-normal text-xs leading-1'>Đã bán {FormatNumberDot(item.count)}</h1>
+                                                            <h1 className='text-gray-400 font-normal text-sm flex items-center gap-1'><CiStar size={19} /><span>{item.star}/5</span></h1>
+                                                            <h1 className='text-gray-400 font-normal text-sm leading-1'>Đã bán {FormatNumberDot(item.count)}</h1>
                                                         </div>
                                                         <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:flex hidden justify-end w-[30%]">
                                                             <FiShoppingCart
                                                                 className=' text-rose-500 lg:block hidden group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
-                                                                size={22}
+                                                                size={24}
                                                             />
                                                         </div>
                                                         <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:hidden flex justify-end w-[30%]">
                                                             <FiShoppingCart
                                                                 className=' text-rose-500 lg:hidden block group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
-                                                                size={22}
+                                                                size={24}
                                                             />
                                                         </div>
                                                     </div>

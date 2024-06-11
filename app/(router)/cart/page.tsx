@@ -130,7 +130,7 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                         <div className="size-10">
                             <IoIosArrowRoundBack onClick={() => router.back()} size={22} className='size-full cursor-pointer text-rose-600' />
                         </div>
-                        <h1 className='text-rose-500 text-sm leading-1 font-medium truncate max-w-[200px]'>Giỏ hàng</h1>
+                        <h1 className='text-rose-500 text-lg leading-1 font-medium truncate max-w-[85%]'>Giỏ hàng</h1>
                     </div>
                     <div onClick={() => router.push('/cart')} className=" hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
                         <div className="size-full flex items-center justify-center">

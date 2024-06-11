@@ -182,7 +182,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                         <div className="size-10">
                             <IoIosArrowRoundBack onClick={() => router.back()} size={22} className='size-full cursor-pointer text-rose-600' />
                         </div>
-                        <h1 className='text-rose-500 text-sm leading-1 font-medium truncate max-w-[200px]'>
+                        <h1 className='text-rose-500 text-lg leading-1 font-medium line-clamp-1 max-w-[85%]'>
                             {stateDetailItem.dataDetail?.name}
                         </h1>
                     </div>
@@ -216,21 +216,21 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                     </div>
                     <div className=" bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)]">
                         <div className="flex flex-col gap-2 custom-container-child py-2">
-                            <h1 className='text-[#545454] text-sm font-semibold leading-1'>{stateDetailItem.dataDetail?.name}</h1>
+                            <h1 className='text-[#545454] text-base font-semibold leading-1'>{stateDetailItem.dataDetail?.name}</h1>
                             <div className="flex items-center gap-2">
                                 <div className="flex items-center gap-1">
                                     {[...Array(5)].map((_, index) => <FaStar key={index} className='text-yellow-500' />)}
                                 </div>
-                                <h1 className='text-gray-400 font-normal text-xs leading-1'>(0.0 đánh giá)</h1>
-                                <h1 className='text-gray-400 font-normal text-xs leading-1'>Đã bán: {FormatNumberDot(stateDetailItem.dataDetail?.count)}</h1>
+                                <h1 className='text-gray-400 font-normal text-sm leading-1'>(0.0 đánh giá)</h1>
+                                <h1 className='text-gray-400 font-normal text-sm leading-1'>Đã bán: {FormatNumberDot(stateDetailItem.dataDetail?.count)}</h1>
                             </div>
-                            <h1 className='text-[#545454] font-medium text-SM leading-1'>{FormatNumberDot(stateDetailItem.dataDetail?.price)} vnđ</h1>
+                            <h1 className='text-[#545454] font-medium text-lg leading-1'>{FormatNumberDot(stateDetailItem.dataDetail?.price)} vnđ</h1>
                         </div>
 
                     </div>
                     <div className="bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)]">
                         <div className="custom-container-child py-2">
-                            <h1 className='text-gray-500 font-normal text-xs leading-1 mb-2'>Các loại hàng</h1>
+                            <h1 className='text-gray-500 font-normal text-base leading-1 mb-2'>Các loại hàng</h1>
                             <Swiper
                                 onSwiper={setThumbsSwiper}
                                 spaceBetween={10}
@@ -261,8 +261,8 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                     </div>
 
                     <div className="bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)] py-2 flex flex-col gap-2">
-                        <h1 className='text-rose-500 font-semibold text-sm text-center border-b-2 border-rose-500 pb-2'>Giới thiệu</h1>
-                        <div className="custom-container-child text-xs  font-normal" dangerouslySetInnerHTML={{ __html: stateDetailItem.dataDetail?.content }}>
+                        <h1 className='text-rose-500 font-semibold text-lg text-center border-b-2 border-rose-500 pb-2'>Giới thiệu</h1>
+                        <div className="custom-container-child text-[15px]  font-normal" dangerouslySetInnerHTML={{ __html: stateDetailItem.dataDetail?.content }}>
                         </div>
                     </div>
                 </div>
@@ -272,13 +272,13 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                         className='flex cursor-pointer items-center  justify-center bg-yellow-500 transition-all duration-150 ease-linear hover:bg-yellow-400 h-full'>
                         <div className="">
                             <FiShoppingCart className='text-white mx-auto' size={14} />
-                            <h1 className='text-xs text-white font-medium h-full'>Thêm vào giỏ hàng</h1>
+                            <h1 className='text-sm text-white font-medium h-full'>Thêm vào giỏ hàng</h1>
                         </div>
                     </div>
                     <div onClick={(e) => {
                         handleAddcart(e)
                         router.push('/cart')
-                    }} className='text-xs bg-rose-500 transition-all duration-150 ease-linear hover:bg-rose-300 h-full flex items-center justify-center text-white cursor-pointer'>Mua ngay</div>
+                    }} className='text-sm bg-rose-500 transition-all duration-150 ease-linear hover:bg-rose-300 h-full flex items-center justify-center text-white cursor-pointer'>Mua ngay</div>
                 </div >
                 {flyingItem && (
                     <div
