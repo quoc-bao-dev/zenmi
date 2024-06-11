@@ -48,9 +48,22 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('carItems') || '[]')
+
         if (data.length > 0) {
+            const updatedData = data.reduce((acc: any, curr: any) => {
+                const existingItemIndex = acc.findIndex((item: any) => item.id === curr.id);
+                if (existingItemIndex !== -1) {
+                    // Nếu sản phẩm đã tồn tại trong giỏ hàng, cộng dồn quantity
+                    acc[existingItemIndex].quantity += curr.quantity;
+                } else {
+                    // Nếu không, thêm sản phẩm vào giỏ hàng
+                    acc.push(curr);
+                }
+                return acc;
+            }, []);
+
             queryCart({
-                dataCar: data?.map((e: any) => {
+                dataCar: updatedData?.map((e: any) => {
                     return {
                         ...e,
                         checked: true,
@@ -71,9 +84,8 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                     return {
                         ...x,
                         checked: type == "checked" ? !x.checked : x.checked,
-                        quantity: value ? value : x?.quantity
+                        quantity: type == "checked" ? x?.quantity : value ?? ""
                     }
-
                 }
                 return x
             })
@@ -95,21 +107,43 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
     const handleOpenModal = () => {
         const data = JSON.parse(localStorage.getItem('carItems') || '[]')
         if (data.some((x: any) => x.checked == true && x.quantity > 0)) {
+            localStorage.setItem('carItems', JSON.stringify([]))
+            queryCart({ dataCar: [] })
+            setCarItems([])
             setOpenAlert(true, 'Đặt hàng thành công', 'Đơn hàng đang được giao đến bạn')
         } else {
-            setOpenAlert(true, 'Đặt hàng thất bại', 'Vui lòng chọn mặt hàng')
+            const checkQuantity = data.some((x: any) => +x.quantity === 0 || x.quantity === "");
+            const checkChecked = data.some((x: any) => x.checked == false || x.checked == undefined);
+            if (checkQuantity) {
+                setOpenAlert(true, 'Đặt hàng thất bại', 'Vui lòng nhập số lượng và số lượng phải lớn hơn 0', 'orderFailse')
+            }
+            if (checkChecked) {
+                setOpenAlert(true, 'Đặt hàng thất bại', 'Vui lòng chọn mặt hàng', 'orderFailse')
+            }
         }
     }
 
 
     useEffect(() => {
-        if (!openAlert) {
-            const data = JSON.parse(localStorage.getItem('carItems') || '[]')
-            const newData = data.filter((x: any) => x.checked != true)
-            localStorage.setItem('carItems', JSON.stringify(newData))
-            queryCart({ dataCar: newData })
-            setCarItems(newData)
-        }
+        // if (!openAlert) {
+        //     const data = JSON.parse(localStorage.getItem('carItems') || '[]')
+        //     const newData = data.filter((x: any) => x.checked != true)
+        //     const updatedData = newData.reduce((acc: any, curr: any) => {
+        //         const existingItemIndex = acc.findIndex((item: any) => item.id === curr.id);
+        //         if (existingItemIndex !== -1) {
+        //             // Nếu sản phẩm đã tồn tại trong giỏ hàng, cộng dồn quantity
+        //             acc[existingItemIndex].quantity += curr.quantity;
+        //         } else {
+        //             // Nếu không, thêm sản phẩm vào giỏ hàng
+        //             acc.push(curr);
+        //         }
+        //         return acc;
+        //     }, []);
+
+        //     localStorage.setItem('carItems', JSON.stringify(updatedData))
+        //     queryCart({ dataCar: updatedData })
+        //     setCarItems(updatedData)
+        // }
     }, [openAlert])
 
     return (
@@ -126,7 +160,9 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                         <div className="size-full flex items-center justify-center">
                             <FiShoppingCart className='text-rose-500' size={18} />
                         </div>
-                        <div className="absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium">{carItems?.length > 0 ? carItems?.length : ''}</div>
+                        <div className="absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium">
+                            {carItems.reduce((acc: any, curr: any) => acc + +curr.quantity, 0) > 0 ? carItems.reduce((acc: any, curr: any) => acc + +curr.quantity, 0) : ''}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -169,7 +205,7 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                                                                 if (e?.quantity == 0) {
                                                                     return
                                                                 }
-                                                                handleChangeQuantity(e, e?.quantity - 1, 'decrease')
+                                                                handleChangeQuantity(e, +e?.quantity - 1, 'decrease')
                                                             }}
                                                             className='text-gray-400 cursor-pointer hover:scale-105 transition-all duration-150 ease-linear size-5'
                                                         />
@@ -179,7 +215,7 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                                                             className='border-0 border-b text-center border-[#545454] rounded-none w-1/4'
                                                         />
                                                         <FaCirclePlus
-                                                            onClick={() => handleChangeQuantity(e, e?.quantity + 1, 'add')}
+                                                            onClick={() => handleChangeQuantity(e, +e?.quantity + 1, 'add')}
                                                             className='text-gray-400 cursor-pointer hover:scale-105 transition-all duration-150 ease-linear size-5'
                                                         />
                                                     </div>

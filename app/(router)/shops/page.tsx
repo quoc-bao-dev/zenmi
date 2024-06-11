@@ -70,6 +70,14 @@ const Shops = (props: Props) => {
 
     const queryStateShop = (key: any) => setIsStateShop(prev => ({ ...prev, ...key }))
 
+    const [isSticky, setIsSticky] = useState<boolean>(false);
+
+    const categoryRef = useRef<any>(null);
+
+    const headerRef = useRef<any>(null);
+
+    const containerRef = useRef<any>(null);
+
     const { data, isLoading, error, } = useQuery({
         queryKey: ['listCategoryProducts'],
         queryFn: async () => {
@@ -104,41 +112,45 @@ const Shops = (props: Props) => {
         }
     }, [data, isStateShop.isCategory])
 
+    // Hàm để tìm kiếm mặt hàng trong mảng
+    const findItemIndex = (items: any, itemId: any) => items.findIndex((item: any) => item.id === itemId);
+
+    // Hàm để cập nhật hoặc thêm mặt hàng vào mảng
+    const updateOrAddItem = (items: any, newItem: any) => {
+        const quantityToAdd = Number(newItem.quantity);
+
+        const itemIndex = findItemIndex(items, newItem.id);
+        if (itemIndex !== -1) {
+            // Nếu mặt hàng đã tồn tại, tăng số lượng
+            items[itemIndex].quantity += quantityToAdd;
+        } else {
+            const newItemWithQuantityAsNumber = { ...newItem, quantity: quantityToAdd };
+            items.push(newItemWithQuantityAsNumber);
+        }
+        return [...items]; // Trả về một bản sao của mảng đã cập nhật
+    };
 
     const handleAddcart = (item: any, event: any) => {
         const target = event.currentTarget.getBoundingClientRect();
         const cart = cartRef.current.getBoundingClientRect();
 
-        const checkItem = carItems.find((x: any) => x?.id === item?.id)
-        if (checkItem) {
-            return
-        }
+        const updatedItems = updateOrAddItem(carItems, item);
 
-        const newData = [...carItems, item]
         if (localStorage !== undefined) {
-            localStorage.setItem('carItems', JSON.stringify(newData))
+            localStorage.setItem('carItems', JSON.stringify(updatedItems));
         }
 
-        setCarItems(newData)
+        setCarItems(updatedItems);
 
         const itemData = {
             ...item,
-            // startX: target.left,
-            // startY: target.top,
-            // endX: cart.left,
-            // endY: cart.top
             startX: target.left + target.width / 2 - 35, // center of the item
             startY: target.top + target.height / 2 - 35, // center of the item
             endX: cart.left + cart.width / 2 - 35, // center of the cart
             endY: cart.top + cart.height / 2 - 35, // center of the cart
-            // startX: target.left + target.width / 2,
-            // startY: target.top + target.height / 2,
-            // endX: cart.left + cart.width / 2,
-            // endY: cart.top + cart.height / 2,
         };
-
-
         setFlyingItem(itemData);
+
 
         const style = {
             position: 'fixed',
@@ -155,7 +167,6 @@ const Shops = (props: Props) => {
 
         setAnimationStyle(style);
 
-        // Bắt đầu animation
         requestAnimationFrame(() => {
             setAnimationStyle((prev: any) => ({
                 ...prev,
@@ -172,7 +183,9 @@ const Shops = (props: Props) => {
         }, 800);
 
         // Loại bỏ hình ảnh bay sau khi nó đến đích
-        setTimeout(() => setFlyingItem(null), 1000);
+        setTimeout(() => {
+            setFlyingItem(null)
+        }, 800);
     };
 
 
@@ -213,11 +226,33 @@ const Shops = (props: Props) => {
 
     }, [isStateShop.valueSearch])
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const headerTop = headerRef.current.getBoundingClientRect().top;
+            const categoryTop = categoryRef.current.getBoundingClientRect().top;
+            if (categoryTop <= 73) {
+                setIsSticky(true)
+            } else {
+                setIsSticky(false)
+            }
 
+        };
+
+        const containerElement = containerRef.current;
+        if (containerElement) {
+            containerElement.addEventListener('scroll', handleScroll);
+        }
+
+        return () => {
+            if (containerElement) {
+                containerElement.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, [headerRef, categoryRef]); // useEffect sẽ chỉ gọi một lần khi component được render
 
     return (
-        <div className="flex flex-col gap-2 bg-gray-50 h-dvh overflow-hidden">
-            <div className='sticky top-0 z-[999] bg-white'>
+        <div ref={containerRef} className="flex flex-col gap-2 bg-gray-50 h-dvh overflow-y-scroll">
+            <div ref={headerRef} className='sticky top-0 z-[999] bg-white'>
                 <div className="custom-container-child  flex items-center justify-between gap-2  py-2">
                     <div className="relative w-[89%]">
                         <Input onChange={(e) => queryStateShop({ valueSearch: e.target.value })} className='rounded-full border-rose-500 border text-sm placeholder:text-rose-400 text-rose-400' placeholder='Tìm kiếm vật phẩm' />
@@ -225,12 +260,14 @@ const Shops = (props: Props) => {
                             <CiSearch className=' text-white' size={20} />
                         </div>
                     </div>
-                    <div className="w-[11%] hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
-                        <div ref={cartRef} className={`size-full flex items-center justify-center transition-all duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}
+                    <div ref={cartRef} onClick={() => router.push('/cart')} className="w-[11%] hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
+                        <div className={`size-full flex items-center justify-center transition-all duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}
                         >
-                            <FiShoppingCart onClick={() => router.push('/cart')} className={`text-rose-500 `} size={18} />
+                            <FiShoppingCart className={`text-rose-500 `} size={18} />
                         </div>
-                        <div className={`absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium transition-transform duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}>{carItems?.length > 0 ? carItems?.length : ''}</div>
+                        <div className={`absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium transition-transform duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}>
+                            {carItems.reduce((acc: any, curr: any) => acc + +curr.quantity, 0) > 0 ? carItems.reduce((acc: any, curr: any) => acc + +curr.quantity, 0) : ''}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -250,38 +287,42 @@ const Shops = (props: Props) => {
                     ))}
                 </Swiper>
             </div>
+            <div ref={categoryRef}
+                style={{
+                    top: `${isSticky ? headerRef.current.clientHeight : ""}px`
+                }}
+                className={` ${isSticky ? 'sticky left-0 z-[999] bg-white py-2 shadow-[0_4px_4px_rgba(0,0,0,0.2)]' : ''}`}>
+                {isLoading ?
+                    <div className='flex flex-col gap-2 items-center'>
+                        <Skeleton className='h-3 w-full bg-gray-100 rounded-full' />
+                        <Skeleton className='h-3 w-full bg-gray-100 rounded-full' />
+                        <Skeleton className='h-3 w-full bg-gray-100 rounded-full' />
+                    </div> :
+                    <Swiper
+                        slidesPerView={5}
+                        spaceBetween={10}
+                        freeMode={true}
+                        modules={[FreeMode, Pagination]}
+                        className="mySwiper "
+                    >
+                        {isStateShop.listCategorys.map((item, index) => (
+                            <SwiperSlide onClick={() => queryStateShop({ isCategory: item?.id })} key={index} className='flex flex-col items-center gap-1 group  cursor-pointer'>
+                                <div className="bg-gray-200 size-12 rounded-full flex items-center justify-center">
+                                    <Image src={item.image ?? ""} alt="" width={1280} height={1280} className='size-10 rounded-full object-contain' />
+                                </div>
+                                <h1 className={`text-[10px] ${item?.id == isStateShop.isCategory ? 'text-rose-400' : 'text-gray-400'}  uppercase text-center leading-1 group-hover:text-rose-400 transition-all duration-150 ease-linear cursor-pointer`}>{item.name}</h1>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>}
+            </div>
             <div className="flex flex-col gap-4 custom-container-child">
-                <div className="">
-                    {isLoading ?
-                        <div className='flex flex-col gap-2 items-center'>
-                            <Skeleton className='h-3 w-full bg-gray-100 rounded-full' />
-                            <Skeleton className='h-3 w-full bg-gray-100 rounded-full' />
-                            <Skeleton className='h-3 w-full bg-gray-100 rounded-full' />
-                        </div> :
-                        <Swiper
-                            slidesPerView={5}
-                            spaceBetween={10}
-                            freeMode={true}
-                            modules={[FreeMode, Pagination]}
-                            className="mySwiper "
-                        >
-                            {isStateShop.listCategorys.map((item, index) => (
-                                <SwiperSlide onClick={() => queryStateShop({ isCategory: item?.id })} key={index} className='flex flex-col items-center gap-1 group  cursor-pointer'>
-                                    <div className="bg-gray-200 size-12 rounded-full flex items-center justify-center">
-                                        <Image src={item.image ?? ""} alt="" width={1280} height={1280} className='size-10 rounded-full object-contain' />
-                                    </div>
-                                    <h1 className={`text-[10px] ${item?.id == isStateShop.isCategory ? 'text-rose-400' : 'text-gray-400'}  uppercase text-center leading-1 group-hover:text-rose-400 transition-all duration-150 ease-linear cursor-pointer`}>{item.name}</h1>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>}
-                </div>
                 <div className='flex flex-col gap-4'>
                     <h1 className='text-black text-base font-semibold'>Sản phẩm dành riêng cho mẹ và bé</h1>
                     <div className="">
                         {
                             isStateShop.nodata ?
                                 <NoData type='shops' className='col-span-2' /> :
-                                <div className='grid grid-cols-2 gap-4 mb-4 h-[calc(100dvh_-_418px)] pr-3 overflow-y-auto'>
+                                <div className='grid grid-cols-2 gap-4 mb-4'>
                                     {isLoading ? [...Array(4)].map((_, index) => {
                                         return (
                                             <div key={index} className='group rounded-xl size-full col-span-1 flex flex-col gap-1  cursor-pointer h-fit'>
@@ -296,36 +337,39 @@ const Shops = (props: Props) => {
                                         isStateShop?.listProducts?.map((item, index) => (
                                             <div key={item.id} className="relative bg-white mb-2 shadow-[0_0_5px_rgba(0,0,0,0.1)] col-span-1 h-fit rounded-xl">
                                                 <div
-                                                    onClick={() => handleDetail(item)}
-                                                    className=' cursor-pointer group flex flex-col gap-1 w-full h-fit'
+
+                                                    className=' group flex flex-col gap-1 w-full h-fit'
                                                 >
-                                                    <div className='w-full min-h-[156px] bg-white cursor-pointer max-h-[156px] mx-auto overflow-hidden rounded-md'>
-                                                        <Image src={item.image ?? ""} alt="" width={1920} height={1920} className='object-contain size-full min-h-[156px] max-h-[156px] group-hover:scale-105 rounded-2xl transition-all duration-150 ease-linear' />
-                                                        {/* <Image src={"/example/shop/products/sua.png"} alt="" width={1920} height={1920} className='object-contain size-full max-h-[156px] group-hover:scale-105 rounded-md transition-all duration-150 ease-linear' /> */}
-                                                    </div>
-                                                    <div className='p-2 flex flex-col gap-1'>
-                                                        <div className="flex flex-col gap-1">
+                                                    <div onClick={() => handleDetail(item)} className="cursor-pointer">
+                                                        <div className='w-full min-h-[156px] bg-white cursor-pointer max-h-[156px] mx-auto overflow-hidden rounded-md'>
+                                                            <Image src={item.image ?? ""} alt="" width={1920} height={1920} className='object-contain size-full min-h-[156px] max-h-[156px] group-hover:scale-105 rounded-2xl transition-all duration-150 ease-linear' />
+                                                            {/* <Image src={"/example/shop/products/sua.png"} alt="" width={1920} height={1920} className='object-contain size-full max-h-[156px] group-hover:scale-105 rounded-md transition-all duration-150 ease-linear' /> */}
+                                                        </div>
+                                                        <div className="flex flex-col gap-1 px-2 pt-1">
                                                             <h1 className='cursor-pointer min-h-[35px] text-black text-xs leading-1 font-semibold line-clamp-2 group-hover:text-black/80 transition-all duration-150 ease-linear'>{item.name}</h1>
                                                             <h1 className='text-[#545454] group-hover:text-[#545454]/80 transition-all duration-150 ease-linear font-bold text-sm'>{FormatNumberDot(item.price)} vnđ</h1>
                                                         </div>
-                                                        <div className="flex items-center justify-start gap-5">
+                                                    </div>
+                                                    <div className="flex justify-between p-2">
+                                                        <div className="flex items-center justify-start gap-5 w-[70%]">
                                                             <h1 className='text-gray-400 font-normal text-xs flex items-center gap-1'><CiStar size={19} /><span>{item.star}/5</span></h1>
                                                             <h1 className='text-gray-400 font-normal text-xs leading-1'>Đã bán {FormatNumberDot(item.count)}</h1>
                                                         </div>
+                                                        <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:flex hidden justify-end w-[30%]">
+                                                            <FiShoppingCart
+                                                                className=' text-rose-500 lg:block hidden group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
+                                                                size={22}
+                                                            />
+                                                        </div>
+                                                        <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:hidden flex justify-end w-[30%]">
+                                                            <FiShoppingCart
+                                                                className=' text-rose-500 lg:hidden block group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
+                                                                size={22}
+                                                            />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="cursor-pointer absolute bottom-1.5 right-2">
-                                                    <FiShoppingCart
-                                                        onClick={(e) => handleAddcart(item, e)}
-                                                        className=' text-rose-500 m-1 lg:block hidden group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
-                                                        size={22}
-                                                    />
-                                                    <FiShoppingCart
-                                                        onTouchStart={(e) => handleAddcart(item, e)}
-                                                        className=' text-rose-500 m-1 lg:hidden block group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
-                                                        size={22}
-                                                    />
-                                                </div>
+
                                             </div>
                                         ))
                                     }
