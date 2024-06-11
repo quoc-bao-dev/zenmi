@@ -352,8 +352,8 @@ const Shops = (props: Props) => {
                                                     </div>
                                                     <div className="flex justify-between p-2">
                                                         <div className="flex items-center justify-start gap-5 w-[70%]">
-                                                            <h1 className='text-gray-400 font-normal text-sm flex items-center gap-1'><CiStar size={19} /><span>{item.star}/5</span></h1>
-                                                            <h1 className='text-gray-400 font-normal text-sm leading-1'>Đã bán {FormatNumberDot(item.count)}</h1>
+                                                            <h1 className='text-gray-400 font-normal text-xs flex items-center gap-1'><CiStar size={19} /><span>{item.star}/5</span></h1>
+                                                            <h1 className='text-gray-400 font-normal text-xs leading-1'>Đã bán {FormatNumberDot(item.count)}</h1>
                                                         </div>
                                                         <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:flex hidden justify-end w-[30%]">
                                                             <FiShoppingCart
