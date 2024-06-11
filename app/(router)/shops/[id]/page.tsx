@@ -62,11 +62,18 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
 
     const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
+    const [cartScale, setCartScale] = useState<boolean>(false);
 
     const queryClient = useQueryClient();
 
-
     const queryDetailItem = (key: any) => setStateDetailItem(prev => ({ ...prev, ...key }))
+
+    const [selectedSlide, setSelectedSlide] = useState<any>(0);
+
+    const handleSlideClick = (index: any) => {
+        setSelectedSlide(index);
+    };
+
 
     useEffect(() => {
         if (params?.id) {
@@ -91,6 +98,10 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
         if (checkItem) {
             return
         }
+
+        setCartScale(true);
+        setTimeout(() => setCartScale(false), 300);
+
         const newData = [...carItems, dataDetail]
         localStorage.setItem('carItems', JSON.stringify(newData))
         setCarItems(newData)
@@ -107,13 +118,17 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                         <div className="size-10">
                             <IoIosArrowRoundBack onClick={() => router.back()} size={22} className='size-full cursor-pointer text-rose-600' />
                         </div>
-                        <h1 className='text-rose-500 text-sm leading-1 font-medium truncate max-w-[200px]'>{stateDetailItem.dataDetail?.name}</h1>
+                        <h1 className='text-rose-500 text-sm leading-1 font-medium truncate max-w-[200px]'>
+                            {stateDetailItem.dataDetail?.name}
+                        </h1>
                     </div>
                     <div onClick={() => router.push('/cart')} className=" hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
-                        <div className="size-full flex items-center justify-center">
+                        <div className={`size-full flex items-center justify-center  transition-all duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}>
                             <FiShoppingCart className='text-rose-500' size={18} />
                         </div>
-                        <div className="absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium">{carItems?.length > 0 ? carItems?.length : ''}</div>
+                        <div className={`absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium transition-transform duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}>
+                            {carItems?.length > 0 ? carItems?.length : ''}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,6 +140,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                             slidesPerView={1}
                             thumbs={{ swiper: thumbsSwiper }}
                             modules={[FreeMode, Thumbs]}
+                            onSlideChange={(swiper) => handleSlideClick(swiper.realIndex)}
                             className="mySwiper2"
                         >
                             {stateDetailItem.dataDetail?.imageSlider?.image?.map((item, index) => (
@@ -157,14 +173,25 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                                 slidesPerView={4}
                                 freeMode={true}
                                 watchSlidesProgress={true}
+
                                 modules={[FreeMode, Navigation, Thumbs]}
                                 className="mySwiper"
                             >
-                                {stateDetailItem.dataDetail?.imageSlider?.imageThumb?.map((item, index) => (
-                                    <SwiperSlide key={index} className='size-[50px] cursor-pointer'>
-                                        <Image src={item} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
-                                    </SwiperSlide>
-                                ))}
+                                {stateDetailItem.dataDetail?.imageSlider?.imageThumb?.map((item, index) => {
+                                    return (
+                                        <>
+                                            <SwiperSlide key={index} className='size-[65px]'>
+                                                <div
+                                                    onClick={() => {
+                                                        handleSlideClick(index)
+                                                    }}
+                                                    className={`size-[65px] cursor-pointer rounded-lg transition-all duration-150 ease-linear ${selectedSlide === index ? 'border-2 border-rose-500' : 'border-gray-100 border-2'}`}>
+                                                    <Image src={item} alt="" width={1280} height={1280} className='w-full h-full object-cover p-1' />
+                                                </div>
+                                            </SwiperSlide>
+                                        </>
+                                    )
+                                })}
                             </Swiper>
                         </div>
                     </div>
@@ -176,13 +203,13 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                     </div>
                 </div>
                 <div className="grid grid-cols-3 items-center justify-center h-[48px]">
-                    <div className='flex items-center justify-center bg-yellow-400 h-full'>
+                    <div className='flex items-center justify-center bg-yellow-500 transition-all duration-150 ease-linear hover:bg-yellow-400 h-full'>
                         <div className="">
                             <MdSupportAgent className='text-white mx-auto' size={14} />
                             <h1 className='text-xs text-white font-medium'>CSKH</h1>
                         </div>
                     </div>
-                    <div className='flex items-center  justify-center bg-yellow-400 h-full'>
+                    <div className='flex items-center  justify-center bg-yellow-500 transition-all duration-150 ease-linear hover:bg-yellow-400 h-full'>
                         <div onClick={() => handAddCart()} className="cursor-pointer">
                             <FiShoppingCart className='text-white mx-auto' size={14} />
                             <h1 className='text-xs text-white font-medium h-full'>Thêm vào giỏ hàng</h1>
@@ -191,7 +218,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                     <div onClick={() => {
                         handAddCart()
                         router.push('/cart')
-                    }} className='text-xs bg-rose-500 h-full flex items-center justify-center text-white cursor-pointer'>Mua ngay</div>
+                    }} className='text-xs bg-rose-500 transition-all duration-150 ease-linear hover:bg-rose-300 h-full flex items-center justify-center text-white cursor-pointer'>Mua ngay</div>
                 </div >
 
             </div >
