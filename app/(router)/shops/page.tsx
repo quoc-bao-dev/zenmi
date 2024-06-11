@@ -78,6 +78,14 @@ const Shops = (props: Props) => {
 
     const containerRef = useRef<any>(null);
 
+    useEffect(() => {
+        window.addEventListener("wheel", function (event) {
+            if (event.ctrlKey === true) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+    }, [])
+
     const { data, isLoading, error, } = useQuery({
         queryKey: ['listCategoryProducts'],
         queryFn: async () => {
@@ -350,10 +358,15 @@ const Shops = (props: Props) => {
                                                             <h1 className='text-[#545454] group-hover:text-[#545454]/80 transition-all duration-150 ease-linear font-bold text-base'>{FormatNumberDot(item.price)} vnđ</h1>
                                                         </div>
                                                     </div>
-                                                    <div className="flex justify-between p-2">
+                                                    <div className="flex justify-between items-center p-2">
                                                         <div className="flex items-center justify-start gap-5 w-[70%]">
-                                                            <h1 className='text-gray-400 font-normal text-xs flex items-center gap-1'><CiStar size={19} /><span>{item.star}/5</span></h1>
-                                                            <h1 className='text-gray-400 font-normal text-xs leading-1'>Đã bán {FormatNumberDot(item.count)}</h1>
+                                                            <div className='text-gray-400 font-normal text-xs flex items-center gap-1 my-auto'>
+                                                                <div className="flex justify-center items-center">
+                                                                    <CiStar size={19} />
+                                                                </div>
+                                                                <div className=''>{item.star}/5</div>
+                                                            </div>
+                                                            <h1 className='text-gray-400 font-normal text-xs'>Đã bán {FormatNumberDot(item.count)}</h1>
                                                         </div>
                                                         <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:flex hidden justify-end w-[30%]">
                                                             <FiShoppingCart
