@@ -316,8 +316,13 @@ const Shops = (props: Props) => {
                                                 </div>
                                                 <div className="cursor-pointer absolute bottom-1.5 right-2">
                                                     <FiShoppingCart
+                                                        onClick={(e) => handleAddcart(item, e)}
+                                                        className=' text-rose-500 m-1 lg:block hidden group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
+                                                        size={22}
+                                                    />
+                                                    <FiShoppingCart
                                                         onTouchStart={(e) => handleAddcart(item, e)}
-                                                        className=' text-rose-500 m-1 group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
+                                                        className=' text-rose-500 m-1 lg:hidden block group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
                                                         size={22}
                                                     />
                                                 </div>
