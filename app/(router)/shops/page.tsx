@@ -316,7 +316,7 @@ const Shops = (props: Props) => {
                                                 </div>
                                                 <div className="cursor-pointer absolute bottom-1.5 right-2">
                                                     <FiShoppingCart
-                                                        onClick={(e) => handleAddcart(item, e)}
+                                                        onTouchStart={(e) => handleAddcart(item, e)}
                                                         className=' text-rose-500 m-1 group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
                                                         size={22}
                                                     />
