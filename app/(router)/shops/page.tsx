@@ -358,13 +358,13 @@ const Shops = (props: Props) => {
                                                         <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:flex hidden justify-end w-[30%]">
                                                             <FiShoppingCart
                                                                 className=' text-rose-500 lg:block hidden group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
-                                                                size={24}
+                                                                size={22}
                                                             />
                                                         </div>
                                                         <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:hidden flex justify-end w-[30%]">
                                                             <FiShoppingCart
                                                                 className=' text-rose-500 lg:hidden block group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
-                                                                size={24}
+                                                                size={22}
                                                             />
                                                         </div>
                                                     </div>
