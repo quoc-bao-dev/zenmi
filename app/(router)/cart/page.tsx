@@ -42,8 +42,6 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
 
     const [stateCart, setStateCart] = useState(initialState)
 
-    const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
-
     const { openAlert, setOpenAlert } = useAlert()
 
     const queryCart = (key: any) => setStateCart(prev => ({ ...prev, ...key }))
@@ -80,8 +78,6 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                 return x
             })
         }
-        console.log("newData", newData);
-
         localStorage.setItem('carItems', JSON.stringify(newData))
         queryCart({ dataCar: newData })
         setCarItems(newData)
@@ -98,7 +94,6 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
 
     const handleOpenModal = () => {
         const data = JSON.parse(localStorage.getItem('carItems') || '[]')
-        const checkData = data.some((x: any) => (x.checked && x.quantity > 0))
         if (data.some((x: any) => x.checked == true && x.quantity > 0)) {
             setOpenAlert(true, 'Đặt hàng thành công', 'Đơn hàng đang được giao đến bạn')
         } else {

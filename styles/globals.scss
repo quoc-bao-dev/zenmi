@@ -5,7 +5,7 @@
 ol,
 ul,
 menu {
-    list-style: revert  ; /* Hoặc bạn có thể để list-style mặc định */
+    list-style: revert; /* Hoặc bạn có thể để list-style mặc định */
     margin: revert; /* Trả về giá trị mặc định của trình duyệt */
     padding: revert; /* Trả về giá trị mặc định của trình duyệt */
 }
