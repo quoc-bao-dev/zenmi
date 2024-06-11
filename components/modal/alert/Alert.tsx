@@ -18,7 +18,7 @@ type Props = {
 }
 const Alert = () => {
     const { push } = useRouter()
-    const { openAlert, titleAlert, contentAlert, setOpenAlert } = useAlert()
+    const { openAlert, titleAlert, contentAlert, setOpenAlert, type } = useAlert()
     return (
         <div>
             <AlertDialog open={openAlert}>
@@ -31,8 +31,13 @@ const Alert = () => {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogAction onClick={() => {
-                            push('/shops')
-                            setOpenAlert(false)
+                            if (type == 'orderFailse') {
+                                setOpenAlert(false)
+                            } else {
+                                push('/shops')
+                                setOpenAlert(false)
+                            }
+
                         }} className='hover:text-rose-500 transition-all duration-200 ease-linear'>Tiếp tục</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

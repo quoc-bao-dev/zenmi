@@ -1,7 +1,7 @@
 'use client'
 import { useShopCart } from '@/hooks/useShopCart'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FiShoppingCart } from "react-icons/fi"
 
 import { IoIosArrowRoundBack } from "react-icons/io"
@@ -64,7 +64,9 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
 
     const [cartScale, setCartScale] = useState<boolean>(false);
 
-    const queryClient = useQueryClient();
+    const [flyingItem, setFlyingItem] = useState<any>(null);
+
+    const [animationStyle, setAnimationStyle] = useState<any>({});
 
     const queryDetailItem = (key: any) => setStateDetailItem(prev => ({ ...prev, ...key }))
 
@@ -74,6 +76,8 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
         setSelectedSlide(index);
     };
 
+
+    const cartRef = useRef<any>(null);
 
     useEffect(() => {
         if (params?.id) {
@@ -93,20 +97,80 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
         }
     }, [params?.id])
 
-    const handAddCart = () => {
-        const checkItem = carItems.find(item => item?.id == dataDetail?.id)
-        if (checkItem) {
-            return
+    // Hàm để tìm kiếm mặt hàng trong mảng
+    const findItemIndex = (items: any, itemId: any) => items.findIndex((item: any) => item.id === itemId);
+
+    // Hàm để cập nhật hoặc thêm mặt hàng vào mảng
+    const updateOrAddItem = (items: any, newItem: any) => {
+        const quantityToAdd = Number(newItem.quantity);
+
+        const itemIndex = findItemIndex(items, newItem.id);
+        if (itemIndex !== -1) {
+            // Nếu mặt hàng đã tồn tại, tăng số lượng
+            items[itemIndex].quantity += quantityToAdd;
+        } else {
+            const newItemWithQuantityAsNumber = { ...newItem, quantity: quantityToAdd };
+            items.push(newItemWithQuantityAsNumber);
+        }
+        return [...items]; // Trả về một bản sao của mảng đã cập nhật
+    };
+    const handleAddcart = (event: any) => {
+        const target = event.currentTarget.getBoundingClientRect();
+        const cart = cartRef.current.getBoundingClientRect();
+
+        const newData = updateOrAddItem(carItems, dataDetail)
+        if (localStorage !== undefined) {
+            localStorage.setItem('carItems', JSON.stringify(newData))
         }
 
-        setCartScale(true);
-        setTimeout(() => setCartScale(false), 300);
-
-        const newData = [...carItems, dataDetail]
-        localStorage.setItem('carItems', JSON.stringify(newData))
         setCarItems(newData)
-    }
 
+        const itemData = {
+            ...dataDetail,
+            startX: target.left + target.width / 2 - 35, // center of the item
+            startY: target.top + target.height / 2 - 35, // center of the item
+            endX: cart.left + cart.width / 2 - 35, // center of the cart
+            endY: cart.top + cart.height / 2 - 35, // center of the cart
+
+        };
+
+        setFlyingItem(itemData);
+
+        const style = {
+            position: 'fixed',
+            left: itemData.startX,
+            top: itemData.startY,
+            width: '100px',
+            height: '100px',
+            borderRadius: '50%',
+            opacity: 1,
+            transform: 'scale(1.5)',
+            transition: 'transform 1s ease, opacity 1.6s ease',
+            zIndex: 1000,
+        };
+
+        setAnimationStyle(style);
+
+        requestAnimationFrame(() => {
+            setAnimationStyle((prev: any) => ({
+                ...prev,
+                transform: `translate(${itemData.endX - itemData.startX}px, ${itemData.endY - itemData.startY}px) scale(0.65)`,
+                opacity: 0,
+                scale: 1,
+            }));
+        });
+
+        // Giỏ hàng phóng to khi hình ảnh đến
+        setTimeout(() => {
+            setCartScale(true);
+            setTimeout(() => setCartScale(false), 300);
+        }, 800);
+
+        // Loại bỏ hình ảnh bay sau khi nó đến đích
+        setTimeout(() => {
+            setFlyingItem(null)
+        }, 800);
+    };
 
 
 
@@ -122,12 +186,12 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                             {stateDetailItem.dataDetail?.name}
                         </h1>
                     </div>
-                    <div onClick={() => router.push('/cart')} className=" hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
+                    <div ref={cartRef} onClick={() => router.push('/cart')} className=" hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
                         <div className={`size-full flex items-center justify-center  transition-all duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}>
                             <FiShoppingCart className='text-rose-500' size={18} />
                         </div>
                         <div className={`absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium transition-transform duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}>
-                            {carItems?.length > 0 ? carItems?.length : ''}
+                            {carItems.reduce((acc: any, curr: any) => acc + +curr.quantity, 0) > 0 ? carItems.reduce((acc: any, curr: any) => acc + +curr.quantity, 0) : ''}
                         </div>
                     </div>
                 </div>
@@ -202,25 +266,27 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-3 items-center justify-center h-[48px]">
-                    <div className='flex items-center justify-center bg-yellow-500 transition-all duration-150 ease-linear hover:bg-yellow-400 h-full'>
+                <div className="grid grid-cols-2 items-center justify-center h-[48px]">
+                    <div
+                        onClick={(e) => handleAddcart(e)}
+                        className='flex cursor-pointer items-center  justify-center bg-yellow-500 transition-all duration-150 ease-linear hover:bg-yellow-400 h-full'>
                         <div className="">
-                            <MdSupportAgent className='text-white mx-auto' size={14} />
-                            <h1 className='text-xs text-white font-medium'>CSKH</h1>
-                        </div>
-                    </div>
-                    <div className='flex items-center  justify-center bg-yellow-500 transition-all duration-150 ease-linear hover:bg-yellow-400 h-full'>
-                        <div onClick={() => handAddCart()} className="cursor-pointer">
                             <FiShoppingCart className='text-white mx-auto' size={14} />
                             <h1 className='text-xs text-white font-medium h-full'>Thêm vào giỏ hàng</h1>
                         </div>
                     </div>
-                    <div onClick={() => {
-                        handAddCart()
+                    <div onClick={(e) => {
+                        handleAddcart(e)
                         router.push('/cart')
                     }} className='text-xs bg-rose-500 transition-all duration-150 ease-linear hover:bg-rose-300 h-full flex items-center justify-center text-white cursor-pointer'>Mua ngay</div>
                 </div >
-
+                {flyingItem && (
+                    <div
+                        className="flying-image"
+                        style={animationStyle}>
+                        <Image src={flyingItem.image ?? ""} alt="" width={50} height={50} className='object-cover bg-transparent' />
+                    </div>
+                )}
             </div >
         </div >
     )
