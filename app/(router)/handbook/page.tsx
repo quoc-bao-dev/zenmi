@@ -178,12 +178,10 @@ const Handbook = (props: Props) => {
                                 className={`${index % 2 !== 0 ? "rounded-tl-[32px] rounded-br-[32px]" : "rounded-tr-[32px] rounded-bl-[32px]"} flex flex-col justify-center items-center gap-2 bg-rose-50 shadow-md rounded-xl px-6 py-8 cursor-pointer`}
                                 initial={false}
                                 animate="rest"
-                                whileHover={"hover"}
                                 whileTap={"press"}
                                 variants={{
                                     rest: { scale: 1 },
-                                    press: { scale: 1.03, transition: { duration: 0.4 } },
-                                    hover: { scale: 1.02,  }
+                                    press: { scale: 1.04, transition: { duration: 0.1 } },
                                 }}
                                 onClick={() => handleClick(item)}
                             >
@@ -194,6 +192,7 @@ const Handbook = (props: Props) => {
                                         width={300}
                                         height={300}
                                         className='w-full h-full object-cover rounded-lg'
+                                        // className='w-full h-full object-cover rounded-lg group-hover:scale-105 custom-transition'
                                     />
                                 </div>
                                 <div className='3xl:text-lg md:text-base text-sm text-center text-[#545454] font-semibold line-clamp-2'>

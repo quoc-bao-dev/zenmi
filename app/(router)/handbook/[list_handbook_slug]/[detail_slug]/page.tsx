@@ -120,7 +120,7 @@ const DetailHandbook = (props: Props) => {
             <div className='w-fit py-4 fixed top-0 z-40'>
                 <motion.div
                     onClick={() => router.back()}
-                    className='mx-6 flex items-center gap-2 text-rose-500 hover:text-rose-400 cursor-pointer w-fit group custom-transition'
+                    className='mx-2 flex items-center gap-2 text-rose-500 hover:text-rose-400 cursor-pointer w-fit group custom-transition'
                     initial={false}
                     animate="rest"
                     whileTap={"press"}

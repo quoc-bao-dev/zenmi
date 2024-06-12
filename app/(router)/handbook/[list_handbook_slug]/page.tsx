@@ -134,12 +134,10 @@ const ListHandBook = (props: Props) => {
                                     className='flex items-center gap-4 w-full bg-white border px-3 py-3 rounded-2xl cursor-pointer'
                                     initial={false}
                                     animate="rest"
-                                    whileHover={"hover"}
                                     whileTap={"press"}
                                     variants={{
                                         rest: { scale: 1 },
-                                        press: { scale: 1.03, transition: { duration: 0.4 } },
-                                        hover: { scale: 1.02 }
+                                        press: { scale: 1.04, transition: { duration: 0.1 } },
                                     }}
                                     onClick={() => handleClick(item)}
                                 >
