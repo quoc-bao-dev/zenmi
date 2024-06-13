@@ -59,23 +59,17 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
     const { carItems, setCarItems, dataDetail } = useShopCart()
 
     const [stateDetailItem, setStateDetailItem] = useState(initialState)
-
     const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
-
     const [cartScale, setCartScale] = useState<boolean>(false);
-
     const [flyingItem, setFlyingItem] = useState<any>(null);
-
     const [animationStyle, setAnimationStyle] = useState<any>({});
+    const [selectedSlide, setSelectedSlide] = useState<any>(0);
 
     const queryDetailItem = (key: any) => setStateDetailItem(prev => ({ ...prev, ...key }))
-
-    const [selectedSlide, setSelectedSlide] = useState<any>(0);
 
     const handleSlideClick = (index: any) => {
         setSelectedSlide(index);
     };
-
 
     const cartRef = useRef<any>(null);
 
@@ -114,6 +108,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
         }
         return [...items]; // Trả về một bản sao của mảng đã cập nhật
     };
+
     const handleAddcart = (event: any) => {
         const target = event.currentTarget.getBoundingClientRect();
         const cart = cartRef.current.getBoundingClientRect();
@@ -171,8 +166,6 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
             setFlyingItem(null)
         }, 800);
     };
-
-
 
     return (
         <div className="flex flex-col gap-2 bg-gray-50 h-dvh relative">

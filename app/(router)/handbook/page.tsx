@@ -137,11 +137,13 @@ const Handbook = (props: Props) => {
     }
 
     return (
-        <div className='custom-container-child py-6'>
-            <div className='flex flex-col gap-4'>
-                <div className='space-y-2'>
-                    <div className='3xl:text-xl text-lg font-semibold'>
-                        Cẩm nang theo danh mục
+        <div className='custom-container-child py-6 h-dvh'>
+            <div className='flex flex-col gap-12'>
+                <div className='space-y-6'>
+                    <div className='flex items-center justify-center'>
+                        <div className='3xl:text-xl text-lg uppercase font-semibold text-[#FD799D]'>
+                            Cẩm nang
+                        </div>
                     </div>
 
                     <div className='w-full rounded-3xl p-1 grid grid-cols-2 gap-4 bg-[#FD799D]'>
@@ -192,7 +194,7 @@ const Handbook = (props: Props) => {
                                         width={300}
                                         height={300}
                                         className='w-full h-full object-cover rounded-lg'
-                                        // className='w-full h-full object-cover rounded-lg group-hover:scale-105 custom-transition'
+                                    // className='w-full h-full object-cover rounded-lg group-hover:scale-105 custom-transition'
                                     />
                                 </div>
                                 <div className='3xl:text-lg md:text-base text-sm text-center text-[#545454] font-semibold line-clamp-2'>
