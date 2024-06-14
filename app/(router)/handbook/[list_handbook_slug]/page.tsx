@@ -119,8 +119,13 @@ const ListHandBook = (props: Props) => {
                         </div>
                     </motion.div>
 
-                    <div className='3xl:text-xl text-lg font-semibold'>
-                        {isStateHandbook?.dataDetailListHandbook.title}
+                    {/* <div className='3xl:text-xl text-lg font-semibold'>
+                    </div> */}
+                    <div className='flex items-center justify-start'>
+                        <div className='3xl:text-xl text-lg uppercase font-semibold'>
+                            {isStateHandbook?.dataDetailListHandbook.title}
+                            {/* Cẩm nang */}
+                        </div>
                     </div>
                 </div>
 

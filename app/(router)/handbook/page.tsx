@@ -141,7 +141,7 @@ const Handbook = (props: Props) => {
             <div className='flex flex-col gap-12'>
                 <div className='space-y-6'>
                     <div className='flex items-center justify-center'>
-                        <div className='3xl:text-xl text-lg uppercase font-semibold text-[#FD799D]'>
+                        <div className='3xl:text-xl text-lg uppercase font-semibold text-[#F43F5F]'>
                             Cẩm nang
                         </div>
                     </div>
