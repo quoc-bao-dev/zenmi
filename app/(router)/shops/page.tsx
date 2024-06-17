@@ -263,17 +263,17 @@ const Shops = (props: Props) => {
             <div ref={headerRef} className='sticky top-0 z-[999] bg-white'>
                 <div className="custom-container-child  flex items-center justify-between gap-2  py-2">
                     <div className="relative w-[89%]">
-                        <Input onChange={(e) => queryStateShop({ valueSearch: e.target.value })} className='rounded-full border-rose-500 border text-sm placeholder:text-rose-400 text-rose-400' placeholder='Tìm kiếm vật phẩm' />
-                        <div className="bg-rose-500 h-9 w-9 flex items-center justify-center  absolute top-1/2 right-0 -translate-y-1/2 -translate-x-1 rounded-full">
+                        <Input onChange={(e) => queryStateShop({ valueSearch: e.target.value })} className='rounded-full border-[#E73C2A] border text-sm placeholder:text-[#E73C2A] text-[#E73C2A]' placeholder='Tìm kiếm vật phẩm' />
+                        <div className="bg-[#E73C2A] h-9 w-9 flex items-center justify-center  absolute top-1/2 right-0 -translate-y-1/2 -translate-x-1 rounded-full">
                             <CiSearch className=' text-white' size={20} />
                         </div>
                     </div>
-                    <div ref={cartRef} onClick={() => router.push('/cart')} className="w-[11%] hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
+                    <div ref={cartRef} onClick={() => router.push('/cart')} className="w-[11%] hover:bg-[#E73C2A]/30 transition-all duration-150 cursor-pointer ease-linear bg-[#E73C2A]/10 rounded-xl group  p-3 relative">
                         <div className={`size-full flex items-center justify-center transition-all duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}
                         >
-                            <FiShoppingCart className={`text-rose-500 `} size={18} />
+                            <FiShoppingCart className={`text-[#E73C2A] `} size={18} />
                         </div>
-                        <div className={`absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium transition-transform duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}>
+                        <div className={`absolute top-0.5 left-1/2 translate-x-0 text-[#E73C2A] text-xs font-medium transition-transform duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}>
                             {carItems.reduce((acc: any, curr: any) => acc + +curr.quantity, 0) > 0 ? carItems.reduce((acc: any, curr: any) => acc + +curr.quantity, 0) : ''}
                         </div>
                     </div>
@@ -318,7 +318,7 @@ const Shops = (props: Props) => {
                                 <div className="bg-gray-200 size-12 rounded-full flex items-center justify-center">
                                     <Image src={item.image ?? ""} alt="" width={1280} height={1280} className='size-10 rounded-full object-contain' />
                                 </div>
-                                <h1 className={`text-[10px] ${item?.id == isStateShop.isCategory ? 'text-rose-400' : 'text-gray-400'}  uppercase text-center leading-1 group-hover:text-rose-400 transition-all duration-150 ease-linear cursor-pointer`}>{item.name}</h1>
+                                <h1 className={`text-[10px] ${item?.id == isStateShop.isCategory ? 'text-[#E73C2A]' : 'text-gray-400'}  uppercase text-center leading-1 group-hover:text-[#E73C2A]/80 transition-all duration-150 ease-linear cursor-pointer`}>{item.name}</h1>
                             </SwiperSlide>
                         ))}
                     </Swiper>}
@@ -370,13 +370,13 @@ const Shops = (props: Props) => {
                                                         </div>
                                                         <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:flex hidden justify-end w-[30%]">
                                                             <FiShoppingCart
-                                                                className=' text-rose-500 lg:block hidden group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
+                                                                className=' text-[#E73C2A] lg:block hidden group-hover:text-[#E73C2A]/80 hover:scale-105 transition-all duration-150 ease-linear'
                                                                 size={22}
                                                             />
                                                         </div>
                                                         <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:hidden flex justify-end w-[30%]">
                                                             <FiShoppingCart
-                                                                className=' text-rose-500 lg:hidden block group-hover:text-rose-400 hover:scale-105 transition-all duration-150 ease-linear'
+                                                                className=' text-[#E73C2A] lg:hidden block group-hover:text-[#E73C2A]/80 hover:scale-105 transition-all duration-150 ease-linear'
                                                                 size={22}
                                                             />
                                                         </div>

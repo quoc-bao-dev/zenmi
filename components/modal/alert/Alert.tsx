@@ -38,7 +38,7 @@ const Alert = () => {
                                 setOpenAlert(false)
                             }
 
-                        }} className='hover:text-rose-500 transition-all duration-200 ease-linear'>Tiếp tục</AlertDialogAction>
+                        }} className='hover:text-[#E73C2A] transition-all duration-200 ease-linear'>Tiếp tục</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>

@@ -173,17 +173,17 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                 <div className="custom-container-child  flex items-center justify-between gap-2  py-2">
                     <div className=" flex items-center gap-1">
                         <div className="size-10">
-                            <IoIosArrowRoundBack onClick={() => router.back()} size={22} className='size-full cursor-pointer text-rose-600' />
+                            <IoIosArrowRoundBack onClick={() => router.back()} size={22} className='size-full cursor-pointer text-[#E73C2A]' />
                         </div>
-                        <h1 className='text-rose-500 text-lg leading-1 font-medium line-clamp-1 max-w-[85%]'>
+                        <h1 className='text-[#E73C2A] text-lg leading-1 font-medium line-clamp-1 max-w-[85%]'>
                             {stateDetailItem.dataDetail?.name}
                         </h1>
                     </div>
-                    <div ref={cartRef} onClick={() => router.push('/cart')} className=" hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
+                    <div ref={cartRef} onClick={() => router.push('/cart')} className=" hover:bg-[#E73C2A]/30 transition-all duration-150 cursor-pointer ease-linear bg-[#E73C2A]/10 rounded-xl group  p-3 relative">
                         <div className={`size-full flex items-center justify-center  transition-all duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}>
-                            <FiShoppingCart className='text-rose-500' size={18} />
+                            <FiShoppingCart className='text-[#E73C2A]' size={18} />
                         </div>
-                        <div className={`absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium transition-transform duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}>
+                        <div className={`absolute top-0.5 left-1/2 translate-x-0 text-[#E73C2A] text-xs font-medium transition-transform duration-200 ease-linear ${cartScale ? 'scale-125' : ''}`}>
                             {carItems.reduce((acc: any, curr: any) => acc + +curr.quantity, 0) > 0 ? carItems.reduce((acc: any, curr: any) => acc + +curr.quantity, 0) : ''}
                         </div>
                     </div>
@@ -242,7 +242,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                                                     onClick={() => {
                                                         handleSlideClick(index)
                                                     }}
-                                                    className={`size-[65px] cursor-pointer rounded-lg transition-all duration-150 ease-linear ${selectedSlide === index ? 'border-2 border-rose-500' : 'border-gray-100 border-2'}`}>
+                                                    className={`size-[65px] cursor-pointer rounded-lg transition-all duration-150 ease-linear ${selectedSlide === index ? 'border-2 border-[#E73C2A]' : 'border-gray-100 border-2'}`}>
                                                     <Image src={item} alt="" width={1280} height={1280} className='w-full h-full object-cover p-1' />
                                                 </div>
                                             </SwiperSlide>
@@ -254,7 +254,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                     </div>
 
                     <div className="bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)] py-2 flex flex-col gap-2">
-                        <h1 className='text-rose-500 font-semibold text-lg text-center border-b-2 border-rose-500 pb-2'>Giới thiệu</h1>
+                        <h1 className='text-[#E73C2A] font-semibold text-lg text-center border-b-2 border-[#E73C2A] pb-2'>Giới thiệu</h1>
                         <div className="custom-container-child text-[15px]  font-normal" dangerouslySetInnerHTML={{ __html: stateDetailItem.dataDetail?.content }}>
                         </div>
                     </div>
@@ -271,7 +271,7 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
                     <div onClick={(e) => {
                         handleAddcart(e)
                         router.push('/cart')
-                    }} className='text-sm bg-rose-500 transition-all duration-150 ease-linear hover:bg-rose-300 h-full flex items-center justify-center text-white cursor-pointer'>Mua ngay</div>
+                    }} className='text-sm bg-[#E73C2A] transition-all duration-150 ease-linear hover:bg-[#E73C2A]/80 h-full flex items-center justify-center text-white cursor-pointer'>Mua ngay</div>
                 </div >
                 {flyingItem && (
                     <div

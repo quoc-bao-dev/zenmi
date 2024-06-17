@@ -128,15 +128,15 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                 <div className="custom-container-child  flex items-center justify-between gap-2  py-2">
                     <div className=" flex items-center gap-1">
                         <div className="size-10">
-                            <IoIosArrowRoundBack onClick={() => router.back()} size={22} className='size-full cursor-pointer text-rose-600' />
+                            <IoIosArrowRoundBack onClick={() => router.back()} size={22} className='size-full cursor-pointer text-[#E73C2A]' />
                         </div>
-                        <h1 className='text-rose-500 text-lg leading-1 font-medium truncate max-w-[85%]'>Giỏ hàng</h1>
+                        <h1 className='text-[#E73C2A] text-lg leading-1 font-medium truncate max-w-[85%]'>Giỏ hàng</h1>
                     </div>
-                    <div onClick={() => router.push('/cart')} className=" hover:bg-rose-200 transition-all duration-150 cursor-pointer ease-linear bg-rose-50 rounded-xl group  p-3 relative">
+                    <div onClick={() => router.push('/cart')} className=" hover:bg-[#E73C2A]/30 transition-all duration-150 cursor-pointer ease-linear bg-[#E73C2A]/10 rounded-xl group  p-3 relative">
                         <div className="size-full flex items-center justify-center">
-                            <FiShoppingCart className='text-rose-500' size={18} />
+                            <FiShoppingCart className='text-[#E73C2A]' size={18} />
                         </div>
-                        <div className="absolute top-0.5 left-1/2 translate-x-0 text-rose-500 text-xs font-medium">
+                        <div className="absolute top-0.5 left-1/2 translate-x-0 text-[#E73C2A] text-xs font-medium">
                             {carItems.reduce((acc: any, curr: any) => acc + +curr.quantity, 0) > 0 ? carItems.reduce((acc: any, curr: any) => acc + +curr.quantity, 0) : ''}
                         </div>
                     </div>
@@ -196,7 +196,7 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                                                         />
                                                     </div>
                                                     <div className="max-w-[10%] w-[10%]">
-                                                        <RiDeleteBin5Fill size={20} onClick={() => handleChangeQuantity(e, null, 'delete')} className='text-rose-500 cursor-pointer hover:scale-105 transition-all duration-150 ease-linear' />
+                                                        <RiDeleteBin5Fill size={20} onClick={() => handleChangeQuantity(e, null, 'delete')} className='text-[#E73C2A] cursor-pointer hover:scale-105 transition-all duration-150 ease-linear' />
                                                     </div>
                                                 </div>
                                             </div>
@@ -219,7 +219,7 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                         )} vnđ</h1>
                     </div>
                     <div className="flex items-center justify-center h-[48px]">
-                        <div onClick={() => handleOpenModal()} className='text-xl cursor-pointer bg-rose-500 uppercase rounded-2xl hover:bg-rose-300 transition duration-150 ease-linear h-full w-full flex items-center justify-center text-white'>Mua hàng</div>
+                        <div onClick={() => handleOpenModal()} className='text-xl cursor-pointer bg-[#E73C2A] uppercase rounded-2xl hover:bg-[#E73C2A]/80 transition duration-150 ease-linear h-full w-full flex items-center justify-center text-white'>Mua hàng</div>
                     </div>
                 </div>
             </div >
