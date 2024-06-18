@@ -1,7 +1,7 @@
 'use client'
 
 import { Be_Vietnam_Pro } from 'next/font/google'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion, useScroll } from 'framer-motion'
 
 import ButtonToTop from '../button/ButtonToTop';
@@ -20,6 +20,7 @@ import 'swiper/css/thumbs'
 import '@/styles/globals.scss'
 import "moment/locale/vi";
 import Alert from '../modal/alert/Alert';
+import { DialogWelcome } from '../modal/Dialog/DialogWelcome';
 
 type Props = {}
 
@@ -39,7 +40,15 @@ const LayoutContainer = ({
     const pathname = usePathname()
 
     const { scrollYProgress } = useScroll();
+
     const { setCarItems } = useShopCart()
+
+    const [isMouted, setIsMouted] = useState<boolean>(false)
+
+    useEffect(() => {
+        setIsMouted(true)
+    }, [])
+
     useEffect(() => {
         const cart = localStorage.getItem('carItems') ? JSON.parse(localStorage.getItem('carItems')!) : []
         if (cart) {
@@ -58,7 +67,7 @@ const LayoutContainer = ({
 
     // }, [pathname])
 
-
+    if (!isMouted) return null
     return (
         <body className={`${bevietnampro.className} w-full bg-[#FCFDFD]`}>
             <QueryClientProvider client={queryClient}>
@@ -71,6 +80,7 @@ const LayoutContainer = ({
                     {children}
                     <ButtonToTop />
                     <Alert />
+                    <DialogWelcome />
                 </main>
                 <ReactQueryDevtools initialIsOpen={true} />
             </QueryClientProvider>

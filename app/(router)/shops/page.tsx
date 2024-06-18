@@ -260,7 +260,7 @@ const Shops = (props: Props) => {
 
     return (
         <div ref={containerRef} className="flex flex-col gap-2 bg-gray-50 h-dvh overflow-y-scroll">
-            <div ref={headerRef} className='sticky top-0 z-[999] bg-white'>
+            <div ref={headerRef} className='sticky top-0 z-[9] bg-white'>
                 <div className="custom-container-child  flex items-center justify-between gap-2  py-2">
                     <div className="relative w-[89%]">
                         <Input onChange={(e) => queryStateShop({ valueSearch: e.target.value })} className='rounded-full border-[#E73C2A] border text-sm placeholder:text-[#E73C2A] text-[#E73C2A]' placeholder='Tìm kiếm vật phẩm' />
