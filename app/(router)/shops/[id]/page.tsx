@@ -109,6 +109,9 @@ const ShopsDetail = ({ params, searchParams }: Props) => {
         return [...items]; // Trả về một bản sao của mảng đã cập nhật
     };
 
+    console.log("dataDetail", dataDetail);
+
+
     const handleAddcart = (event: any) => {
         const target = event.currentTarget.getBoundingClientRect();
         const cart = cartRef.current.getBoundingClientRect();

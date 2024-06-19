@@ -53,36 +53,140 @@ const Shops = (props: Props) => {
         nodata: false,
         listProductsFloating: [
             {
-                count: 0,
+                count: 10,
                 id: 1,
                 image: "/example/shop/floating/1.gif",
-                name: "",
-                price: 0,
-                star: 0
+                name: "Vòng tay hợp mệnh",
+                price: 100000,
+                star: 2,
+                quantity: 1,
+                content: `
+               <div class="content">
+                    <p><span class="highlight">Chế tác thủ công:</span></p>
+                    <ul>
+                        <li>Vòng tay hợp mệnh 6 ly mix bạc, thiết kế theo size vòng tay của từng bé</li>
+                        <li>Charm bạc hình hoa lá hoặc hình con vật theo tuổi</li>
+                        <li>Có 2 mẫu: vòng trơn và vòng tết dây đỏ</li>
+                    </ul>
+                    <p>Thấu hiểu tấm lòng của các bậc làm cha làm mẹ luôn mong muốn dành những điều tốt nhất cho con, sản phẩm Vòng Bảo Nhi được chế tác từ trầm hương tự nhiên đã ra đời. Không chỉ tốt cho sức khỏe của bé mà còn có ý nghĩa về mặt tâm linh; đặc biệt với trẻ "nhẹ vía", hay bị giật mình.</p>
+                </div>
+
+                <div class="content">
+                    <p><span class="highlight">Vòng tay hợp mệnh có gì đặc biệt?</span></p>
+                    <ul>
+                        <li>Vòng trầm hạt tròn mix charm bạc hình hoa hồng nhỏ xinh cho bé gái. Vòng đốt trúc khỏe khoắn, charm bạc tròn dành cho bé nam, vừa làm đẹp vừa kỵ gió</li>
+                        <li>Dây xỏ vòng Bảo Nhi là dây chun Nhật Bản siêu bền, có tính đàn hồi cao, an toàn với trẻ nhỏ</li>
+                        <li>Chế tác thủ công từ trầm hương Việt Nam được giới chuyên gia quốc tế đánh giá thuộc loại tốt nhất trên thế giới về mùi hương và tinh dầu</li>
+                        <li>Mẫu mã đa đạng, phù hợp với sở thích của các bé ở mọi lứa tuổi</li>
+                        <li>Vòng được thiết kế bởi những người thợ lành nghề, cẩn thận trong từng chi tiết nhỏ, đảm bảo không còn xơ gỗ để tránh gây chầy xước trên da bé</li>
+                        <li>Phần tết dây đỏ có thể điều chỉnh theo kích thước cổ tay của bé</li>
+                        <li>Vì là trầm hương tự nhiên nên vòng càng đeo càng bóng, do tác động nhiệt các vân gỗ nhìn rõ, không bị mất mùi</li>
+                        <li>Với vòng Bảo Nhi bé có thể đeo tay, đeo chân, để ở dưới gối hoặc bên cạnh khi ngủ để năng lượng dương từ trầm hương bảo vệ bé</li>
+                    </ul>
+                </div>
+                `
             },
             {
-                count: 0,
-                id: 2,
-                image: "/example/shop/floating/2.gif",
-                name: "",
-                price: 0,
-                star: 0
-            },
-            {
-                count: 0,
+                count: 5,
                 id: 3,
                 image: "/example/shop/floating/3.gif",
-                name: "",
-                price: 0,
-                star: 0
+                name: "Vòng trầm cho bé",
+                price: 100000,
+                star: 2,
+                quantity: 1,
+                content: `
+               <div class="content">
+                    <p><span class="highlight">Chế tác thủ công:</span></p>
+                    <ul>
+                        <li>Vòng Trầm Cho Bé, thiết kế theo size vòng tay của từng bé</li>
+                        <li>Charm bạc hình hoa lá hoặc hình con vật theo tuổi</li>
+                        <li>Có 2 mẫu: vòng trơn và vòng tết dây đỏ</li>
+                    </ul>
+                    <p>Thấu hiểu tấm lòng của các bậc làm cha làm mẹ luôn mong muốn dành những điều tốt nhất cho con, sản phẩm Vòng Bảo Nhi được chế tác từ trầm hương tự nhiên đã ra đời. Không chỉ tốt cho sức khỏe của bé mà còn có ý nghĩa về mặt tâm linh; đặc biệt với trẻ "nhẹ vía", hay bị giật mình.</p>
+                </div>
+
+                <div class="content">
+                    <p><span class="highlight">Vòng Trầm Cho Bé có gì đặc biệt?</span></p>
+                    <ul>
+                        <li>Vòng trầm hạt tròn mix charm bạc hình hoa hồng nhỏ xinh cho bé gái. Vòng đốt trúc khỏe khoắn, charm bạc tròn dành cho bé nam, vừa làm đẹp vừa kỵ gió</li>
+                        <li>Dây xỏ vòng Bảo Nhi là dây chun Nhật Bản siêu bền, có tính đàn hồi cao, an toàn với trẻ nhỏ</li>
+                        <li>Chế tác thủ công từ trầm hương Việt Nam được giới chuyên gia quốc tế đánh giá thuộc loại tốt nhất trên thế giới về mùi hương và tinh dầu</li>
+                        <li>Mẫu mã đa đạng, phù hợp với sở thích của các bé ở mọi lứa tuổi</li>
+                        <li>Vòng được thiết kế bởi những người thợ lành nghề, cẩn thận trong từng chi tiết nhỏ, đảm bảo không còn xơ gỗ để tránh gây chầy xước trên da bé</li>
+                        <li>Phần tết dây đỏ có thể điều chỉnh theo kích thước cổ tay của bé</li>
+                        <li>Vì là trầm hương tự nhiên nên vòng càng đeo càng bóng, do tác động nhiệt các vân gỗ nhìn rõ, không bị mất mùi</li>
+                        <li>Với vòng Bảo Nhi bé có thể đeo tay, đeo chân, để ở dưới gối hoặc bên cạnh khi ngủ để năng lượng dương từ trầm hương bảo vệ bé</li>
+                    </ul>
+                </div>
+                `
+            },
+            {
+                count: 3,
+                id: 2,
+                image: "/example/shop/floating/2.gif",
+                name: "Nhẫn Tỳ Hưu Hợp Mệnh",
+                price: 100000,
+                star: 1,
+                quantity: 1,
+                content: `
+                <div class="content">
+                     <p><span class="highlight">Chế tác thủ công:</span></p>
+                     <ul>
+                         <li>Nhẫn Tỳ Hưu Hợp Mệnh, thiết kế theo size nhẫn tay của từng bé</li>
+                         <li>Charm bạc hình hoa lá hoặc hình con vật theo tuổi</li>
+                         <li>Có 2 mẫu: nhẫn trơn và nhẫn tết dây đỏ</li>
+                     </ul>
+                     <p>Thấu hiểu tấm lòng của các bậc làm cha làm mẹ luôn mong muốn dành những điều tốt nhất cho con, sản phẩm nhẫn Bảo Nhi được chế tác từ trầm hương tự nhiên đã ra đời. Không chỉ tốt cho sức khỏe của bé mà còn có ý nghĩa về mặt tâm linh; đặc biệt với trẻ "nhẹ vía", hay bị giật mình.</p>
+                 </div>
+ 
+                 <div class="content">
+                     <p><span class="highlight">Nhẫn Tỳ Hưu Hợp Mệnh có gì đặc biệt?</span></p>
+                     <ul>
+                         <li>nhẫn trầm hạt tròn mix charm bạc hình hoa hồng nhỏ xinh cho bé gái. nhẫn đốt trúc khỏe khoắn, charm bạc tròn dành cho bé nam, vừa làm đẹp vừa kỵ gió</li>
+                         <li>Dây xỏ nhẫn Bảo Nhi là dây chun Nhật Bản siêu bền, có tính đàn hồi cao, an toàn với trẻ nhỏ</li>
+                         <li>Chế tác thủ công từ trầm hương Việt Nam được giới chuyên gia quốc tế đánh giá thuộc loại tốt nhất trên thế giới về mùi hương và tinh dầu</li>
+                         <li>Mẫu mã đa đạng, phù hợp với sở thích của các bé ở mọi lứa tuổi</li>
+                         <li>nhẫn được thiết kế bởi những người thợ lành nghề, cẩn thận trong từng chi tiết nhỏ, đảm bảo không còn xơ gỗ để tránh gây chầy xước trên da bé</li>
+                         <li>Phần tết dây đỏ có thể điều chỉnh theo kích thước cổ tay của bé</li>
+                         <li>Vì là trầm hương tự nhiên nên nhẫn càng đeo càng bóng, do tác động nhiệt các vân gỗ nhìn rõ, không bị mất mùi</li>
+                         <li>Với nhẫn Bảo Nhi bé có thể đeo tay, đeo chân, để ở dưới gối hoặc bên cạnh khi ngủ để năng lượng dương từ trầm hương bảo vệ bé</li>
+                     </ul>
+                 </div>
+                 `
             }
             , {
-                count: 0,
+                count: 19,
                 id: 4,
                 image: "/example/shop/floating/4.gif",
-                name: "",
-                price: 0,
-                star: 0
+                name: "Phật Bản Mệnh",
+                price: 100000,
+                star: 8,
+                quantity: 1,
+                content: `
+                <div class="content">
+                     <p><span class="highlight">Chế tác thủ công:</span></p>
+                     <ul>
+                         <li>Phật Bản Mệnh, thiết kế theo size của từng bé</li>
+                         <li>Charm bạc hình hoa lá hoặc hình con vật theo tuổi</li>
+                         <li>Có 2 mẫu: Phật bản mệnh trơn và Phật bản mệnh tết dây đỏ</li>
+                     </ul>
+                     <p>Thấu hiểu tấm lòng của các bậc làm cha làm mẹ luôn mong muốn dành những điều tốt nhất cho con, sản phẩm Phật bản mệnh Bảo Nhi được chế tác từ trầm hương tự nhiên đã ra đời. Không chỉ tốt cho sức khỏe của bé mà còn có ý nghĩa về mặt tâm linh; đặc biệt với trẻ "nhẹ vía", hay bị giật mình.</p>
+                 </div>
+ 
+                 <div class="content">
+                     <p><span class="highlight">Phật Bản Mệnh có gì đặc biệt?</span></p>
+                     <ul>
+                         <li>Phật bản mệnh trầm hạt tròn mix charm bạc hình hoa hồng nhỏ xinh cho bé gái. Phật bản mệnh đốt trúc khỏe khoắn, charm bạc tròn dành cho bé nam, vừa làm đẹp vừa kỵ gió</li>
+                         <li>Dây xỏ Phật bản mệnh Bảo Nhi là dây chun Nhật Bản siêu bền, có tính đàn hồi cao, an toàn với trẻ nhỏ</li>
+                         <li>Chế tác thủ công từ trầm hương Việt Nam được giới chuyên gia quốc tế đánh giá thuộc loại tốt nhất trên thế giới về mùi hương và tinh dầu</li>
+                         <li>Mẫu mã đa đạng, phù hợp với sở thích của các bé ở mọi lứa tuổi</li>
+                         <li>Phật bản mệnh được thiết kế bởi những người thợ lành nghề, cẩn thận trong từng chi tiết nhỏ, đảm bảo không còn xơ gỗ để tránh gây chầy xước trên da bé</li>
+                         <li>Phần tết dây đỏ có thể điều chỉnh theo kích thước cổ tay của bé</li>
+                         <li>Vì là trầm hương tự nhiên nên Phật bản mệnh càng đeo càng bóng, do tác động nhiệt các vân gỗ nhìn rõ, không bị mất mùi</li>
+                         <li>Với Phật bản mệnh Bảo Nhi bé có thể đeo tay, đeo chân, để ở dưới gối hoặc bên cạnh khi ngủ để năng lượng dương từ trầm hương bảo vệ bé</li>
+                     </ul>
+                 </div>
+                 `
             }
         ]
     }

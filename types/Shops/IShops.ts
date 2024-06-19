@@ -10,4 +10,6 @@ export interface ListProducts {
     price: number;
     count: number;
     star: number;
+    content?: string;
+    quantity?: any;
 }
