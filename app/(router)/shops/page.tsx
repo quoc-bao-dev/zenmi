@@ -56,7 +56,7 @@ const Shops = (props: Props) => {
                 count: 10,
                 id: 1,
                 image: "/example/shop/floating/1.gif",
-                name: "Vòng tay hợp mệnh",
+                name: "Vòng tay của bé",
                 price: 100000,
                 star: 2,
                 quantity: 1,
@@ -64,7 +64,7 @@ const Shops = (props: Props) => {
                <div class="content">
                     <p><span class="highlight">Chế tác thủ công:</span></p>
                     <ul>
-                        <li>Vòng tay hợp mệnh 6 ly mix bạc, thiết kế theo size vòng tay của từng bé</li>
+                        <li>Vòng tay của bé 6 ly mix bạc, thiết kế theo size vòng tay của từng bé</li>
                         <li>Charm bạc hình hoa lá hoặc hình con vật theo tuổi</li>
                         <li>Có 2 mẫu: vòng trơn và vòng tết dây đỏ</li>
                     </ul>
@@ -72,7 +72,7 @@ const Shops = (props: Props) => {
                 </div>
 
                 <div class="content">
-                    <p><span class="highlight">Vòng tay hợp mệnh có gì đặc biệt?</span></p>
+                    <p><span class="highlight">Vòng tay của bé có gì đặc biệt?</span></p>
                     <ul>
                         <li>Vòng trầm hạt tròn mix charm bạc hình hoa hồng nhỏ xinh cho bé gái. Vòng đốt trúc khỏe khoắn, charm bạc tròn dành cho bé nam, vừa làm đẹp vừa kỵ gió</li>
                         <li>Dây xỏ vòng Bảo Nhi là dây chun Nhật Bản siêu bền, có tính đàn hồi cao, an toàn với trẻ nhỏ</li>
@@ -124,7 +124,7 @@ const Shops = (props: Props) => {
                 count: 3,
                 id: 2,
                 image: "/example/shop/floating/2.gif",
-                name: "Nhẫn Tỳ Hưu Hợp Mệnh",
+                name: "Nhẫn Tỳ Hưu",
                 price: 100000,
                 star: 1,
                 quantity: 1,
@@ -132,7 +132,7 @@ const Shops = (props: Props) => {
                 <div class="content">
                      <p><span class="highlight">Chế tác thủ công:</span></p>
                      <ul>
-                         <li>Nhẫn Tỳ Hưu Hợp Mệnh, thiết kế theo size nhẫn tay của từng bé</li>
+                         <li>Nhẫn Tỳ Hưu, thiết kế theo size nhẫn tay của từng bé</li>
                          <li>Charm bạc hình hoa lá hoặc hình con vật theo tuổi</li>
                          <li>Có 2 mẫu: nhẫn trơn và nhẫn tết dây đỏ</li>
                      </ul>
@@ -140,7 +140,7 @@ const Shops = (props: Props) => {
                  </div>
  
                  <div class="content">
-                     <p><span class="highlight">Nhẫn Tỳ Hưu Hợp Mệnh có gì đặc biệt?</span></p>
+                     <p><span class="highlight">Nhẫn Tỳ Hưu có gì đặc biệt?</span></p>
                      <ul>
                          <li>nhẫn trầm hạt tròn mix charm bạc hình hoa hồng nhỏ xinh cho bé gái. nhẫn đốt trúc khỏe khoắn, charm bạc tròn dành cho bé nam, vừa làm đẹp vừa kỵ gió</li>
                          <li>Dây xỏ nhẫn Bảo Nhi là dây chun Nhật Bản siêu bền, có tính đàn hồi cao, an toàn với trẻ nhỏ</li>
