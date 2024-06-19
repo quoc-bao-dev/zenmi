@@ -487,7 +487,7 @@ const Shops = (props: Props) => {
                                                 <div className='flex flex-col gap-1 w-full h-fit'>
                                                     <div onClick={() => handleDetail(item)} className="cursor-pointer">
                                                         <div className='w-full bg-white cursor-pointer  mx-auto overflow-hidden'>
-                                                            <Image unoptimized={true} src={item.image ?? ""} alt="" width={1920} height={1920} className='object-cover size-full transition-all duration-150 ease-linear' />
+                                                            <Image blurDataURL={item.image ?? ""} loading="lazy" unoptimized={true} src={item.image ?? ""} alt="" width={1920} height={1920} className='object-cover size-full transition-all duration-150 ease-linear' />
                                                         </div>
                                                     </div>
                                                 </div>
