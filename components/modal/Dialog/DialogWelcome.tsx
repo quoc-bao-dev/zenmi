@@ -15,11 +15,10 @@ export function DialogWelcome() {
     const { openDialogWelcome, setOpenDialogWelcome } = useDialogWelcome();
 
     useEffect(() => {
-        if (!openDialogWelcome) return
         setTimeout(() => {
             setOpenDialogWelcome(false)
         }, 5000);
-    }, [openDialogWelcome])
+    }, [])
 
     return (
         <div>
