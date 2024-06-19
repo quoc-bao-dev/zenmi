@@ -465,7 +465,7 @@ const Shops = (props: Props) => {
             <div className="flex flex-col gap-4 custom-container-child">
 
                 <div className='flex flex-col gap-4'>
-                    <h1 className='text-black text-lg font-semibold'>Sản phẩm nổi bật</h1>
+                    <h1 className='text-black text-lg font-semibold'>Sản phẩm mới</h1>
                     <div className="">
                         {
                             isStateShop.nodata ?
