@@ -483,10 +483,10 @@ const Shops = (props: Props) => {
                                         )
                                     }) :
                                         isStateShop?.listProductsFloating?.map((item, index) => (
-                                            <div key={item.id} className="relative bg-white mb-2 shadow-[0_0_5px_rgba(0,0,0,0.1)] col-span-1 h-fit rounded-xl">
+                                            <div key={item.id} className="relative mb-2 col-span-1 h-fit rounded-xl">
                                                 <div className='flex flex-col gap-1 w-full h-fit'>
                                                     <div onClick={() => handleDetail(item)} className="cursor-pointer">
-                                                        <div className='w-full bg-white cursor-pointer  mx-auto overflow-hidden'>
+                                                        <div className='w-full cursor-pointer  mx-auto overflow-hidden'>
                                                             <Image blurDataURL={item.image ?? ""} loading="lazy" unoptimized={true} src={item.image ?? ""} alt="" width={1920} height={1920} className='object-cover size-full transition-all duration-150 ease-linear' />
                                                         </div>
                                                     </div>
