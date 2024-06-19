@@ -463,48 +463,49 @@ const Shops = (props: Props) => {
                     </Swiper>}
             </div>
             <div className="flex flex-col gap-4 custom-container-child">
-
-                <div className='flex flex-col gap-4'>
-                    <h1 className='text-black text-lg font-semibold'>Sản phẩm mới</h1>
-                    <div className="">
-                        {
-                            isStateShop.nodata ?
-                                <NoData type='shops' className='col-span-2' /> :
-                                <div className='grid grid-cols-2 gap-4 mb-4'>
-                                    {isLoading ? [...Array(4)].map((_, index) => {
-                                        return (
-                                            <div key={index} className='group rounded-xl size-full col-span-1 flex flex-col gap-1  cursor-pointer h-fit'>
-                                                <Skeleton className='w-full bg-gray-100 h-32 p-2 mx-auto overflow-hidden'>
-                                                </Skeleton>
-                                                <Skeleton className='py-3  bg-gray-100'></Skeleton>
-                                                <Skeleton className='py-3  bg-gray-100'></Skeleton>
-                                                <Skeleton className='py-3  bg-gray-100'></Skeleton>
-                                            </div>
-                                        )
-                                    }) :
-                                        isStateShop?.listProductsFloating?.map((item, index) => (
-                                            <div key={item.id} className="relative mb-2 col-span-1 h-fit rounded-xl">
-                                                <div className='flex flex-col gap-1 w-full h-fit'>
-                                                    <div onClick={() => handleDetail(item)} className="cursor-pointer">
-                                                        <div className='w-full cursor-pointer  mx-auto overflow-hidden'>
-                                                            <Image blurDataURL={item.image ?? ""} loading="lazy" unoptimized={true} src={item.image ?? ""} alt="" width={1920} height={1920} className='object-cover size-full transition-all duration-150 ease-linear' />
+                {isStateShop.isCategory == isStateShop.listCategorys[0]?.id &&
+                    <div className='flex flex-col gap-4'>
+                        <h1 className='text-black text-lg font-semibold'>Sản phẩm mới</h1>
+                        <div className="">
+                            {
+                                isStateShop.nodata ?
+                                    <NoData type='shops' className='col-span-2' /> :
+                                    <div className='grid grid-cols-2 gap-4 mb-4'>
+                                        {isLoading ? [...Array(4)].map((_, index) => {
+                                            return (
+                                                <div key={index} className='group rounded-xl size-full col-span-1 flex flex-col gap-1  cursor-pointer h-fit'>
+                                                    <Skeleton className='w-full bg-gray-100 h-32 p-2 mx-auto overflow-hidden'>
+                                                    </Skeleton>
+                                                    <Skeleton className='py-3  bg-gray-100'></Skeleton>
+                                                    <Skeleton className='py-3  bg-gray-100'></Skeleton>
+                                                    <Skeleton className='py-3  bg-gray-100'></Skeleton>
+                                                </div>
+                                            )
+                                        }) :
+                                            isStateShop?.listProductsFloating?.map((item, index) => (
+                                                <div key={item.id} className="relative mb-2 col-span-1 h-fit rounded-xl">
+                                                    <div className='flex flex-col gap-1 w-full h-fit'>
+                                                        <div onClick={() => handleDetail(item)} className="cursor-pointer">
+                                                            <div className='w-full cursor-pointer  mx-auto overflow-hidden'>
+                                                                <Image blurDataURL={item.image ?? ""} loading="lazy" unoptimized={true} src={item.image ?? ""} alt="" width={1920} height={1920} className='object-cover size-full transition-all duration-150 ease-linear' />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ))
-                                    }
+                                            ))
+                                        }
+                                    </div>
+                            }
+                            {flyingItem && (
+                                <div
+                                    className="flying-image"
+                                    style={animationStyle}>
+                                    <Image src={flyingItem.image ?? ""} alt="" width={50} height={50} className='object-cover bg-transparent' />
                                 </div>
-                        }
-                        {flyingItem && (
-                            <div
-                                className="flying-image"
-                                style={animationStyle}>
-                                <Image src={flyingItem.image ?? ""} alt="" width={50} height={50} className='object-cover bg-transparent' />
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
-                </div>
+                }
                 <div className='flex flex-col gap-4'>
                     <h1 className='text-black text-lg font-semibold'>Sản phẩm dành riêng cho mẹ và bé</h1>
                     <div className="">
