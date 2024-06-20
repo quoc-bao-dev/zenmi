@@ -94,6 +94,7 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
     const handleOpenModal = () => {
         const data = JSON.parse(localStorage.getItem('carItems') || '[]')
 
+
         if (data?.length == 0) {
             setOpenAlert(true, 'Đặt hàng thất bại', 'Vui lòng chọn mặt hàng')
             return
@@ -109,6 +110,7 @@ const ShopsDetailCart = ({ params, searchParams }: Props) => {
                     setOpenAlert(true, 'Đặt hàng thành công', 'Đơn hàng đang được giao đến bạn')
                 }
             } else {
+
                 const checkQuantity = data.some((x: any) => +x.quantity === 0 || x.quantity === "");
                 const checkChecked = data.some((x: any) => x.checked == false || x.checked == undefined);
                 if (checkQuantity) {

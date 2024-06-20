@@ -22,7 +22,7 @@ const Alert = () => {
     const { openAlert, titleAlert, contentAlert, setOpenAlert, type } = useAlert()
     return (
         <div>
-            {/* <AlertDialog open={openAlert}>
+            <AlertDialog open={openAlert}>
                 <AlertDialogContent className='bg-white max-w-sm'>
                     <AlertDialogHeader>
                         <AlertDialogTitle className=' text-black'>{titleAlert}</AlertDialogTitle>
@@ -42,7 +42,7 @@ const Alert = () => {
                         }} className='hover:text-[#E73C2A] transition-all duration-200 ease-linear'>Tiếp tục</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
-            </AlertDialog> */}
+            </AlertDialog>
         </div>
     )
 }
