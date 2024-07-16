@@ -14,6 +14,7 @@ export const useListVote = (param?: any) => {
             listVote = [];
         }
     }
+    console.log("param?.searchParams?.id", param?.searchParams?.id);
 
     return useQuery({
         queryKey: ["api_list_vote", param?.searchParams?.id],

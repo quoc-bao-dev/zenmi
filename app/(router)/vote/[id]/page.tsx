@@ -13,7 +13,7 @@ const DetailVote = (param: Props) => {
 
     const { data } = useListVote(param)
 
-    const { onClickVote } = useVote()
+    const { onClickVote } = useVote(param)
 
     useEffect(() => {
         setIsMounted(true)
