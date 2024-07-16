@@ -1,3 +1,4 @@
+import { toastCore } from "@/lib/toast";
 import { getListVote } from "@/services/Vote/vote.services";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
@@ -18,6 +19,9 @@ export const useListVote = (param?: any) => {
         queryKey: ["api_list_vote", param?.searchParams?.id],
         queryFn: async () => {
             const { data } = await getListVote(param?.searchParams?.id);
+            if (!data?.result) {
+                toastCore.error(data?.message);
+            }
             return {
                 ...data,
                 data: data?.data?.map((x: any) => {

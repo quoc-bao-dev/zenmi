@@ -36,6 +36,9 @@ export const useVote = (param: any) => {
             { formData, id: data?.id },
             {
                 onSuccess: ({ result, message }) => {
+                    if (!result) {
+                        toastCore.error(message);
+                    }
                     !data?.checked && toastCore.success(message);
                     data?.checked && toastCore.success("Hủy vote thành công");
                 },
