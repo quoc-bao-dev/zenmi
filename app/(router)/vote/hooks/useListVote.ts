@@ -1,13 +1,23 @@
 import { getListVote } from "@/services/Vote/vote.services";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 export const useListVote = (param?: any) => {
-    const listVote = JSON.parse(localStorage.getItem("listVote") || "[]");
+    const listVoteString = localStorage.getItem("listVote");
+    let listVote = [];
+
+    if (listVoteString && listVoteString !== "undefined") {
+        try {
+            listVote = JSON.parse(listVoteString);
+        } catch (error) {
+            localStorage.setItem("listVote", "[]");
+            listVote = [];
+        }
+    }
 
     return useQuery({
         queryKey: ["api_list_vote", param?.searchParams?.id],
         queryFn: async () => {
-            const { data } = await getListVote("Ml8xODY4OA");
+            const { data } = await getListVote(param?.searchParams?.id);
             return {
                 ...data,
                 data: data?.data?.map((x: any) => {
