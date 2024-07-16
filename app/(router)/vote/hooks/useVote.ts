@@ -39,8 +39,7 @@ export const useVote = (param: any) => {
                     if (!result) {
                         toastCore.error(message);
                     }
-                    !data?.checked && toastCore.success(message);
-                    data?.checked && toastCore.success("Hủy vote thành công");
+                    toastCore.success(message);
                 },
                 onError: (error) => {
                     console.log("error", error);
