@@ -1,27 +1,28 @@
 'use client'
 
-import { Be_Vietnam_Pro } from 'next/font/google'
-import React, { useEffect, useState } from 'react'
-import { motion, useScroll } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion';
+import { Be_Vietnam_Pro } from 'next/font/google';
+import React, { useEffect, useState } from 'react';
 
 import ButtonToTop from '../button/ButtonToTop';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { useShopCart } from '@/hooks/useShopCart';
-import { usePathname } from 'next/navigation';
 import { useDataHandbook } from '@/hooks/useDataQueryKey';
+import { useShopCart } from '@/hooks/useShopCart';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { usePathname } from 'next/navigation';
 
 
-import 'swiper/css'
-import 'swiper/css/free-mode'
-import 'swiper/css/pagination'
-import 'swiper/css/thumbs'
-import '@/styles/globals.scss'
+import '@/styles/globals.scss';
 import "moment/locale/vi";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/pagination';
+import 'swiper/css/thumbs';
 import Alert from '../modal/alert/Alert';
 import { DialogWelcome } from '../modal/Dialog/DialogWelcome';
-
 type Props = {}
 
 const bevietnampro = Be_Vietnam_Pro({
@@ -82,6 +83,18 @@ const LayoutContainer = ({
                     <Alert />
                     <DialogWelcome />
                 </main>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
                 <ReactQueryDevtools initialIsOpen={true} />
             </QueryClientProvider>
         </body>
