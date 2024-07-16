@@ -4,7 +4,6 @@ import { useResize } from "@/hooks/useResize"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
-
 interface State {
     title: string,
     image: string
@@ -34,6 +33,9 @@ const NoData = ({ type, className }: { type: string, className?: string }) => {
             case "cart":
                 quertyState({ title: 'Không có sản phẩm nào...', image: '/no-data/no-data.svg' })
                 break;
+            case "vote":
+                quertyState({ title: 'Không có danh sách vote...', image: '/no-data/no-data.svg' })
+                break;
             default:
                 break;
         }
@@ -53,7 +55,8 @@ const NoData = ({ type, className }: { type: string, className?: string }) => {
                 object-contain
                  ${type == 'handbook' && (isVisibleMobile ? "size-full" : 'size-[45%]') ||
                         type == 'shops' && (isVisibleMobile ? "size-full" : 'size-[45%]') ||
-                        type == 'cart' && (isVisibleMobile ? "size-full" : 'size-[80%]')
+                        type == 'cart' && (isVisibleMobile ? "size-full" : 'size-[80%]') ||
+                        type == 'vote' && (isVisibleMobile ? "size-full" : 'size-[80%]')
                         }
                  mx-auto`} />
             </div>

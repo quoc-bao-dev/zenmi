@@ -9,7 +9,7 @@ export const useVote = (param: any) => {
 
     const onsubmitVote = useMutation({
         mutationFn: async ({ formData, id }: any) => {
-            const { data } = await postVote(param?.searchParams?.id, id, formData);
+            const { data } = await postVote(param, id, formData);
             return data;
         },
     });
@@ -19,16 +19,14 @@ export const useVote = (param: any) => {
         formData.append("relationship", "");
         formData.append("note", "");
 
-        const cacheData = queryClient.getQueryData(["api_list_vote", param?.searchParams?.id]) as any;
+        const cacheData = queryClient.getQueryData(["api_list_vote", param]) as any;
 
         const tunOffLove = cacheData?.data?.map((x: any) => ({
             ...x,
             checked: x?.id == data?.id ? !x?.checked : x?.checked,
         }));
 
-        console.log("tunOffLove", tunOffLove, cacheData);
-
-        queryClient.setQueryData(["api_list_vote", param?.searchParams?.id], { ...cacheData, data: tunOffLove });
+        queryClient.setQueryData(["api_list_vote", param], { ...cacheData, data: tunOffLove });
 
         localStorage.setItem("listVote", JSON.stringify(tunOffLove));
 

@@ -14,12 +14,11 @@ export const useListVote = (param?: any) => {
             listVote = [];
         }
     }
-    console.log("param?.searchParams?.id", param?.searchParams?.id);
 
     return useQuery({
-        queryKey: ["api_list_vote", param?.searchParams?.id],
+        queryKey: ["api_list_vote", param],
         queryFn: async () => {
-            const { data } = await getListVote(param?.searchParams?.id);
+            const { data } = await getListVote(param);
             if (!data?.result) {
                 toastCore.error(data?.message);
             }

@@ -7,15 +7,19 @@ import { useListVote } from './hooks/useListVote'
 import { useVote } from './hooks/useVote'
 import { FaHeart, FaRegHeart } from 'react-icons/fa6'
 import { CiHeart } from 'react-icons/ci'
+import { useParams, usePathname, useSearchParams } from 'next/navigation'
+import NoData from '@/components/no-data/NoData'
 
 type Props = {}
 
-const Vote = (param: Props) => {
+const Vote = (props: Props) => {
     const [isMounted, setIsMounted] = useState<boolean>(false)
 
-    const { data } = useListVote(param)
+    const params = useSearchParams()
 
-    const { onClickVote } = useVote(param)
+    const { data } = useListVote(params.get('id'))
+
+    const { onClickVote } = useVote(params.get('id'))
 
     useEffect(() => {
         setIsMounted(true)
@@ -48,7 +52,7 @@ const Vote = (param: Props) => {
                         <Image src={'/vote/loveBaby.png'} width={64} height={64} alt="" className='size-[22px] col-span-3 mx-auto' />
                     </div>
                     <div className="flex flex-col gap-2.5">
-                        {data?.data?.map((e: any, index: any) => {
+                        {data?.data?.length > 0 ? data?.data?.map((e: any, index: any) => {
                             return (
                                 <div key={e?.id} className="grid grid-cols-12 gap-4 items-center">
                                     <div className="col-span-9  bg-[#de7861] p-2.5 rounded-2xl text-[#fefefe] flex items-center justify-between gap-3">
@@ -69,7 +73,10 @@ const Vote = (param: Props) => {
                                     </div>
                                 </div>
                             )
-                        })}
+                        })
+                            :
+                            <NoData type='vote' />
+                        }
                     </div>
                     {/* <Image src={'/vote/threeStars.png'} width={64} height={64} alt="" className='col-span-2 mx-auto' />
                     <div className="bg-[url('/vote/bgTitle.png')] h-[170px] w-full bg-cover bg-no-repeat p-9">
