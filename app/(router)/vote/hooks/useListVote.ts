@@ -1,6 +1,6 @@
-import { toastCore } from "@/lib/toast";
+import { toastHotCore } from "@/lib/hot-toast";
 import { getListVote } from "@/services/Vote/vote.services";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export const useListVote = (param?: any) => {
     const listVoteString = localStorage.getItem("listVote");
@@ -20,7 +20,7 @@ export const useListVote = (param?: any) => {
         queryFn: async () => {
             const { data } = await getListVote(param);
             if (!data?.result) {
-                toastCore.error(data?.message);
+                toastHotCore.error(data?.message);
             }
             return {
                 ...data,

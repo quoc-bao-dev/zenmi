@@ -41,7 +41,7 @@ const Vote = (props: Props) => {
                                 Bảng thống kê tên được chọn
                             </h1>
                             <h1 className='text-[#a5a29f] font-semibold text-base'>
-                                Xem tất cả danh sách tên tóm tắt các điểm quan trọng:
+                                Hãy cùng nhau chọn tên bé mà mình yêu thích nhé !
                             </h1>
                         </div>
                     </div>

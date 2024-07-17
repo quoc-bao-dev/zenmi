@@ -1,5 +1,4 @@
-import useCookie from "@/hooks/useCookie";
-import { toastCore } from "@/lib/toast";
+import { toastHotCore } from "@/lib/hot-toast";
 import { postVote } from "@/services/Vote/vote.services";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const useVote = (param: any) => {
@@ -35,9 +34,9 @@ export const useVote = (param: any) => {
             {
                 onSuccess: ({ result, message }) => {
                     if (!result) {
-                        toastCore.error(message);
+                        toastHotCore.error(message);
                     }
-                    toastCore.success(message);
+                    toastHotCore.success(message);
                 },
                 onError: (error) => {
                     console.log("error", error);

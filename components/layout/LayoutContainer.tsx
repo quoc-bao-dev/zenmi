@@ -22,6 +22,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import 'swiper/css/thumbs';
 import Alert from '../modal/alert/Alert';
+import { Toaster } from "react-hot-toast";
 import { DialogWelcome } from '../modal/Dialog/DialogWelcome';
 type Props = {}
 
@@ -72,6 +73,7 @@ const LayoutContainer = ({
     return (
         <body className={`${bevietnampro.className} w-full bg-[#FCFDFD]`}>
             <QueryClientProvider client={queryClient}>
+                <Toaster position="top-right" reverseOrder={false} />
                 <motion.div
                     className='progress-bar'
                     style={{ scaleX: scrollYProgress }}
