@@ -66,9 +66,9 @@ const Vote = (props: Props) => {
                                     </div>
                                     <div className="col-span-3 mx-auto">
                                         {e?.checked ?
-                                            <FaHeart onClick={() => onClickVote(e)} size={22} className={`text-[#de7861]`} />
+                                            <FaHeart onClick={() => onClickVote(e)} size={22} className={`text-[#de7861] cursor-pointer`} />
                                             :
-                                            <FaRegHeart onClick={() => onClickVote(e)} size={22} className={`text-[#de7861]`} />
+                                            <FaRegHeart onClick={() => onClickVote(e)} size={22} className={`text-[#de7861] cursor-pointer`} />
                                         }
                                     </div>
                                 </div>
