@@ -14,6 +14,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { useListVote } from './hooks/useListVote'
 import { useVote } from './hooks/useVote'
 import { useVoteContent } from './hooks/useVoteContent'
+import { useInView } from 'react-intersection-observer';
+
 type Props = {}
 
 const Vote = (props: Props) => {
@@ -28,6 +30,29 @@ const Vote = (props: Props) => {
     const [isMounted, setIsMounted] = useState<boolean>(false)
 
     const { onClickVote, onSubmitArrayVote } = useVote(params.get('id'))
+
+
+    const [isFixed, setIsFixed] = useState(false);
+    // Sử dụng ref để theo dõi phần tử đầu tiên
+    const { ref: startRef, inView: startInView } = useInView({ threshold: 0 });
+
+    // Sử dụng ref để theo dõi phần tử cuối cùng
+    const { ref: endRef, inView: endInView } = useInView({ threshold: 0 });
+
+    // Cập nhật trạng thái khi cuộn qua các phần tử
+    useEffect(() => {
+        if (data?.data?.length > 1) {
+            if (endInView) {
+                setIsFixed(false);
+            }
+            if (startInView) {
+                setIsFixed(true);
+            } else {
+                setIsFixed(false);
+            }
+        }
+
+    }, [startInView, endInView, data?.data]);
 
     useEffect(() => {
         setIsMounted(true)
@@ -50,6 +75,8 @@ const Vote = (props: Props) => {
             image: '/vote/new/facebook.png'
         },
     ]
+
+
 
     if (!isMounted) {
         return null;
@@ -87,11 +114,11 @@ const Vote = (props: Props) => {
                         </div>
                         <Image src={'/vote/loveBaby.png'} width={64} height={64} alt="" className='size-[22px] col-span-3 mx-auto' />
                     </div>
-                    <ScrollArea type='hover' className="h-full">
+                    <ScrollArea type='hover' className="h-full" >
                         <div className="flex flex-col gap-2.5">
                             {data?.data?.length > 0 ? data?.data?.map((e: any, index: any) => {
                                 return (
-                                    <div key={e?.id} className="grid grid-cols-12 gap-4 items-center">
+                                    <div ref={(data?.data?.length - 1 == index) ? endRef : index == 1 ? startRef : undefined} key={e?.id} className="grid grid-cols-12 gap-4 items-center">
                                         <div className="col-span-9 bg-[url('/vote/new/image-name.png')] md:py-[58px] py-[38px] w-full bg-no-repeat bg-cover  bg-center rounded-2xl text-[#fefefe] flex items-center justify-between gap-3">
                                             <h1 className="md:text-lg text-base font-medium capitalize w-[80%] ml-6">
                                                 {e?.fullname}
@@ -115,11 +142,13 @@ const Vote = (props: Props) => {
                             }
                         </div>
                     </ScrollArea>
-                    <div onClick={() => onSubmitArrayVote()} className="bg-[url('/vote/new/submit.png')] md:py-14 group bg-no-repeat bg-cover bg-center py-8 cursor-pointer">
-                        <div className="text-2xl text-center uppercase text-white font-semibold hover:scale-105 transition-all duration-150 ease-linear">Bấm gửi bình chọn</div>
+                    <div id="yourDivId" className={`${isFixed && "fixed bottom-1 w-full -mx-2 z-10"} transition-all duration-200 ease-linear`}>
+                        <div onClick={() => onSubmitArrayVote()} className={`${isFixed ? "py-8 md:py-14" : "py-[34px]"} bg-[url('/vote/new/submit.png')]  group bg-no-repeat bg-cover bg-center  cursor-pointer`}>
+                            <div className="text-2xl text-center uppercase text-white font-semibold hover:scale-105 transition-all duration-150 ease-linear">Bấm gửi bình chọn</div>
+                        </div>
                     </div>
 
-                    <div className="flex justify-center w-full">
+                    <div ref={endRef} className="flex justify-center w-full">
                         <Image src={'/vote/new/there-star.png'} width={1280} height={1024} alt="" className='object-contain size-[30%]' />
                     </div>
 
