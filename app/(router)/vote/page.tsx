@@ -87,7 +87,7 @@ const Vote = (props: Props) => {
                         </div>
                         <Image src={'/vote/loveBaby.png'} width={64} height={64} alt="" className='size-[22px] col-span-3 mx-auto' />
                     </div>
-                    <ScrollArea type='hover' className="max-h-[calc(100dvh_-_30dvh)] overflow-y-auto">
+                    <ScrollArea type='hover' className="max-h-[calc(100dvh_-_30dvh)]">
                         <div className="flex flex-col gap-2.5">
                             {data?.data?.length > 0 ? data?.data?.map((e: any, index: any) => {
                                 return (
