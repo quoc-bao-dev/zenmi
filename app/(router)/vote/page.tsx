@@ -1,92 +1,215 @@
 'use client'
+import NoData from '@/components/no-data/NoData'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { uuidv4 } from '@/lib/uuid'
+import { ConvertYouTubeUrlToEmbed } from '@/utils/Cconvert/ConvertYoutobe'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { IoIosHeartEmpty } from 'react-icons/io'
+import { FaHeart, FaRegHeart } from 'react-icons/fa6'
+import Iframe from 'react-iframe'
+import { Autoplay } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import { useListVote } from './hooks/useListVote'
 import { useVote } from './hooks/useVote'
-import { FaHeart, FaRegHeart } from 'react-icons/fa6'
-import { CiHeart } from 'react-icons/ci'
-import { useParams, usePathname, useSearchParams } from 'next/navigation'
-import NoData from '@/components/no-data/NoData'
-
+import { useVoteContent } from './hooks/useVoteContent'
 type Props = {}
 
 const Vote = (props: Props) => {
-    const [isMounted, setIsMounted] = useState<boolean>(false)
+    const { push } = useRouter()
 
     const params = useSearchParams()
 
+    const { data: dataContent } = useVoteContent()
+
     const { data } = useListVote(params.get('id'))
 
-    const { onClickVote } = useVote(params.get('id'))
+    const [isMounted, setIsMounted] = useState<boolean>(false)
+
+    const { onClickVote, onSubmitArrayVote } = useVote(params.get('id'))
 
     useEffect(() => {
         setIsMounted(true)
     }, [])
 
+    const meida = [
+        {
+            id: uuidv4(),
+            link: dataContent?.data?.youtube_share_web_vote ?? '#',
+            image: '/vote/new/pngwing.png'
+        },
+        {
+            id: uuidv4(),
+            link: dataContent?.data?.tiktok_share_web_vote ?? '#',
+            image: '/vote/new/tiktok.png'
+        },
+        {
+            id: uuidv4(),
+            link: dataContent?.data?.facebook_share_web_vote ?? '#',
+            image: '/vote/new/facebook.png'
+        },
+    ]
 
     if (!isMounted) {
         return null;
     }
 
     return (
-        <div className='h-dvh bg-[url("/vote/backgroundRedBaby.jpg")] bg-cover bg-no-repeat'>
-            <ScrollArea type='hover' className="custom-container-child h-dvh py-6">
-                <div className='flex flex-col gap-3'>
+        <div className='h-dvh bg-[url("/vote/new/backgroundRedBaby2.jpg")] bg-cover bg-no-repeat'>
+            <ScrollArea type='hover' className="custom-container-child h-dvh pb-0">
+                <div className='flex flex-col gap-6'>
+                    <div className="w-full min-w-full h-[380px]">
+                        <Image src={dataContent?.data?.img_header_web_vote?.link} width={1280} height={1024} alt='' className='object-contain size-full' />
+                    </div>
                     <div className="flex items-start gap-2">
                         <Image src={'/vote/iconInfoBaby.png'} width={64} height={64} alt="" className='size-[22px] mt-0.5' />
                         <div className="flex flex-col gap-1">
-                            <h1 className='text-[#231a32] font-bold text-xl capitalize'>
-                                Bảng thống kê tên được chọn
+                            <h1 className='text-[#231a32] font-bold text-lg capitalize'>
+                                Bình chọn tên yêu thích cho bé
                             </h1>
                             <h1 className='text-[#a5a29f] font-semibold text-base'>
-                                Hãy cùng nhau chọn tên bé mà mình yêu thích nhé !
+                                {dataContent?.data?.content_short_web_vote ?? ''}
                             </h1>
                         </div>
                     </div>
+                    <div className="w-[70%] h-[180px] mx-auto">
+                        <Image src={'/vote/new/family.png'} width={1280} height={1024} alt='' className='object-contain size-full' />
+                    </div>
                     <div className="grid grid-cols-12 gap-4">
-                        <div className="text-[#a5a29f] text-base col-span-9">
-                            Lọc danh sách:
+                        <div className="col-span-9 flex items-center gap-2">
+                            <Image src={'/vote/new/startIcon_yellow.png'} width={64} height={64} alt="" className='size-[22px] mt-0.5' />
+                            <div className="flex flex-col gap-1">
+                                <h1 className='text-[#231a32] font-bold text-lg capitalize'>
+                                    Danh sách tên hợp mệnh bé
+                                </h1>
+                            </div>
                         </div>
                         <Image src={'/vote/loveBaby.png'} width={64} height={64} alt="" className='size-[22px] col-span-3 mx-auto' />
                     </div>
-                    <div className="flex flex-col gap-2.5">
-                        {data?.data?.length > 0 ? data?.data?.map((e: any, index: any) => {
-                            return (
-                                <div key={e?.id} className="grid grid-cols-12 gap-4 items-center">
-                                    <div className="col-span-9  bg-[#de7861] p-2.5 rounded-2xl text-[#fefefe] flex items-center justify-between gap-3">
-                                        <h1 className="text-sm font-medium capitalize">
-                                            {e?.fullname}
-                                        </h1>
-                                        <div className="flex flex-col gap-2">
-                                            <h1 className='text-xs font-normal'>{index + 1}/{data?.count_all_name}</h1>
-                                            <Image src={'/vote/logoOutline.png'} width={64} height={64} alt="" className='size-[22px] col-span-1 mx-auto' />
+                    <ScrollArea type='hover' className="max-h-[calc(100dvh_-_30dvh)] overflow-y-auto">
+                        <div className="flex flex-col gap-2.5">
+                            {data?.data?.length > 0 ? data?.data?.map((e: any, index: any) => {
+                                return (
+                                    <div key={e?.id} className="grid grid-cols-12 gap-4 items-center">
+                                        <div className="col-span-9 bg-[url('/vote/new/image-name.png')] md:py-[58px] py-[38px] w-full bg-no-repeat bg-cover  bg-center rounded-2xl text-[#fefefe] flex items-center justify-between gap-3">
+                                            <h1 className="md:text-lg text-base font-medium capitalize w-[80%] ml-6">
+                                                {e?.fullname}
+                                            </h1>
+                                            <div className="flex flex-col gap-2 w-[20%]">
+                                                <h1 className='md:text-base text-sm font-normal'>{index + 1}/{data?.count_all_name}</h1>
+                                            </div>
+                                        </div>
+                                        <div className="col-span-3 mx-auto">
+                                            {e?.checked ?
+                                                <FaHeart onClick={() => onClickVote(e)} size={22} className={`text-[#de7861] cursor-pointer`} />
+                                                :
+                                                <FaRegHeart onClick={() => onClickVote(e)} size={22} className={`text-[#de7861] cursor-pointer`} />
+                                            }
                                         </div>
                                     </div>
-                                    <div className="col-span-3 mx-auto">
-                                        {e?.checked ?
-                                            <FaHeart onClick={() => onClickVote(e)} size={22} className={`text-[#de7861] cursor-pointer`} />
-                                            :
-                                            <FaRegHeart onClick={() => onClickVote(e)} size={22} className={`text-[#de7861] cursor-pointer`} />
-                                        }
-                                    </div>
-                                </div>
-                            )
-                        })
-                            :
-                            <NoData type='vote' />
-                        }
+                                )
+                            })
+                                :
+                                <NoData type='vote' />
+                            }
+                        </div>
+                    </ScrollArea>
+                    <div onClick={() => onSubmitArrayVote()} className="bg-[url('/vote/new/submit.png')] md:py-14 group bg-no-repeat bg-cover bg-center py-8 cursor-pointer">
+                        <div className="text-2xl text-center uppercase text-white font-semibold hover:scale-105 transition-all duration-150 ease-linear">Bấm gửi bình chọn</div>
                     </div>
-                    {/* <Image src={'/vote/threeStars.png'} width={64} height={64} alt="" className='col-span-2 mx-auto' />
-                    <div className="bg-[url('/vote/bgTitle.png')] h-[170px] w-full bg-cover bg-no-repeat p-9">
-                        <h1 className='text-[#231a32] font-medium'>Xem bảng điểm chi tiết</h1>
-                        <h1 className='text-[#231a32] font-medium'>theo 6 <span className='capitalize'>tiêu chí</span></h1>
-                        <h1 className='text-[#231a32] font-medium'><span className='capitalize'>Lục hợp mệnh pháp</span></h1>
-                        <h1 className='text-[#231a32] font-medium'> của các tên được chọn</h1>
-                    </div> */}
+
+                    <div className="flex justify-center w-full">
+                        <Image src={'/vote/new/there-star.png'} width={1280} height={1024} alt="" className='object-contain size-[30%]' />
+                    </div>
+
+                    <div className="flex flex-col gap-6">
+                        <div className="flex items-start gap-2">
+                            <Image src={'/vote/iconInfoBaby.png'} width={64} height={64} alt="" className='size-[22px] mt-0.5' />
+                            <h1 className='text-[#231a32] font-bold text-lg capitalize underline  underline-offset-4'>
+                                Tìm Hiểu Thêm Về Thầy Nam & ZenMi:
+                            </h1>
+                        </div>
+                        <div className="flex items-center justify-center gap-3 w-full">
+                            {meida.map((e, index) => {
+                                return (
+                                    <Link key={index} href={e.link} className=''>
+                                        <div className="size-10">
+                                            <Image src={e.image} width={1280} height={1024} alt="" className='object-cover' />
+                                        </div>
+                                    </Link>
+                                )
+                            })}
+                        </div>
+                    </div>
+
+                    <div className="w-full">
+                        <Iframe
+                            url={ConvertYouTubeUrlToEmbed(dataContent?.data?.link_youtube_web_vote) ?? ""}
+                            id={dataContent?.data?.link_youtube_web_vote ?? "video"}
+                            width="100%"
+                            display="block"
+                            className="w-full  h-[270px]"
+                        />
+                    </div>
+
+
+                    <div className="flex items-start gap-2">
+                        <Image src={'/vote/iconInfoBaby.png'} width={64} height={64} alt="" className='size-[22px] mt-0.5' />
+                        <div className="flex flex-col gap-6">
+                            <h1 className='text-[#231a32] font-bold text-lg capitalize underline  underline-offset-4'>
+                                Cảm nhận người thật việc thật
+                            </h1>
+                        </div>
+                    </div>
+                    <div className="">
+                        <Swiper
+                            slidesPerView={1}
+                            centeredSlides
+                            loop={true}
+                            modules={[Autoplay]}
+                            autoplay={{
+                                delay: 2000,
+                                disableOnInteraction: false
+                            }}
+                            className='w-full'
+                        >
+                            {
+                                dataContent?.data?.slide_feel_web_vote && dataContent?.data?.slide_feel_web_vote?.map((e: any, idnex: any) => (
+                                    <SwiperSlide
+                                        key={idnex}
+                                        className="w-full h-[500px]"
+
+                                    >
+                                        <Image
+                                            src={e?.link}
+                                            alt=""
+                                            width={1280}
+                                            height={1024}
+                                            className="size-full rounded-3xl object-contain"
+                                        />
+                                    </SwiperSlide>
+                                ))
+                            }
+                        </Swiper>
+                    </div>
+
+                    <div className="flex justify-center w-full">
+                        <Image src={'/vote/new/there-star.png'} width={1280} height={1024} alt="" className='object-contain size-[30%]' />
+                    </div>
+
+                    <div className="flex flex-col items-center gap-2">
+                        <h1 className='text-[#231a32] font-bold text-lg uppercase text-center leading-7 whitespace-pre-wrap'>
+                            {dataContent?.data?.content_introduce_web_vote ?? ""}
+                        </h1>
+                    </div>
+
+                    <div className="" onClick={() => push(dataContent?.data?.link_download_app_in_web_vote ?? '')}>
+                        < Image src={'/vote/new/share.jpg'} width={1280} height={1024} alt="" className='size-full object-cover' />
+                    </div>
+
                 </div>
-            </ScrollArea>
+            </ScrollArea >
         </div >
     )
 }

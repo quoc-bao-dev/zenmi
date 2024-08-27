@@ -6,6 +6,10 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
+                hostname: 'swiperjs.com',
+            },
+            {
+                protocol: 'https',
                 hostname: 'erpzenmi.com',
             },
             {
