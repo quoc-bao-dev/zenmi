@@ -142,7 +142,7 @@ const Vote = (props: Props) => {
                             }
                         </div>
                     </ScrollArea>
-                    <div id="yourDivId" className={`${isFixed && "fixed bottom-1 w-full -mx-2 z-10"} transition-all duration-200 ease-linear`}>
+                    <div id="yourDivId" className={`${isFixed && "sticky bottom-1 w-full -mx-2 z-10"} transition-all duration-200 ease-linear`}>
                         <div onClick={() => onSubmitArrayVote()} className={`${isFixed ? "py-8 md:py-14" : "py-[34px]"} bg-[url('/vote/new/submit.png')]  group bg-no-repeat bg-cover bg-center  cursor-pointer`}>
                             <div className="text-2xl text-center uppercase text-white font-semibold hover:scale-105 transition-all duration-150 ease-linear">Bấm gửi bình chọn</div>
                         </div>
