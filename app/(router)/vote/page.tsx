@@ -31,34 +31,20 @@ const Vote = (props: Props) => {
 
     const { onClickVote, onSubmitArrayVote } = useVote(params.get('id'))
 
-    const [hasSeenStart, setHasSeenStart] = useState(false);
-
-
     const [isFixed, setIsFixed] = useState(false);
     // Sử dụng ref để theo dõi phần tử đầu tiên
     const { ref: startRef, inView: startInView } = useInView({
-        threshold: 0, triggerOnce: false,  // Đảm bảo không chỉ kích hoạt một lần
+        threshold: 0,
     });
 
     // Sử dụng ref để theo dõi phần tử cuối cùng
     const { ref: endRef, inView: endInView } = useInView({
-        threshold: 0, triggerOnce: false,  // Đảm bảo không chỉ kích hoạt một lần
+        threshold: 0,
     });
 
     // Cập nhật trạng thái khi cuộn qua các phần tử
     useEffect(() => {
         if (data?.data?.length > 1) {
-            console.log('startInView:', startInView, 'endInView:', endInView);
-            // if (startInView && !endInView) {
-            //     // Nếu phần tử đầu tiên vào view và phần tử cuối cùng chưa vào view
-            //     setIsFixed(true);
-            // } else if (endInView) {
-            //     // Nếu phần tử cuối cùng vào view
-            //     setIsFixed(false);
-            // } else if (!startInView) {
-            //     // Nếu phần tử đầu tiên không còn trong view
-            //     setIsFixed(false);
-            // }
             if (startInView) {
                 // Nếu phần tử đầu tiên vào vùng nhìn thấy, đặt isFixed thành true
                 setIsFixed(true);
@@ -73,7 +59,7 @@ const Vote = (props: Props) => {
             }
         }
 
-    }, [startInView, endInView, data?.data, hasSeenStart]);
+    }, [startInView, endInView, data?.data]);
 
     useEffect(() => {
         setIsMounted(true)
@@ -135,12 +121,11 @@ const Vote = (props: Props) => {
                         </div>
                         <Image src={'/vote/loveBaby.png'} width={64} height={64} alt="" className='size-[22px] col-span-3 mx-auto' />
                     </div>
-                    <ScrollArea type='hover' className="h-full" >
-                        <div className="flex flex-col gap-2.5">
+                    <ScrollArea type='hover' className="h-full" ref={startRef}>
+                        <div className="flex flex-col gap-2.5" >
                             {data?.data?.length > 0 ? data?.data?.map((e: any, index: any) => {
                                 return (
                                     <div
-                                        ref={(index == 1 ? startRef : undefined)}
                                         key={e?.id}
                                         className="grid grid-cols-12 gap-4 items-center"
                                     >
@@ -166,15 +151,15 @@ const Vote = (props: Props) => {
                                 <NoData type='vote' />
                             }
                         </div>
-                        <div className="" ref={endRef}></div>
+                        {/* <div className="" ref={endRef}></div> */}
                     </ScrollArea>
-                    <div id="yourDivId" className={`${isFixed ? "sticky bottom-1 w-full -mx-2 z-10" : ''} transition-all duration-200 ease-linear`}>
+                    <div id="yourDivId" className={`${isFixed ? "sticky bottom-1 w-full z-10" : ''} transition-all duration-200 ease-linear`}>
                         <div onClick={() => onSubmitArrayVote()} className={`${isFixed ? "py-8 md:py-14" : "py-8 md:py-14"} bg-[url('/vote/new/submit.png')]  group bg-no-repeat bg-cover bg-center  cursor-pointer`}>
                             <div className="text-2xl text-center uppercase text-white font-semibold hover:scale-105 transition-all duration-150 ease-linear">Bấm gửi bình chọn</div>
                         </div>
                     </div>
 
-                    <div className="flex justify-center w-full">
+                    <div ref={endRef} className="flex justify-center w-full">
                         <Image src={'/vote/new/there-star.png'} width={1280} height={1024} alt="" className='object-contain size-[30%]' />
                     </div>
 
