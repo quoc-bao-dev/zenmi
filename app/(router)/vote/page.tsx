@@ -25,34 +25,55 @@ const Vote = (props: Props) => {
 
     const { data: dataContent } = useVoteContent()
 
-    const { data } = useListVote(params.get('id'))
+    const { data, isLoading } = useListVote(params.get('id'))
 
     const [isMounted, setIsMounted] = useState<boolean>(false)
 
     const { onClickVote, onSubmitArrayVote } = useVote(params.get('id'))
 
+    const [hasSeenStart, setHasSeenStart] = useState(false);
+
 
     const [isFixed, setIsFixed] = useState(false);
     // Sử dụng ref để theo dõi phần tử đầu tiên
-    const { ref: startRef, inView: startInView } = useInView({ threshold: 0 });
+    const { ref: startRef, inView: startInView } = useInView({
+        threshold: 0, triggerOnce: false,  // Đảm bảo không chỉ kích hoạt một lần
+    });
 
     // Sử dụng ref để theo dõi phần tử cuối cùng
-    const { ref: endRef, inView: endInView } = useInView({ threshold: 0 });
+    const { ref: endRef, inView: endInView } = useInView({
+        threshold: 0, triggerOnce: false,  // Đảm bảo không chỉ kích hoạt một lần
+    });
 
     // Cập nhật trạng thái khi cuộn qua các phần tử
     useEffect(() => {
         if (data?.data?.length > 1) {
+            console.log('startInView:', startInView, 'endInView:', endInView);
+            // if (startInView && !endInView) {
+            //     // Nếu phần tử đầu tiên vào view và phần tử cuối cùng chưa vào view
+            //     setIsFixed(true);
+            // } else if (endInView) {
+            //     // Nếu phần tử cuối cùng vào view
+            //     setIsFixed(false);
+            // } else if (!startInView) {
+            //     // Nếu phần tử đầu tiên không còn trong view
+            //     setIsFixed(false);
+            // }
+            if (startInView) {
+                // Nếu phần tử đầu tiên vào vùng nhìn thấy, đặt isFixed thành true
+                setIsFixed(true);
+            }
             if (endInView) {
+                // Nếu phần tử cuối cùng vào vùng nhìn thấy, đặt isFixed thành false
                 setIsFixed(false);
             }
-            if (startInView) {
-                setIsFixed(true);
-            } else {
+            // Nếu phần tử đầu tiên không còn trong view và phần tử cuối cùng chưa vào view
+            if (!startInView && !endInView) {
                 setIsFixed(false);
             }
         }
 
-    }, [startInView, endInView, data?.data]);
+    }, [startInView, endInView, data?.data, hasSeenStart]);
 
     useEffect(() => {
         setIsMounted(true)
@@ -118,7 +139,11 @@ const Vote = (props: Props) => {
                         <div className="flex flex-col gap-2.5">
                             {data?.data?.length > 0 ? data?.data?.map((e: any, index: any) => {
                                 return (
-                                    <div ref={(data?.data?.length - 1 == index) ? endRef : index == 1 ? startRef : undefined} key={e?.id} className="grid grid-cols-12 gap-4 items-center">
+                                    <div
+                                        ref={(index == 1 ? startRef : undefined)}
+                                        key={e?.id}
+                                        className="grid grid-cols-12 gap-4 items-center"
+                                    >
                                         <div className="col-span-9 bg-[url('/vote/new/image-name.png')] md:py-[58px] py-[38px] w-full bg-no-repeat bg-cover  bg-center rounded-2xl text-[#fefefe] flex items-center justify-between gap-3">
                                             <h1 className="md:text-lg text-base font-medium capitalize w-[80%] ml-6">
                                                 {e?.fullname}
@@ -141,14 +166,15 @@ const Vote = (props: Props) => {
                                 <NoData type='vote' />
                             }
                         </div>
+                        <div className="" ref={endRef}></div>
                     </ScrollArea>
-                    <div id="yourDivId" className={`${isFixed && "sticky bottom-1 w-full -mx-2 z-10"} transition-all duration-200 ease-linear`}>
-                        <div onClick={() => onSubmitArrayVote()} className={`${isFixed ? "py-8 md:py-14" : "py-[34px]"} bg-[url('/vote/new/submit.png')]  group bg-no-repeat bg-cover bg-center  cursor-pointer`}>
+                    <div id="yourDivId" className={`${isFixed ? "sticky bottom-1 w-full -mx-2 z-10" : ''} transition-all duration-200 ease-linear`}>
+                        <div onClick={() => onSubmitArrayVote()} className={`${isFixed ? "py-8 md:py-14" : "py-8 md:py-14"} bg-[url('/vote/new/submit.png')]  group bg-no-repeat bg-cover bg-center  cursor-pointer`}>
                             <div className="text-2xl text-center uppercase text-white font-semibold hover:scale-105 transition-all duration-150 ease-linear">Bấm gửi bình chọn</div>
                         </div>
                     </div>
 
-                    <div ref={endRef} className="flex justify-center w-full">
+                    <div className="flex justify-center w-full">
                         <Image src={'/vote/new/there-star.png'} width={1280} height={1024} alt="" className='object-contain size-[30%]' />
                     </div>
 
