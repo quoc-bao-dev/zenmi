@@ -83,7 +83,7 @@ const LayoutContainer = ({
                     {children}
                     <ButtonToTop />
                     <Alert />
-                    <DialogWelcome />
+                    {/* <DialogWelcome /> */}
                 </main>
                 <ToastContainer
                     position="top-right"
