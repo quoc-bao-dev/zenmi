@@ -495,7 +495,7 @@ const Shops = (props: Props) => {
     }, [headerRef, categoryRef]); // useEffect sẽ chỉ gọi một lần khi component được render
 
     return (
-        <div ref={containerRef} className="flex flex-col gap-2 bg-[url('/example/shop/background_6.png')] bg-cover bg-no-repeat h-dvh overflow-y-scroll">
+        <div ref={containerRef} className=" bg-[url('/example/shop/background_6.png')] bg-cover bg-no-repeat h-dvh overflow-y-scroll">
             <div ref={headerRef} className='sticky top-0 z-[9] bg-white'>
                 <div className="custom-container-child  flex items-center justify-between gap-2  py-2">
                     <div className="relative w-[89%]">
@@ -515,132 +515,72 @@ const Shops = (props: Props) => {
                     </div>
                 </div>
             </div>
-            <div className="mb-2">
-                <Swiper
-                    autoplay={{
-                        delay: 3000,
-                        disableOnInteraction: false
+            <div className="flex flex-col gap-2">
+                <div className="mb-2">
+                    <Swiper
+                        autoplay={{
+                            delay: 3000,
+                            disableOnInteraction: false
+                        }}
+                        modules={[Autoplay, Pagination, Navigation]}
+                        className="mySwiper"
+                    >
+                        {
+                            isStateShop.listImageSlider.map((item, index) => (
+                                <SwiperSlide key={index} className='max-h-[200px] h-[200px] min-h-[200px] overflow-hidden'>
+                                    <Image src={item.image ?? ""} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
+                                </SwiperSlide>
+                            ))
+                        }
+                    </Swiper>
+                </div>
+                <div ref={categoryRef}
+                    style={{
+                        top: `${isSticky ? headerRef.current.clientHeight : ""}px`
                     }}
-                    modules={[Autoplay, Pagination, Navigation]}
-                    className="mySwiper"
-                >
+                    className={` ${isSticky ? 'sticky left-0 z-[999] bg-white py-2 shadow-[0_4px_4px_rgba(0,0,0,0.2)]' : ''}`}>
                     {
-                        isStateShop.listImageSlider.map((item, index) => (
-                            <SwiperSlide key={index} className='max-h-[200px] h-[200px] min-h-[200px] overflow-hidden'>
-                                <Image src={item.image ?? ""} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
-                            </SwiperSlide>
-                        ))
-                    }
-                </Swiper>
-            </div>
-            <div ref={categoryRef}
-                style={{
-                    top: `${isSticky ? headerRef.current.clientHeight : ""}px`
-                }}
-                className={` ${isSticky ? 'sticky left-0 z-[999] bg-white py-2 shadow-[0_4px_4px_rgba(0,0,0,0.2)]' : ''}`}>
-                {
-                    isLoading ?
-                        <div className='flex flex-col gap-2 items-center'>
-                            <Skeleton className='h-3 w-full bg-gray-100 rounded-full' />
-                            <Skeleton className='h-3 w-full bg-gray-100 rounded-full' />
-                            <Skeleton className='h-3 w-full bg-gray-100 rounded-full' />
-                        </div> :
-                        <Swiper
-                            slidesPerView={5}
-                            spaceBetween={10}
-                            freeMode={true}
-                            modules={[FreeMode, Pagination]}
-                            className="mySwiper "
-                        >
-                            {
-                                isStateShop.listCategorys.map((item, index) => (
-                                    <SwiperSlide onClick={() => queryStateShop({ isCategory: item?.id })} key={index} className='flex flex-col items-center gap-1 group  cursor-pointer'>
-                                        <div className="bg-gray-200 size-12 rounded-full flex items-center justify-center">
-                                            <Image src={item.image ?? ""} alt="" width={1280} height={1280} className='size-12 rounded-full object-contain' />
-                                        </div>
-                                        <h1 className={`text-[10px] ${item?.id == isStateShop.isCategory ? 'text-[#E73C2A]' : 'text-gray-400'}  uppercase text-center leading-1 group-hover:text-[#E73C2A]/80 transition-all duration-150 ease-linear cursor-pointer`}>{item.name}</h1>
-                                    </SwiperSlide>
-                                ))
-                            }
-                        </Swiper>
-                }
-            </div>
-            {
-                isStateShop.isCategory == isStateShop.listCategorys[0]?.id &&
-                <div className='flex flex-col gap-1 h-full bg-no-repeat'>
-                    {/* <div className='flex flex-col gap-1 bg-[url("/example/shop/home-sale-top.png")] bg-cover h-full bg-no-repeat'> */}
-                    <h1 className='text-[#E73C2A] text-lg font-semibold py-3 px-2'>Sản phẩm mới</h1>
-                    {
-                        isStateShop.nodata
-                            ?
-                            <NoData type='shops' className='col-span-2' />
-                            :
-                            isLoading
-                                ?
-                                <div className='grid grid-cols-3 gap-4 mb-4'>
-                                    {
-                                        [...Array(3)].map((_, index) => {
-                                            return (
-                                                <div key={index} className='group rounded-xl size-full col-span-1 flex flex-col gap-1  cursor-pointer h-fit'>
-                                                    <Skeleton className='w-full bg-gray-100 h-32 p-2 mx-auto overflow-hidden'>
-                                                    </Skeleton>
-                                                    <Skeleton className='py-3  bg-gray-100'></Skeleton>
-                                                    <Skeleton className='py-3  bg-gray-100'></Skeleton>
-                                                    <Skeleton className='py-3  bg-gray-100'></Skeleton>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                                :
-                                <Swiper
-                                    autoplay={{
-                                        delay: 2500,
-                                        disableOnInteraction: false
-                                    }}
-                                    modules={[Autoplay, Pagination, Navigation]}
-                                    slidesPerView={3}
-                                    className="mySwiper px-1 pb-4 [&_.swiper-pagination]:-bottom-0 [&_.swiper-pagination-bullet-active]:bg-[#E73C2A]"
-                                    spaceBetween={10}
-                                    pagination={{ clickable: true }}
-                                >
-                                    {
-                                        isStateShop?.listProductsFloating && isStateShop?.listProductsFloating?.map((item, index) => (
-                                            <SwiperSlide key={item.id} className="relative mb-2  w-full max-w-[32%]">
-                                                <div className='flex flex-col gap-1 w-full  '>
-                                                    <div onClick={() => handleDetail(item)} className="cursor-pointer">
-                                                        <div className='w-full   cursor-pointer  mx-auto overflow-hidden'>
-                                                            <Image
-                                                                blurDataURL={item.image ?? ""}
-                                                                loading="lazy"
-                                                                unoptimized={true}
-                                                                src={item.image ?? ""}
-                                                                alt=""
-                                                                width={1920}
-                                                                height={1920}
-                                                                className='object-cover size-full transition-all duration-150 ease-linear'
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </SwiperSlide>
-                                        ))
-                                    }
-                                </Swiper>
+                        isLoading ?
+                            <div className='flex flex-col gap-2 items-center'>
+                                <Skeleton className='h-3 w-full bg-gray-100 rounded-full' />
+                                <Skeleton className='h-3 w-full bg-gray-100 rounded-full' />
+                                <Skeleton className='h-3 w-full bg-gray-100 rounded-full' />
+                            </div> :
+                            <Swiper
+                                slidesPerView={5}
+                                spaceBetween={10}
+                                freeMode={true}
+                                modules={[FreeMode, Pagination]}
+                                className="mySwiper "
+                            >
+                                {
+                                    isStateShop.listCategorys.map((item, index) => (
+                                        <SwiperSlide onClick={() => queryStateShop({ isCategory: item?.id })} key={index} className='flex flex-col items-center gap-1 group  cursor-pointer'>
+                                            <div className="bg-gray-200 size-12 rounded-full flex items-center justify-center">
+                                                <Image src={item.image ?? ""} alt="" width={1280} height={1280} className='size-12 rounded-full object-contain' />
+                                            </div>
+                                            <h1 className={`text-[10px] ${item?.id == isStateShop.isCategory ? 'text-[#E73C2A]' : 'text-gray-400'}  uppercase text-center leading-1 group-hover:text-[#E73C2A]/80 transition-all duration-150 ease-linear cursor-pointer`}>{item.name}</h1>
+                                        </SwiperSlide>
+                                    ))
+                                }
+                            </Swiper>
                     }
                 </div>
-            }
-            <div className="flex flex-col gap-4 custom-container-child">
                 {
-                    <div className='flex flex-col gap-4'>
-                        <h1 className='text-black text-lg font-semibold'>Mã khuyến mãi</h1>
+                    isStateShop.isCategory == isStateShop.listCategorys[0]?.id &&
+                    <div className='flex flex-col gap-1 h-full bg-no-repeat'>
+                        {/* <div className='flex flex-col gap-1 bg-[url("/example/shop/home-sale-top.png")] bg-cover h-full bg-no-repeat'> */}
+                        <h1 className='text-[#E73C2A] text-lg font-semibold py-3 px-2'>Sản phẩm mới</h1>
                         {
-                            isStateShop.nodata ?
-                                <NoData type='shops' className='col-span-2' /> :
-                                isLoading ?
-                                    <div className='grid grid-cols-2 gap-4 mb-4'>
+                            isStateShop.nodata
+                                ?
+                                <NoData type='shops' className='col-span-2' />
+                                :
+                                isLoading
+                                    ?
+                                    <div className='grid grid-cols-3 gap-4 mb-4'>
                                         {
-                                            [...Array(2)].map((_, index) => {
+                                            [...Array(3)].map((_, index) => {
                                                 return (
                                                     <div key={index} className='group rounded-xl size-full col-span-1 flex flex-col gap-1  cursor-pointer h-fit'>
                                                         <Skeleton className='w-full bg-gray-100 h-32 p-2 mx-auto overflow-hidden'>
@@ -656,178 +596,240 @@ const Shops = (props: Props) => {
                                     :
                                     <Swiper
                                         autoplay={{
-                                            delay: 3000,
+                                            delay: 2500,
                                             disableOnInteraction: false
                                         }}
                                         modules={[Autoplay, Pagination, Navigation]}
-                                        slidesPerView={'auto'}
+                                        slidesPerView={3}
+                                        className="mySwiper px-1 pb-4 [&_.swiper-pagination]:-bottom-0 [&_.swiper-pagination-bullet-active]:bg-[#E73C2A]"
                                         spaceBetween={10}
-                                        className="mySwiper w-full"
+                                        pagination={{ clickable: true }}
                                     >
                                         {
-                                            isStateShop?.listVoucher && isStateShop?.listVoucher?.map((item, index) => {
-                                                return (
-                                                    <SwiperSlide
-                                                        key={item.id}
-                                                        style={{ backgroundColor: item?.bg }}
-                                                        className="relative  rounded-lg mb-2 max-w-[90%] w-full overflow-hidden h-auto flex items-center"
-                                                    >
-                                                        <div
-                                                            style={{
-                                                                borderColor: item?.border,
-                                                            }}
-                                                            className='border-2 border-r-0 rounded-lg h-[100px] w-[30%] p-2 flex flex-col items-center justify-center'
-                                                        >
-                                                            <h1
-                                                                style={{
-                                                                    color: item?.voucher?.color
-                                                                }}
-                                                                className='text-base font-semibold  text-center'
-                                                            >
-                                                                {item?.voucher?.name}
-                                                            </h1>
-                                                            <h2
-                                                                style={{
-                                                                    color: item?.voucher?.color
-                                                                }}
-                                                                className='text-xs font-semibold text-center'
-                                                            >
-                                                                {item?.voucher?.note}
-
-                                                            </h2>
-                                                        </div>
-                                                        <div
-                                                            style={{
-                                                                borderColor: item?.border,
-                                                            }}
-                                                            className='border-2 border-l-0 rounded-lg h-[100px] w-[70%] p-2 flex flex-col items-center justify-center'
-                                                        >
-                                                            <div className=''>
-                                                                <h1
-                                                                    style={{
-                                                                        color: item?.discount?.color
-                                                                    }}
-                                                                    className='text-sm font-semibold text-start'
-                                                                >
-                                                                    {item?.name}
-                                                                </h1>
-                                                                <h2
-                                                                    style={{
-                                                                        color: item?.discount?.color
-                                                                    }}
-                                                                    className='text-sm font-semibold text-start max-w-[80%]'
-                                                                >
-                                                                    [{item?.discount?.type}] <span>{item?.discount?.note}</span>
-                                                                </h2>
-                                                            </div>
-                                                            <div className='flex flex-row items-center justify-between w-full pl-[8%]'>
-                                                                <h2
-                                                                    style={{
-                                                                        color: item?.discount?.color
-                                                                    }}
-                                                                    className='text-xs font-semibold text-start'
-                                                                >
-                                                                    HSD: <span>{item?.date}</span>
-                                                                </h2>
-                                                                <div
-                                                                    style={{
-                                                                        backgroundColor: item?.discount?.color
-                                                                    }}
-                                                                    onClick={() => {
-                                                                        if (item?.active) {
-                                                                            toastCore.error('Mã khuyến mãi đã được lấy!')
-                                                                        } else {
-                                                                            handleActiveVoucher(item?.id)
-                                                                        }
-                                                                    }}
-                                                                    className='text-xs cursor-pointer font-semibold text-center text-white rounded-full px-2 py-1 hover:scale-110 transition-all duration-150 ease-linear'
-                                                                >
-                                                                    {item?.active ? "Đã lấy mã" : "Lấy mã"}
-
-                                                                </div>
+                                            isStateShop?.listProductsFloating && isStateShop?.listProductsFloating?.map((item, index) => (
+                                                <SwiperSlide key={item.id} className="relative mb-2  w-full max-w-[32%]">
+                                                    <div className='flex flex-col gap-1 w-full  '>
+                                                        <div onClick={() => handleDetail(item)} className="cursor-pointer">
+                                                            <div className='w-full   cursor-pointer  mx-auto overflow-hidden'>
+                                                                <Image
+                                                                    blurDataURL={item.image ?? ""}
+                                                                    loading="lazy"
+                                                                    unoptimized={true}
+                                                                    src={item.image ?? ""}
+                                                                    alt=""
+                                                                    width={1920}
+                                                                    height={1920}
+                                                                    className='object-cover size-full transition-all duration-150 ease-linear'
+                                                                />
                                                             </div>
                                                         </div>
-                                                    </SwiperSlide>
-                                                )
-                                            })
+                                                    </div>
+                                                </SwiperSlide>
+                                            ))
                                         }
                                     </Swiper>
                         }
                     </div>
                 }
-
-                <div className='flex flex-col gap-4'>
-                    <h1 className='text-black text-lg font-semibold'>Sản phẩm dành riêng cho mẹ và bé</h1>
-                    <div className="">
-                        {
-                            isStateShop.nodata ?
-                                <NoData type='shops' className='col-span-2' /> :
-                                <div className='grid grid-cols-2 gap-4 mb-4'>
-                                    {isLoading ? [...Array(4)].map((_, index) => {
-                                        return (
-                                            <div key={index} className='group rounded-xl size-full col-span-1 flex flex-col gap-1  cursor-pointer h-fit'>
-                                                <Skeleton className='w-full bg-gray-100 h-32 p-2 mx-auto overflow-hidden'>
-                                                </Skeleton>
-                                                <Skeleton className='py-3  bg-gray-100'></Skeleton>
-                                                <Skeleton className='py-3  bg-gray-100'></Skeleton>
-                                                <Skeleton className='py-3  bg-gray-100'></Skeleton>
-                                            </div>
-                                        )
-                                    }) :
-                                        isStateShop?.listProducts?.map((item, index) => (
-                                            // shadow-[0_0_5px_rgba(0,0,0,0.1)] 
-                                            <div key={item.id} className="relative bg-white mb-2 border border-[#fb7185]  col-span-1 h-fit rounded-xl  group flex flex-col gap-1 w-full overflow-hidden">
-                                                <div onClick={() => handleDetail(item)} className="cursor-pointer py-2">
-                                                    <div className='w-full min-h-[156px] bg-white cursor-pointer max-h-[156px] mx-auto overflow-hidden rounded-md'>
-                                                        <Image
-                                                            src={item.image ?? ""}
-                                                            alt=""
-                                                            width={1920}
-                                                            height={1920}
-                                                            className='object-contain size-full min-h-[156px] max-h-[156px] group-hover:scale-105 rounded-2xl transition-all duration-150 ease-linear'
-                                                        />
-                                                        {/* <Image src={"/example/shop/products/sua.png"} alt="" width={1920} height={1920} className='object-contain size-full max-h-[156px] group-hover:scale-105 rounded-md transition-all duration-150 ease-linear' /> */}
-                                                    </div>
-                                                    <div className="flex flex-col gap-1 px-2 pt-1">
-                                                        <h1 className='cursor-pointer min-h-[39px] text-black text-sm leading-1 font-normal line-clamp-2 group-hover:text-black/80 transition-all duration-150 ease-linear'>{item.name}</h1>
-                                                        <h1 className='text-[#545454] group-hover:text-[#545454]/80 transition-all duration-150 ease-linear font-bold text-base'>{FormatNumberDot(item.price)} vnđ</h1>
-                                                    </div>
-                                                </div>
-                                                <div className="flex justify-between items-center p-2">
-                                                    <div className="flex items-center justify-start gap-5 w-[70%]">
-                                                        <div className='text-gray-400 font-normal text-xs flex items-center gap-1 my-auto'>
-                                                            <div className="flex justify-center items-center">
-                                                                <CiStar size={19} />
-                                                            </div>
-                                                            <div className=''>{item.star}/5</div>
+                <div className="flex flex-col gap-4 custom-container-child">
+                    {
+                        <div className='flex flex-col gap-4'>
+                            <h1 className='text-black text-lg font-semibold'>Mã khuyến mãi</h1>
+                            {
+                                isStateShop.nodata ?
+                                    <NoData type='shops' className='col-span-2' /> :
+                                    isLoading ?
+                                        <div className='grid grid-cols-2 gap-4 mb-4'>
+                                            {
+                                                [...Array(2)].map((_, index) => {
+                                                    return (
+                                                        <div key={index} className='group rounded-xl size-full col-span-1 flex flex-col gap-1  cursor-pointer h-fit'>
+                                                            <Skeleton className='w-full bg-gray-100 h-32 p-2 mx-auto overflow-hidden'>
+                                                            </Skeleton>
+                                                            <Skeleton className='py-3  bg-gray-100'></Skeleton>
+                                                            <Skeleton className='py-3  bg-gray-100'></Skeleton>
+                                                            <Skeleton className='py-3  bg-gray-100'></Skeleton>
                                                         </div>
-                                                        <h1 className='text-gray-400 font-normal text-xs'>Đã bán {FormatNumberDot(item.count)}</h1>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        :
+                                        <Swiper
+                                            autoplay={{
+                                                delay: 3000,
+                                                disableOnInteraction: false
+                                            }}
+                                            modules={[Autoplay, Pagination, Navigation]}
+                                            slidesPerView={'auto'}
+                                            spaceBetween={10}
+                                            className="mySwiper w-full"
+                                        >
+                                            {
+                                                isStateShop?.listVoucher && isStateShop?.listVoucher?.map((item, index) => {
+                                                    return (
+                                                        <SwiperSlide
+                                                            key={item.id}
+                                                            style={{ backgroundColor: item?.bg }}
+                                                            className="relative  rounded-lg mb-2 max-w-[90%] w-full overflow-hidden h-auto flex items-center"
+                                                        >
+                                                            <div
+                                                                style={{
+                                                                    borderColor: item?.border,
+                                                                }}
+                                                                className='border-2 border-r-0 rounded-lg h-[100px] w-[30%] p-2 flex flex-col items-center justify-center'
+                                                            >
+                                                                <h1
+                                                                    style={{
+                                                                        color: item?.voucher?.color
+                                                                    }}
+                                                                    className='text-base font-semibold  text-center'
+                                                                >
+                                                                    {item?.voucher?.name}
+                                                                </h1>
+                                                                <h2
+                                                                    style={{
+                                                                        color: item?.voucher?.color
+                                                                    }}
+                                                                    className='text-xs font-semibold text-center'
+                                                                >
+                                                                    {item?.voucher?.note}
+
+                                                                </h2>
+                                                            </div>
+                                                            <div
+                                                                style={{
+                                                                    borderColor: item?.border,
+                                                                }}
+                                                                className='border-2 border-l-0 rounded-lg h-[100px] w-[70%] p-2 flex flex-col items-center justify-center'
+                                                            >
+                                                                <div className=''>
+                                                                    <h1
+                                                                        style={{
+                                                                            color: item?.discount?.color
+                                                                        }}
+                                                                        className='text-sm font-semibold text-start'
+                                                                    >
+                                                                        {item?.name}
+                                                                    </h1>
+                                                                    <h2
+                                                                        style={{
+                                                                            color: item?.discount?.color
+                                                                        }}
+                                                                        className='text-sm font-semibold text-start max-w-[80%]'
+                                                                    >
+                                                                        [{item?.discount?.type}] <span>{item?.discount?.note}</span>
+                                                                    </h2>
+                                                                </div>
+                                                                <div className='flex flex-row items-center justify-between w-full pl-[8%]'>
+                                                                    <h2
+                                                                        style={{
+                                                                            color: item?.discount?.color
+                                                                        }}
+                                                                        className='text-xs font-semibold text-start'
+                                                                    >
+                                                                        HSD: <span>{item?.date}</span>
+                                                                    </h2>
+                                                                    <div
+                                                                        style={{
+                                                                            backgroundColor: item?.discount?.color
+                                                                        }}
+                                                                        onClick={() => {
+                                                                            if (item?.active) {
+                                                                                toastCore.error('Mã khuyến mãi đã được lấy!')
+                                                                            } else {
+                                                                                handleActiveVoucher(item?.id)
+                                                                            }
+                                                                        }}
+                                                                        className='text-xs cursor-pointer font-semibold text-center text-white rounded-full px-2 py-1 hover:scale-110 transition-all duration-150 ease-linear'
+                                                                    >
+                                                                        {item?.active ? "Đã lấy mã" : "Lấy mã"}
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </SwiperSlide>
+                                                    )
+                                                })
+                                            }
+                                        </Swiper>
+                            }
+                        </div>
+                    }
+
+                    <div className='flex flex-col gap-4'>
+                        <h1 className='text-black text-lg font-semibold'>Sản phẩm dành riêng cho mẹ và bé</h1>
+                        <div className="">
+                            {
+                                isStateShop.nodata ?
+                                    <NoData type='shops' className='col-span-2' /> :
+                                    <div className='grid grid-cols-2 gap-4 mb-4'>
+                                        {isLoading ? [...Array(4)].map((_, index) => {
+                                            return (
+                                                <div key={index} className='group rounded-xl size-full col-span-1 flex flex-col gap-1  cursor-pointer h-fit'>
+                                                    <Skeleton className='w-full bg-gray-100 h-32 p-2 mx-auto overflow-hidden'>
+                                                    </Skeleton>
+                                                    <Skeleton className='py-3  bg-gray-100'></Skeleton>
+                                                    <Skeleton className='py-3  bg-gray-100'></Skeleton>
+                                                    <Skeleton className='py-3  bg-gray-100'></Skeleton>
+                                                </div>
+                                            )
+                                        }) :
+                                            isStateShop?.listProducts?.map((item, index) => (
+                                                // shadow-[0_0_5px_rgba(0,0,0,0.1)] 
+                                                <div key={item.id} className="relative bg-white mb-2 border border-[#fb7185]  col-span-1 h-fit rounded-xl  group flex flex-col gap-1 w-full overflow-hidden">
+                                                    <div onClick={() => handleDetail(item)} className="cursor-pointer py-2">
+                                                        <div className='w-full min-h-[156px] bg-white cursor-pointer max-h-[156px] mx-auto overflow-hidden rounded-md'>
+                                                            <Image
+                                                                src={item.image ?? ""}
+                                                                alt=""
+                                                                width={1920}
+                                                                height={1920}
+                                                                className='object-contain size-full min-h-[156px] max-h-[156px] group-hover:scale-105 rounded-2xl transition-all duration-150 ease-linear'
+                                                            />
+                                                            {/* <Image src={"/example/shop/products/sua.png"} alt="" width={1920} height={1920} className='object-contain size-full max-h-[156px] group-hover:scale-105 rounded-md transition-all duration-150 ease-linear' /> */}
+                                                        </div>
+                                                        <div className="flex flex-col gap-1 px-2 pt-1">
+                                                            <h1 className='cursor-pointer min-h-[39px] text-black text-sm leading-1 font-normal line-clamp-2 group-hover:text-black/80 transition-all duration-150 ease-linear'>{item.name}</h1>
+                                                            <h1 className='text-[#545454] group-hover:text-[#545454]/80 transition-all duration-150 ease-linear font-bold text-base'>{FormatNumberDot(item.price)} vnđ</h1>
+                                                        </div>
                                                     </div>
-                                                    <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:flex hidden justify-end w-[30%]">
-                                                        <FiShoppingCart
-                                                            className=' text-[#E73C2A] lg:block hidden group-hover:text-[#E73C2A]/80 hover:scale-105 transition-all duration-150 ease-linear'
-                                                            size={22}
-                                                        />
-                                                    </div>
-                                                    <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:hidden flex justify-end w-[30%]">
-                                                        <FiShoppingCart
-                                                            className=' text-[#E73C2A] lg:hidden block group-hover:text-[#E73C2A]/80 hover:scale-105 transition-all duration-150 ease-linear'
-                                                            size={22}
-                                                        />
+                                                    <div className="flex justify-between items-center p-2">
+                                                        <div className="flex items-center justify-start gap-5 w-[70%]">
+                                                            <div className='text-gray-400 font-normal text-xs flex items-center gap-1 my-auto'>
+                                                                <div className="flex justify-center items-center">
+                                                                    <CiStar size={19} />
+                                                                </div>
+                                                                <div className=''>{item.star}/5</div>
+                                                            </div>
+                                                            <h1 className='text-gray-400 font-normal text-xs'>Đã bán {FormatNumberDot(item.count)}</h1>
+                                                        </div>
+                                                        <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:flex hidden justify-end w-[30%]">
+                                                            <FiShoppingCart
+                                                                className=' text-[#E73C2A] lg:block hidden group-hover:text-[#E73C2A]/80 hover:scale-105 transition-all duration-150 ease-linear'
+                                                                size={22}
+                                                            />
+                                                        </div>
+                                                        <div onClick={(e) => handleAddcart(item, e)} className="cursor-pointer pb-2 pr-2 lg:hidden flex justify-end w-[30%]">
+                                                            <FiShoppingCart
+                                                                className=' text-[#E73C2A] lg:hidden block group-hover:text-[#E73C2A]/80 hover:scale-105 transition-all duration-150 ease-linear'
+                                                                size={22}
+                                                            />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ))
-                                    }
+                                            ))
+                                        }
+                                    </div>
+                            }
+                            {flyingItem && (
+                                <div
+                                    className="flying-image"
+                                    style={animationStyle}>
+                                    <Image src={flyingItem.image ?? ""} alt="" width={50} height={50} className='object-cover bg-transparent' />
                                 </div>
-                        }
-                        {flyingItem && (
-                            <div
-                                className="flying-image"
-                                style={animationStyle}>
-                                <Image src={flyingItem.image ?? ""} alt="" width={50} height={50} className='object-cover bg-transparent' />
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
