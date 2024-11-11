@@ -39,6 +39,7 @@ const voucher = [
             note: "Cho đơn online từ 0K",
             color: '#01acb6'
         },
+        bg: "#edfbff",
         border: '#d1f4ff',
         discount: {
             type: 'Online Double day',
@@ -57,12 +58,13 @@ const voucher = [
             color: '#ae0258'
         },
         border: '#ff0064',
+        bg: "#fff5fa",
         discount: {
             type: 'Online Double day',
             note: 'Áp dụng đơn hàng online',
             color: '#ff0064'
         },
-        date: "11-13/11",
+        date: "11-23/12",
         active: false
     },
     {
@@ -74,12 +76,13 @@ const voucher = [
             color: '#01acb6'
         },
         border: '#d1f4ff',
+        bg: "#edfbff",
         discount: {
             type: 'Online Double day',
             note: 'Áp dụng đơn hàng online',
             color: '#01acb6'
         },
-        date: "11-13/11",
+        date: "11-25/11",
         active: false
     },
     {
@@ -91,12 +94,13 @@ const voucher = [
             color: '#ae0258'
         },
         border: '#ff0064',
+        bg: "#fff5fa",
         discount: {
             type: 'Online Double day',
             note: 'Áp dụng đơn hàng online',
             color: '#ff0064'
         },
-        date: "11-13/11",
+        date: "11-23/12",
         active: false
     },
 ]
@@ -520,11 +524,13 @@ const Shops = (props: Props) => {
                     modules={[Autoplay, Pagination, Navigation]}
                     className="mySwiper"
                 >
-                    {isStateShop.listImageSlider.map((item, index) => (
-                        <SwiperSlide key={index} className='max-h-[200px] h-[200px] min-h-[200px] overflow-hidden'>
-                            <Image src={item.image ?? ""} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
-                        </SwiperSlide>
-                    ))}
+                    {
+                        isStateShop.listImageSlider.map((item, index) => (
+                            <SwiperSlide key={index} className='max-h-[200px] h-[200px] min-h-[200px] overflow-hidden'>
+                                <Image src={item.image ?? ""} alt="" width={1280} height={1280} className='w-full h-full object-cover' />
+                            </SwiperSlide>
+                        ))
+                    }
                 </Swiper>
             </div>
             <div ref={categoryRef}
@@ -546,21 +552,24 @@ const Shops = (props: Props) => {
                             modules={[FreeMode, Pagination]}
                             className="mySwiper "
                         >
-                            {isStateShop.listCategorys.map((item, index) => (
-                                <SwiperSlide onClick={() => queryStateShop({ isCategory: item?.id })} key={index} className='flex flex-col items-center gap-1 group  cursor-pointer'>
-                                    <div className="bg-gray-200 size-12 rounded-full flex items-center justify-center">
-                                        <Image src={item.image ?? ""} alt="" width={1280} height={1280} className='size-12 rounded-full object-contain' />
-                                    </div>
-                                    <h1 className={`text-[10px] ${item?.id == isStateShop.isCategory ? 'text-[#E73C2A]' : 'text-gray-400'}  uppercase text-center leading-1 group-hover:text-[#E73C2A]/80 transition-all duration-150 ease-linear cursor-pointer`}>{item.name}</h1>
-                                </SwiperSlide>
-                            ))}
+                            {
+                                isStateShop.listCategorys.map((item, index) => (
+                                    <SwiperSlide onClick={() => queryStateShop({ isCategory: item?.id })} key={index} className='flex flex-col items-center gap-1 group  cursor-pointer'>
+                                        <div className="bg-gray-200 size-12 rounded-full flex items-center justify-center">
+                                            <Image src={item.image ?? ""} alt="" width={1280} height={1280} className='size-12 rounded-full object-contain' />
+                                        </div>
+                                        <h1 className={`text-[10px] ${item?.id == isStateShop.isCategory ? 'text-[#E73C2A]' : 'text-gray-400'}  uppercase text-center leading-1 group-hover:text-[#E73C2A]/80 transition-all duration-150 ease-linear cursor-pointer`}>{item.name}</h1>
+                                    </SwiperSlide>
+                                ))
+                            }
                         </Swiper>
                 }
             </div>
             {
                 isStateShop.isCategory == isStateShop.listCategorys[0]?.id &&
-                <div className='flex flex-col gap-1 bg-[url("/example/shop/home-sale-top.png")] bg-cover h-full bg-no-repeat'>
-                    <h1 className='text-[#f54282] text-lg font-semibold py-3 px-2'>Sản phẩm mới</h1>
+                <div className='flex flex-col gap-1 h-full bg-no-repeat'>
+                    {/* <div className='flex flex-col gap-1 bg-[url("/example/shop/home-sale-top.png")] bg-cover h-full bg-no-repeat'> */}
+                    <h1 className='text-[#E73C2A] text-lg font-semibold py-3 px-2'>Sản phẩm mới</h1>
                     {
                         isStateShop.nodata
                             ?
@@ -646,95 +655,101 @@ const Shops = (props: Props) => {
                                     </div>
                                     :
                                     <Swiper
-                                        // autoplay={{
-                                        //     delay: 3000,
-                                        //     disableOnInteraction: false
-                                        // }}
-                                        // modules={[Autoplay, Pagination, Navigation]}
+                                        autoplay={{
+                                            delay: 3000,
+                                            disableOnInteraction: false
+                                        }}
+                                        modules={[Autoplay, Pagination, Navigation]}
                                         slidesPerView={'auto'}
                                         spaceBetween={10}
                                         className="mySwiper w-full"
                                     >
                                         {
-                                            isStateShop?.listVoucher && isStateShop?.listVoucher?.map((item, index) => (
-                                                <SwiperSlide key={item.id} className="relative mb-2 max-w-[90%] w-full overflow-hidden h-auto flex items-center">
-                                                    <div
-                                                        style={{
-                                                            borderColor: item?.border
-                                                        }}
-                                                        className='border-2 border-r-0 rounded-lg h-[100px] w-[30%] p-2 flex flex-col items-center justify-center'
+                                            isStateShop?.listVoucher && isStateShop?.listVoucher?.map((item, index) => {
+                                                return (
+                                                    <SwiperSlide
+                                                        key={item.id}
+                                                        style={{ backgroundColor: item?.bg }}
+                                                        className="relative  rounded-lg mb-2 max-w-[90%] w-full overflow-hidden h-auto flex items-center"
                                                     >
-                                                        <h1
+                                                        <div
                                                             style={{
-                                                                color: item?.voucher?.color
+                                                                borderColor: item?.border,
                                                             }}
-                                                            className='text-base font-semibold  text-center'
+                                                            className='border-2 border-r-0 rounded-lg h-[100px] w-[30%] p-2 flex flex-col items-center justify-center'
                                                         >
-                                                            {item?.voucher?.name}
-                                                        </h1>
-                                                        <h2
-                                                            style={{
-                                                                color: item?.voucher?.color
-                                                            }}
-                                                            className='text-xs font-semibold text-center'
-                                                        >
-                                                            {item?.voucher?.note}
-
-                                                        </h2>
-                                                    </div>
-                                                    <div
-                                                        style={{
-                                                            borderColor: item?.border
-                                                        }}
-                                                        className='border-2 border-l-0 rounded-lg h-[100px] w-[70%] p-2 flex flex-col items-center justify-center'
-                                                    >
-                                                        <div className=''>
                                                             <h1
                                                                 style={{
-                                                                    color: item?.discount?.color
+                                                                    color: item?.voucher?.color
                                                                 }}
-                                                                className='text-sm font-semibold text-start'
+                                                                className='text-base font-semibold  text-center'
                                                             >
-                                                                {item?.name}
+                                                                {item?.voucher?.name}
                                                             </h1>
                                                             <h2
                                                                 style={{
-                                                                    color: item?.discount?.color
+                                                                    color: item?.voucher?.color
                                                                 }}
-                                                                className='text-sm font-semibold text-start max-w-[80%]'
+                                                                className='text-xs font-semibold text-center'
                                                             >
-                                                                [{item?.discount?.type}] <span>{item?.discount?.note}</span>
+                                                                {item?.voucher?.note}
+
                                                             </h2>
                                                         </div>
-                                                        <div className='flex flex-row items-center justify-between w-full pl-[8%]'>
-                                                            <h2
-                                                                style={{
-                                                                    color: item?.discount?.color
-                                                                }}
-                                                                className='text-xs font-semibold text-start'
-                                                            >
-                                                                HSD: <span>{item?.date}</span>
-                                                            </h2>
-                                                            <div
-                                                                style={{
-                                                                    backgroundColor: item?.discount?.color
-                                                                }}
-                                                                onClick={() => {
-                                                                    if (item?.active) {
-                                                                        toastCore.error('Mã khuyến mãi đã được lấy!')
-                                                                    } else {
-                                                                        handleActiveVoucher(item?.id)
-                                                                    }
-                                                                }}
-                                                                className='text-xs cursor-pointer font-semibold text-center text-white rounded-full px-2 py-1 hover:scale-110 transition-all duration-150 ease-linear'
-                                                            >
-                                                                {item?.active ? "Đã lấy mã" : "Lấy mã"}
+                                                        <div
+                                                            style={{
+                                                                borderColor: item?.border,
+                                                            }}
+                                                            className='border-2 border-l-0 rounded-lg h-[100px] w-[70%] p-2 flex flex-col items-center justify-center'
+                                                        >
+                                                            <div className=''>
+                                                                <h1
+                                                                    style={{
+                                                                        color: item?.discount?.color
+                                                                    }}
+                                                                    className='text-sm font-semibold text-start'
+                                                                >
+                                                                    {item?.name}
+                                                                </h1>
+                                                                <h2
+                                                                    style={{
+                                                                        color: item?.discount?.color
+                                                                    }}
+                                                                    className='text-sm font-semibold text-start max-w-[80%]'
+                                                                >
+                                                                    [{item?.discount?.type}] <span>{item?.discount?.note}</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div className='flex flex-row items-center justify-between w-full pl-[8%]'>
+                                                                <h2
+                                                                    style={{
+                                                                        color: item?.discount?.color
+                                                                    }}
+                                                                    className='text-xs font-semibold text-start'
+                                                                >
+                                                                    HSD: <span>{item?.date}</span>
+                                                                </h2>
+                                                                <div
+                                                                    style={{
+                                                                        backgroundColor: item?.discount?.color
+                                                                    }}
+                                                                    onClick={() => {
+                                                                        if (item?.active) {
+                                                                            toastCore.error('Mã khuyến mãi đã được lấy!')
+                                                                        } else {
+                                                                            handleActiveVoucher(item?.id)
+                                                                        }
+                                                                    }}
+                                                                    className='text-xs cursor-pointer font-semibold text-center text-white rounded-full px-2 py-1 hover:scale-110 transition-all duration-150 ease-linear'
+                                                                >
+                                                                    {item?.active ? "Đã lấy mã" : "Lấy mã"}
 
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </SwiperSlide>
-                                            ))
+                                                    </SwiperSlide>
+                                                )
+                                            })
                                         }
                                     </Swiper>
                         }
