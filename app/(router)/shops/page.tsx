@@ -597,10 +597,10 @@ const Shops = (props: Props) => {
                                 >
                                     {
                                         isStateShop?.listProductsFloating && isStateShop?.listProductsFloating?.map((item, index) => (
-                                            <SwiperSlide key={item.id} className="relative mb-2 h-[300px] w-full max-w-[32%]">
-                                                <div className='flex flex-col gap-1 w-full  h-[300px]'>
+                                            <SwiperSlide key={item.id} className="relative mb-2  w-full max-w-[32%]">
+                                                <div className='flex flex-col gap-1 w-full  '>
                                                     <div onClick={() => handleDetail(item)} className="cursor-pointer">
-                                                        <div className='w-full  h-[300px] cursor-pointer  mx-auto overflow-hidden'>
+                                                        <div className='w-full   cursor-pointer  mx-auto overflow-hidden'>
                                                             <Image
                                                                 blurDataURL={item.image ?? ""}
                                                                 loading="lazy"
@@ -609,7 +609,7 @@ const Shops = (props: Props) => {
                                                                 alt=""
                                                                 width={1920}
                                                                 height={1920}
-                                                                className='object-contain size-full transition-all duration-150 ease-linear'
+                                                                className='object-cover size-full transition-all duration-150 ease-linear'
                                                             />
                                                         </div>
                                                     </div>
