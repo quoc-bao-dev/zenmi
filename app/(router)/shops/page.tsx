@@ -110,20 +110,20 @@ const Shops = (props: Props) => {
         listImageSlider: [
             {
                 id: 1,
-                image: "/example/shop/listImageSlider/test0.jpeg"
+                image: "/example/shop/listImageSlider/img1.png"
             },
             {
                 id: 2,
-                image: "/example/shop/listImageSlider/test1.jpeg"
+                image: "/example/shop/listImageSlider/img2.png"
             },
-            {
-                id: 3,
-                image: "/example/shop/listImageSlider/test2.jpeg"
-            },
-            {
-                id: 4,
-                image: "/example/shop/listImageSlider/test3.jpeg"
-            }
+            // {
+            //     id: 3,
+            //     image: "/example/shop/listImageSlider/test2.jpeg"
+            // },
+            // {
+            //     id: 4,
+            //     image: "/example/shop/listImageSlider/test3.jpeg"
+            // }
         ],
         listProducts: [],
         isCategory: null,
