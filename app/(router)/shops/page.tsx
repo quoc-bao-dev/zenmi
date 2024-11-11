@@ -537,7 +537,7 @@ const Shops = (props: Props) => {
             {
                 isStateShop.isCategory == isStateShop.listCategorys[0]?.id &&
                 <div className='flex flex-col gap-1 bg-[url("/example/shop/home-sale-top.png")] bg-cover h-full bg-no-repeat'>
-                    <h1 className='text-black text-lg font-semibold py-3 px-2'>Sản phẩm mới</h1>
+                    <h1 className='text-[#f54282] text-lg font-semibold py-3 px-2'>Sản phẩm mới</h1>
                     {
                         isStateShop.nodata
                             ?
@@ -568,7 +568,7 @@ const Shops = (props: Props) => {
                                     }}
                                     modules={[Autoplay, Pagination, Navigation]}
                                     slidesPerView={3}
-                                    className="mySwiper px-1 pb-4 [&_.swiper-pagination]:-bottom-0"
+                                    className="mySwiper px-1 pb-4 [&_.swiper-pagination]:-bottom-0 [&_.swiper-pagination-bullet-active]:bg-[#E73C2A]"
                                     spaceBetween={10}
                                     pagination={{ clickable: true }}
                                 >
@@ -731,7 +731,7 @@ const Shops = (props: Props) => {
                                     }) :
                                         isStateShop?.listProducts?.map((item, index) => (
                                             // shadow-[0_0_5px_rgba(0,0,0,0.1)] 
-                                            <div key={item.id} className="relative bg-white mb-2 border-[5px] border-[#fb7185]  col-span-1 h-fit rounded-2xl  group flex flex-col gap-1 w-full overflow-hidden">
+                                            <div key={item.id} className="relative bg-white mb-2 border-2 border-[#fb7185]  col-span-1 h-fit rounded-2xl  group flex flex-col gap-1 w-full overflow-hidden">
                                                 <div onClick={() => handleDetail(item)} className="cursor-pointer py-2">
                                                     <div className='w-full min-h-[156px] bg-white cursor-pointer max-h-[156px] mx-auto overflow-hidden rounded-md'>
                                                         <Image
