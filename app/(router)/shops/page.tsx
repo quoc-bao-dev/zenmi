@@ -64,7 +64,7 @@ const voucher = [
             note: 'Áp dụng đơn hàng online',
             color: '#ff0064'
         },
-        date: "11-13/11",
+        date: "11-23/12",
         active: false
     },
     {
@@ -82,7 +82,7 @@ const voucher = [
             note: 'Áp dụng đơn hàng online',
             color: '#01acb6'
         },
-        date: "11-13/11",
+        date: "11-25/11",
         active: false
     },
     {
@@ -100,7 +100,7 @@ const voucher = [
             note: 'Áp dụng đơn hàng online',
             color: '#ff0064'
         },
-        date: "11-13/11",
+        date: "11-23/12",
         active: false
     },
 ]
