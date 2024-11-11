@@ -3,6 +3,7 @@ import NoData from '@/components/no-data/NoData'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useShopCart } from '@/hooks/useShopCart'
+import { toastCore } from '@/lib/toast'
 import { uuidv4 } from '@/lib/uuid'
 import { getListCategoryProducts } from '@/services/Shops/shops.services'
 import { ListCategorys, ListProducts } from '@/types/Shops/IShops'
@@ -44,7 +45,8 @@ const voucher = [
             note: 'Áp dụng đơn hàng online',
             color: '#01acb6'
         },
-        date: "11-13/11"
+        date: "11-13/11",
+        active: false
     },
     {
         id: uuidv4(),
@@ -60,7 +62,8 @@ const voucher = [
             note: 'Áp dụng đơn hàng online',
             color: '#ff0064'
         },
-        date: "11-13/11"
+        date: "11-13/11",
+        active: false
     },
     {
         id: uuidv4(),
@@ -76,7 +79,8 @@ const voucher = [
             note: 'Áp dụng đơn hàng online',
             color: '#01acb6'
         },
-        date: "11-13/11"
+        date: "11-13/11",
+        active: false
     },
     {
         id: uuidv4(),
@@ -92,7 +96,8 @@ const voucher = [
             note: 'Áp dụng đơn hàng online',
             color: '#ff0064'
         },
-        date: "11-13/11"
+        date: "11-13/11",
+        active: false
     },
 ]
 const Shops = (props: Props) => {
@@ -405,11 +410,29 @@ const Shops = (props: Props) => {
         }, 800);
     };
 
-
     const handleDetail = async (e: any) => {
         setDataDetail(e)
         router.push(`/shops/${e.id}?name=${ConvertToSlug(e.name)}.html`)
     }
+
+    const handleActiveVoucher = (id: any) => {
+        const newData = isStateShop.listVoucher.map((e: any) => {
+            return {
+                ...e,
+                active: e.id == id ? !e.active : e.active
+            }
+        })
+        toastCore.success('Lấy mã thành công!')
+        localStorage.setItem('listVoucher', JSON.stringify(newData))
+        queryStateShop({ listVoucher: newData })
+    }
+
+    useEffect(() => {
+        if (localStorage.getItem('listVoucher')) {
+            queryStateShop({ listVoucher: JSON.parse(localStorage.getItem('listVoucher') ?? "") })
+        }
+    }, [])
+
 
 
     useEffect(() => {
@@ -623,11 +646,11 @@ const Shops = (props: Props) => {
                                     </div>
                                     :
                                     <Swiper
-                                        autoplay={{
-                                            delay: 3000,
-                                            disableOnInteraction: false
-                                        }}
-                                        modules={[Autoplay, Pagination, Navigation]}
+                                        // autoplay={{
+                                        //     delay: 3000,
+                                        //     disableOnInteraction: false
+                                        // }}
+                                        // modules={[Autoplay, Pagination, Navigation]}
                                         slidesPerView={'auto'}
                                         spaceBetween={10}
                                         className="mySwiper w-full"
@@ -665,7 +688,7 @@ const Shops = (props: Props) => {
                                                         }}
                                                         className='border-2 border-l-0 rounded-lg h-[100px] w-[70%] p-2 flex flex-col items-center justify-center'
                                                     >
-                                                        <div className='max-w-[70%]'>
+                                                        <div className=''>
                                                             <h1
                                                                 style={{
                                                                     color: item?.discount?.color
@@ -678,12 +701,12 @@ const Shops = (props: Props) => {
                                                                 style={{
                                                                     color: item?.discount?.color
                                                                 }}
-                                                                className='text-sm font-semibold text-start'
+                                                                className='text-sm font-semibold text-start max-w-[80%]'
                                                             >
                                                                 [{item?.discount?.type}] <span>{item?.discount?.note}</span>
                                                             </h2>
                                                         </div>
-                                                        <div className='flex flex-row items-center justify-between w-full max-w-[70%]'>
+                                                        <div className='flex flex-row items-center justify-between w-full pl-[8%]'>
                                                             <h2
                                                                 style={{
                                                                     color: item?.discount?.color
@@ -696,9 +719,16 @@ const Shops = (props: Props) => {
                                                                 style={{
                                                                     backgroundColor: item?.discount?.color
                                                                 }}
-                                                                className='text-xs cursor-pointer font-semibold text-center text-white rounded-full px-2 py-1'
+                                                                onClick={() => {
+                                                                    if (item?.active) {
+                                                                        toastCore.error('Mã khuyến mãi đã được lấy!')
+                                                                    } else {
+                                                                        handleActiveVoucher(item?.id)
+                                                                    }
+                                                                }}
+                                                                className='text-xs cursor-pointer font-semibold text-center text-white rounded-full px-2 py-1 hover:scale-110 transition-all duration-150 ease-linear'
                                                             >
-                                                                Lấy mã
+                                                                {item?.active ? "Đã lấy mã" : "Lấy mã"}
 
                                                             </div>
                                                         </div>
