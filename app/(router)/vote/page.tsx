@@ -83,6 +83,8 @@ const Vote = (props: Props) => {
         },
     ]
 
+    console.log("data", data);
+    console.log("dataContent", dataContent);
 
 
     if (!isMounted) {
@@ -99,8 +101,8 @@ const Vote = (props: Props) => {
                     <div className="flex items-start gap-2">
                         <Image src={'/vote/iconInfoBaby.png'} width={64} height={64} alt="" className='size-[22px] mt-0.5' />
                         <div className="flex flex-col gap-1">
-                            <h1 className='text-[#231a32] font-bold text-lg capitalize'>
-                                Bình chọn tên yêu thích cho bé
+                            <h1 className='text-[#231a32] font-bold text-base capitalize'>
+                                {data?.title_header ?? ""}
                             </h1>
                             <h1 className='text-[#a5a29f] font-semibold text-base'>
                                 {dataContent?.data?.content_short_web_vote ?? ''}
@@ -113,11 +115,9 @@ const Vote = (props: Props) => {
                     <div className="grid grid-cols-12 gap-4">
                         <div className="col-span-9 flex items-center gap-2">
                             <Image src={'/vote/new/startIcon_yellow.png'} width={64} height={64} alt="" className='size-[22px] mt-0.5' />
-                            <div className="flex flex-col gap-1">
-                                <h1 className='text-[#231a32] font-bold text-lg capitalize'>
-                                    Danh sách tên hợp mệnh bé
-                                </h1>
-                            </div>
+                            <h1 className='text-[#231a32] font-bold text-base capitalize'>
+                                {data?.title ?? ""}
+                            </h1>
                         </div>
                         <Image src={'/vote/loveBaby.png'} width={64} height={64} alt="" className='size-[22px] col-span-3 mx-auto' />
                     </div>
