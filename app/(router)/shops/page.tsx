@@ -131,40 +131,40 @@ const Shops = (props: Props) => {
     valueSearch: "",
     nodata: false,
     listProductsFloating: [
-      {
-        count: 5,
-        id: 3,
-        image: "/example/shop/floating/vp-4.png",
-        name: "Vòng trầm cho bé",
-        price: 100000,
-        star: 5,
-        quantity: 1,
-        content: `
-           <div class="content">
-                <p><span class="highlight">Chế tác thủ công:</span></p>
-                <ul>
-                    <li>Vòng Trầm Cho Bé, thiết kế theo size vòng tay của từng bé</li>
-                    <li>Charm bạc hình hoa lá hoặc hình con vật theo tuổi</li>
-                    <li>Có 2 mẫu: vòng trơn và vòng tết dây đỏ</li>
-                </ul>
-                <p>Thấu hiểu tấm lòng của các bậc làm cha làm mẹ luôn mong muốn dành những điều tốt nhất cho con, sản phẩm Vòng Bảo Nhi được chế tác từ trầm hương tự nhiên đã ra đời. Không chỉ tốt cho sức khỏe của bé mà còn có ý nghĩa về mặt tâm linh; đặc biệt với trẻ "nhẹ vía", hay bị giật mình.</p>
-            </div>
-    
-            <div class="content">
-                <p><span class="highlight">Vòng Trầm Cho Bé có gì đặc biệt?</span></p>
-                <ul>
-                    <li>Vòng trầm hạt tròn mix charm bạc hình hoa hồng nhỏ xinh cho bé gái. Vòng đốt trúc khỏe khoắn, charm bạc tròn dành cho bé nam, vừa làm đẹp vừa kỵ gió</li>
-                    <li>Dây xỏ vòng Bảo Nhi là dây chun Nhật Bản siêu bền, có tính đàn hồi cao, an toàn với trẻ nhỏ</li>
-                    <li>Chế tác thủ công từ trầm hương Việt Nam được giới chuyên gia quốc tế đánh giá thuộc loại tốt nhất trên thế giới về mùi hương và tinh dầu</li>
-                    <li>Mẫu mã đa đạng, phù hợp với sở thích của các bé ở mọi lứa tuổi</li>
-                    <li>Vòng được thiết kế bởi những người thợ lành nghề, cẩn thận trong từng chi tiết nhỏ, đảm bảo không còn xơ gỗ để tránh gây chầy xước trên da bé</li>
-                    <li>Phần tết dây đỏ có thể điều chỉnh theo kích thước cổ tay của bé</li>
-                    <li>Vì là trầm hương tự nhiên nên vòng càng đeo càng bóng, do tác động nhiệt các vân gỗ nhìn rõ, không bị mất mùi</li>
-                    <li>Với vòng Bảo Nhi bé có thể đeo tay, đeo chân, để ở dưới gối hoặc bên cạnh khi ngủ để năng lượng dương từ trầm hương bảo vệ bé</li>
-                </ul>
-            </div>
-            `,
-      },
+      //   {
+      //     count: 5,
+      //     id: 3,
+      //     image: "/example/shop/floating/vp-4.png",
+      //     name: "Vòng trầm cho bé",
+      //     price: 100000,
+      //     star: 5,
+      //     quantity: 1,
+      //     content: `
+      //        <div class="content">
+      //             <p><span class="highlight">Chế tác thủ công:</span></p>
+      //             <ul>
+      //                 <li>Vòng Trầm Cho Bé, thiết kế theo size vòng tay của từng bé</li>
+      //                 <li>Charm bạc hình hoa lá hoặc hình con vật theo tuổi</li>
+      //                 <li>Có 2 mẫu: vòng trơn và vòng tết dây đỏ</li>
+      //             </ul>
+      //             <p>Thấu hiểu tấm lòng của các bậc làm cha làm mẹ luôn mong muốn dành những điều tốt nhất cho con, sản phẩm Vòng Bảo Nhi được chế tác từ trầm hương tự nhiên đã ra đời. Không chỉ tốt cho sức khỏe của bé mà còn có ý nghĩa về mặt tâm linh; đặc biệt với trẻ "nhẹ vía", hay bị giật mình.</p>
+      //         </div>
+
+      //         <div class="content">
+      //             <p><span class="highlight">Vòng Trầm Cho Bé có gì đặc biệt?</span></p>
+      //             <ul>
+      //                 <li>Vòng trầm hạt tròn mix charm bạc hình hoa hồng nhỏ xinh cho bé gái. Vòng đốt trúc khỏe khoắn, charm bạc tròn dành cho bé nam, vừa làm đẹp vừa kỵ gió</li>
+      //                 <li>Dây xỏ vòng Bảo Nhi là dây chun Nhật Bản siêu bền, có tính đàn hồi cao, an toàn với trẻ nhỏ</li>
+      //                 <li>Chế tác thủ công từ trầm hương Việt Nam được giới chuyên gia quốc tế đánh giá thuộc loại tốt nhất trên thế giới về mùi hương và tinh dầu</li>
+      //                 <li>Mẫu mã đa đạng, phù hợp với sở thích của các bé ở mọi lứa tuổi</li>
+      //                 <li>Vòng được thiết kế bởi những người thợ lành nghề, cẩn thận trong từng chi tiết nhỏ, đảm bảo không còn xơ gỗ để tránh gây chầy xước trên da bé</li>
+      //                 <li>Phần tết dây đỏ có thể điều chỉnh theo kích thước cổ tay của bé</li>
+      //                 <li>Vì là trầm hương tự nhiên nên vòng càng đeo càng bóng, do tác động nhiệt các vân gỗ nhìn rõ, không bị mất mùi</li>
+      //                 <li>Với vòng Bảo Nhi bé có thể đeo tay, đeo chân, để ở dưới gối hoặc bên cạnh khi ngủ để năng lượng dương từ trầm hương bảo vệ bé</li>
+      //             </ul>
+      //         </div>
+      //         `,
+      //   },
       {
         count: 3,
         id: 2,
@@ -714,7 +714,7 @@ const Shops = (props: Props) => {
           {isStateShop.nodata ? (
             <NoData type="shops" className="col-span-2" />
           ) : isLoading ? (
-            <div className="columns-2 gap-4">
+            <div className="columns-1 gap-4">
               {[...Array(4)].map((_, index) => {
                 return (
                   <div
@@ -730,7 +730,7 @@ const Shops = (props: Props) => {
               })}
             </div>
           ) : (
-            <div className="columns-2 gap-4">
+            <div className="columns-1 gap-4">
               {isStateShop?.listProductsFloating?.map((item, index) => (
                 <div
                   key={item.id}
@@ -740,22 +740,22 @@ const Shops = (props: Props) => {
                     onClick={() => handleDetail(item)}
                     className="cursor-pointer "
                   >
-                    <div className="w-full bg-white cursor-pointer mx-auto overflow-hidden rounded-md p-2">
+                    <div className="w-full h-[200px] bg-white cursor-pointer mx-auto overflow-hidden rounded-md p-2">
                       <Image
                         src={item.image ?? ""}
                         alt=""
                         width={1920}
                         height={1920}
-                        className="w-full h-auto object-contain group-hover:scale-105 rounded-xl transition-all duration-150 ease-linear"
+                        className="w-full h-full object-cover group-hover:scale-105 rounded-xl transition-all duration-150 ease-linear"
                       />
                     </div>
                     <div className="flex flex-col gap-1 px-2 pt-1">
                       <h1 className="pb-1 cursor-pointer text-black text-sm leading-1 font-normal line-clamp-2 group-hover:text-black/80 transition-all duration-150 ease-linear">
                         {item.name}
                       </h1>
-                      <h1 className="text-[#E73C2A] group-hover:text-[#545454]/80- transition-all duration-150 ease-linear font-bold text-base">
+                      {/* <h1 className="text-[#E73C2A] group-hover:text-[#545454]/80- transition-all duration-150 ease-linear font-bold text-base">
                         {FormatNumberDot(item.price)} vnđ
-                      </h1>
+                      </h1> */}
                     </div>
                   </div>
                   <div className="flex justify-between items-center px-2 pb-2">
