@@ -131,40 +131,36 @@ const Shops = (props: Props) => {
     valueSearch: "",
     nodata: false,
     listProductsFloating: [
-      //   {
-      //     count: 5,
-      //     id: 3,
-      //     image: "/example/shop/floating/vp-4.png",
-      //     name: "Vòng trầm cho bé",
-      //     price: 100000,
-      //     star: 5,
-      //     quantity: 1,
-      //     content: `
-      //        <div class="content">
-      //             <p><span class="highlight">Chế tác thủ công:</span></p>
-      //             <ul>
-      //                 <li>Vòng Trầm Cho Bé, thiết kế theo size vòng tay của từng bé</li>
-      //                 <li>Charm bạc hình hoa lá hoặc hình con vật theo tuổi</li>
-      //                 <li>Có 2 mẫu: vòng trơn và vòng tết dây đỏ</li>
-      //             </ul>
-      //             <p>Thấu hiểu tấm lòng của các bậc làm cha làm mẹ luôn mong muốn dành những điều tốt nhất cho con, sản phẩm Vòng Bảo Nhi được chế tác từ trầm hương tự nhiên đã ra đời. Không chỉ tốt cho sức khỏe của bé mà còn có ý nghĩa về mặt tâm linh; đặc biệt với trẻ "nhẹ vía", hay bị giật mình.</p>
-      //         </div>
-
-      //         <div class="content">
-      //             <p><span class="highlight">Vòng Trầm Cho Bé có gì đặc biệt?</span></p>
-      //             <ul>
-      //                 <li>Vòng trầm hạt tròn mix charm bạc hình hoa hồng nhỏ xinh cho bé gái. Vòng đốt trúc khỏe khoắn, charm bạc tròn dành cho bé nam, vừa làm đẹp vừa kỵ gió</li>
-      //                 <li>Dây xỏ vòng Bảo Nhi là dây chun Nhật Bản siêu bền, có tính đàn hồi cao, an toàn với trẻ nhỏ</li>
-      //                 <li>Chế tác thủ công từ trầm hương Việt Nam được giới chuyên gia quốc tế đánh giá thuộc loại tốt nhất trên thế giới về mùi hương và tinh dầu</li>
-      //                 <li>Mẫu mã đa đạng, phù hợp với sở thích của các bé ở mọi lứa tuổi</li>
-      //                 <li>Vòng được thiết kế bởi những người thợ lành nghề, cẩn thận trong từng chi tiết nhỏ, đảm bảo không còn xơ gỗ để tránh gây chầy xước trên da bé</li>
-      //                 <li>Phần tết dây đỏ có thể điều chỉnh theo kích thước cổ tay của bé</li>
-      //                 <li>Vì là trầm hương tự nhiên nên vòng càng đeo càng bóng, do tác động nhiệt các vân gỗ nhìn rõ, không bị mất mùi</li>
-      //                 <li>Với vòng Bảo Nhi bé có thể đeo tay, đeo chân, để ở dưới gối hoặc bên cạnh khi ngủ để năng lượng dương từ trầm hương bảo vệ bé</li>
-      //             </ul>
-      //         </div>
-      //         `,
-      //   },
+      {
+        count: 5,
+        id: 3,
+        image: "/example/shop/floating/vp-3.png",
+        name: "Mặt Dây Phật Bản Mệnh",
+        price: 150000,
+        star: 5,
+        quantity: 1,
+        content: `
+                   <div class="content">
+        <p><span class="highlight">Chế tác tâm linh:</span></p>
+        <ul>
+            <li>Mặt dây Phật Bản Mệnh được chế tác theo từng tuổi</li>
+            <li>Đường nét hiền hòa, trang nghiêm</li>
+            <li>Kích thước vừa phải, dễ đeo hằng ngày</li>
+        </ul>
+        <p>Mặt Dây Phật Bản Mệnh mang ý nghĩa che chở, hộ mệnh, giúp người đeo gặp nhiều may mắn, bình an trong cuộc sống và công việc.</p>
+    </div>
+    
+    <div class="content">
+        <p><span class="highlight">Phật Bản Mệnh có gì đặc biệt?</span></p>
+        <ul>
+            <li>Mỗi tuổi sẽ có một vị Phật Bản Mệnh tương ứng để bảo hộ</li>
+            <li>Giúp tâm an, giảm lo âu và tăng năng lượng tích cực</li>
+            <li>Phù hợp cho người thường xuyên đi xa hoặc làm việc áp lực</li>
+            <li>Là món quà phong thủy ý nghĩa dành cho người thân</li>
+        </ul>
+    </div>
+                    `,
+      },
       {
         count: 3,
         id: 2,
@@ -222,36 +218,6 @@ const Shops = (props: Props) => {
         <li>Hỗ trợ hóa giải vận xui, mang lại bình an</li>
         <li>Thiết kế phù hợp đeo hằng ngày hoặc làm quà phong thủy</li>
         <li>Dễ phối với dây bạc, dây da hoặc dây phong thủy</li>
-    </ul>
-</div>
-                `,
-      },
-      {
-        count: 5,
-        id: 3,
-        image: "/example/shop/floating/vp-3.png",
-        name: "Mặt Dây Phật Bản Mệnh",
-        price: 150000,
-        star: 5,
-        quantity: 1,
-        content: `
-               <div class="content">
-    <p><span class="highlight">Chế tác tâm linh:</span></p>
-    <ul>
-        <li>Mặt dây Phật Bản Mệnh được chế tác theo từng tuổi</li>
-        <li>Đường nét hiền hòa, trang nghiêm</li>
-        <li>Kích thước vừa phải, dễ đeo hằng ngày</li>
-    </ul>
-    <p>Mặt Dây Phật Bản Mệnh mang ý nghĩa che chở, hộ mệnh, giúp người đeo gặp nhiều may mắn, bình an trong cuộc sống và công việc.</p>
-</div>
-
-<div class="content">
-    <p><span class="highlight">Phật Bản Mệnh có gì đặc biệt?</span></p>
-    <ul>
-        <li>Mỗi tuổi sẽ có một vị Phật Bản Mệnh tương ứng để bảo hộ</li>
-        <li>Giúp tâm an, giảm lo âu và tăng năng lượng tích cực</li>
-        <li>Phù hợp cho người thường xuyên đi xa hoặc làm việc áp lực</li>
-        <li>Là món quà phong thủy ý nghĩa dành cho người thân</li>
     </ul>
 </div>
                 `,
