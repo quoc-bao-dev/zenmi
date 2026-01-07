@@ -137,7 +137,7 @@ const Shops = (props: Props) => {
         image: "/example/shop/floating/vp-4.png",
         name: "Vòng trầm cho bé",
         price: 100000,
-        star: 2,
+        star: 5,
         quantity: 1,
         content: `
            <div class="content">
