@@ -719,9 +719,9 @@ const Shops = (props: Props) => {
                       <h1 className="pb-1 cursor-pointer text-black text-sm leading-1 font-normal line-clamp-2 group-hover:text-black/80 transition-all duration-150 ease-linear">
                         {item.name}
                       </h1>
-                      {/* <h1 className="text-[#E73C2A] group-hover:text-[#E73C2A]/80- transition-all duration-150 ease-linear font-bold text-base">
+                      <h1 className="text-[#E73C2A] group-hover:text-[#E73C2A]/80- transition-all duration-150 ease-linear font-bold text-base">
                         {FormatNumberDot(item.price)} vnđ
-                      </h1> */}
+                      </h1>
                     </div>
                   </div>
                   <div className="flex justify-between items-center px-2 pb-2">
